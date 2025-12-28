@@ -1,0 +1,9 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://45ako5jwxjpx"]
+
+[ext_resource type="Texture2D" uid="uid://dax1gdmeg1x31" path="res://assets/sprites/Game Boy Advance - Advance Wars 2_ Black Hole Rising - Overworld - Tileset (Normal)(1).png" id="1_6jgtq"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eyoyv"]
+texture = ExtResource("1_6jgtq")
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_eyoyv")
