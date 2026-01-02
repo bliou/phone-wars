@@ -8,7 +8,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	grid.connect("cell_clicked", update_highlight)
+	grid.cell_clicked.connect(on_cell_clicked)
 
 func _draw():
 	for grid_map in grid.terrain_layers:
@@ -32,6 +32,6 @@ func _draw():
 			draw_rect(Rect2(local_pos, cell_size), Color(0, 1, 0, 0.3), true)
 
 
-func update_highlight(cell: Vector2i, _cell: Variant) -> void:
+func on_cell_clicked(cell: Vector2i, _cell: Variant, _occupant: Variant) -> void:
 	highlight_cell = cell
 	queue_redraw()  # triggers _draw()

@@ -1,9 +1,13 @@
 class_name Grid
 extends Node2D
 
-signal cell_clicked(cell_position: Vector2i, cell: Variant)
+
+signal cell_clicked(cell_position: Vector2i, terrain: Variant, occupant: Variant)
+
+@export var inputManager: InputManager
 
 @export var terrain_node: Node2D
+@export var units_node: Node2D
 
 var terrain_layers: Array[TileMapLayer] = []
 var terrain_cells := {}  # Vector2i → terrain type
@@ -18,16 +22,12 @@ func _ready() -> void:
 	for child in terrain_node.get_children():
 		if child is TileMapLayer:
 			terrain_layers.append(child as TileMapLayer)
-			
-	terrain_layers.sort_custom(func(a, b):
-		return a.z_index < b.z_index
-	)
 
 	init_terrain_cells()
+	init_occupied_cells()
 
 	# subscribe to input events
-	var input_manager: InputManager = get_parent().get_node("InputManager") as InputManager
-	input_manager.connect("click_detected", on_click_detected)
+	inputManager.click_detected.connect(on_click_detected)
 
 
 func init_terrain_cells() -> void:
@@ -35,12 +35,29 @@ func init_terrain_cells() -> void:
 	for layer in terrain_layers:
 		for cell in layer.get_used_cells():
 			terrain_cells[cell] = layer.name
-			print("Terrain cell:", cell, "Type:", layer.name)
+
+
+func init_occupied_cells() -> void:
+	occupied_cells.clear()
+	for unit in units_node.get_children():
+		if unit is Soldier:
+			var cell_pos: Vector2i = Vector2i(unit.position / cell_size)
+			occupied_cells[cell_pos] = unit
+			print("Occupied cell at ", cell_pos, " by unit ", unit.name)
 
 
 func on_click_detected(world_pos: Vector2) -> void:
 	var cell_pos: Vector2i = world_pos / cell_size
-	if cell_pos in terrain_cells:
-		var cell = terrain_cells[cell_pos]
-		emit_signal("cell_clicked", cell_pos, cell)
+	cell_clicked.emit(cell_pos, terrain_cells.get(cell_pos, null), occupied_cells.get(cell_pos, null))
 
+
+func get_world_position_from_cell(cell_position: Vector2i) -> Vector2:
+	return Vector2(cell_position) * cell_size + cell_size / 2
+
+
+func set_occupied_cell(cell_position: Vector2i, occupant: Variant) -> void:
+	if occupant == null:
+		occupied_cells.erase(cell_position)
+	else:
+		occupied_cells[cell_position] = occupant
+	print("occupied_cells updated: ", occupied_cells)

@@ -1,16 +1,17 @@
 [gd_scene load_steps=6 format=4 uid="uid://n0rxotptjh5u"]
 
-[ext_resource type="Script" uid="uid://cdffnybnxplpn" path="res://scenes/tests/tilemap/test_scene_tilemap.gd" id="1_0ahi1"]
 [ext_resource type="TileSet" uid="uid://45ako5jwxjpx" path="res://tilesets/game_tileset_tres.tres" id="1_scvqk"]
 [ext_resource type="PackedScene" uid="uid://bqeqp2n1diaug" path="res://scenes/grids/grid.tscn" id="2_0gqcb"]
 [ext_resource type="PackedScene" uid="uid://mu0vq50rfsva" path="res://scenes/characters/soldier.tscn" id="3_h1w33"]
-[ext_resource type="PackedScene" uid="uid://cm5f10ja27aey" path="res://scenes/managers/input_manager.tscn" id="5_sy0qg"]
+[ext_resource type="Script" uid="uid://cky8p0fqqxnii" path="res://scripts/managers/input_manager.gd" id="5_11flk"]
+[ext_resource type="Script" uid="uid://kqyvrw5mibew" path="res://scripts/managers/unit_selection_manager.gd" id="6_vxlj3"]
 
 [node name="TestSceneTileMap" type="Node2D"]
-script = ExtResource("1_0ahi1")
 
-[node name="Grid" parent="." node_paths=PackedStringArray("terrain_node") instance=ExtResource("2_0gqcb")]
+[node name="Grid" parent="." node_paths=PackedStringArray("inputManager", "terrain_node", "units_node") instance=ExtResource("2_0gqcb")]
+inputManager = NodePath("../Managers/InputManager")
 terrain_node = NodePath("../Terrain")
+units_node = NodePath("../Units")
 
 [node name="Terrain" type="Node2D" parent="."]
 
@@ -28,6 +29,16 @@ tile_set = ExtResource("1_scvqk")
 [node name="Units" type="Node2D" parent="."]
 
 [node name="Soldier" parent="Units" instance=ExtResource("3_h1w33")]
-position = Vector2(40, 100)
+position = Vector2(40, 104)
 
-[node name="InputManager" parent="." instance=ExtResource("5_sy0qg")]
+[node name="Soldier2" parent="Units" instance=ExtResource("3_h1w33")]
+position = Vector2(40, 136)
+
+[node name="Managers" type="Node" parent="."]
+
+[node name="InputManager" type="Node2D" parent="Managers"]
+script = ExtResource("5_11flk")
+
+[node name="UnitSelectionManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("grid")]
+script = ExtResource("6_vxlj3")
+grid = NodePath("../../Grid")
