@@ -7,10 +7,10 @@ extends Node2D
 @export var highlight_cell: Vector2i = Vector2i(-1, -1)
 
 
-func _draw():
-	print("DebugOverlay position:", self.global_position)
-	print("Grid position:", self.get_parent().global_position)
+func _ready() -> void:
+	grid.connect("cell_clicked", update_highlight)
 
+func _draw():
 	for grid_map in grid.terrain_layers:
 		var cell_size = grid_map.tile_set.tile_size
 			
@@ -32,6 +32,6 @@ func _draw():
 			draw_rect(Rect2(local_pos, cell_size), Color(0, 1, 0, 0.3), true)
 
 
-func update_highlight(cell: Vector2i):
+func update_highlight(cell: Vector2i, _cell: Variant) -> void:
 	highlight_cell = cell
 	queue_redraw()  # triggers _draw()

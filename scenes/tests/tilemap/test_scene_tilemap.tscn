@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://n0rxotptjh5u"]
+[gd_scene load_steps=6 format=4 uid="uid://n0rxotptjh5u"]
 
 [ext_resource type="Script" uid="uid://cdffnybnxplpn" path="res://scenes/tests/tilemap/test_scene_tilemap.gd" id="1_0ahi1"]
 [ext_resource type="TileSet" uid="uid://45ako5jwxjpx" path="res://tilesets/game_tileset_tres.tres" id="1_scvqk"]
 [ext_resource type="PackedScene" uid="uid://bqeqp2n1diaug" path="res://scenes/grids/grid.tscn" id="2_0gqcb"]
 [ext_resource type="PackedScene" uid="uid://mu0vq50rfsva" path="res://scenes/characters/soldier.tscn" id="3_h1w33"]
+[ext_resource type="PackedScene" uid="uid://cm5f10ja27aey" path="res://scenes/managers/input_manager.tscn" id="5_sy0qg"]
 
 [node name="TestSceneTileMap" type="Node2D"]
 script = ExtResource("1_0ahi1")
@@ -28,3 +29,5 @@ tile_set = ExtResource("1_scvqk")
 
 [node name="Soldier" parent="Units" instance=ExtResource("3_h1w33")]
 position = Vector2(40, 100)
+
+[node name="InputManager" parent="." instance=ExtResource("5_sy0qg")]
