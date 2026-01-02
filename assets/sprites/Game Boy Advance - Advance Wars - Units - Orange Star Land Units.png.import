@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dax1gdmeg1x31"
-path="res://.godot/imported/Game Boy Advance - Advance Wars 2_ Black Hole Rising - Overworld - Tileset (Normal)(1).png-86d5edc853aa4058966653a2b09bbba3.ctex"
+uid="uid://cwqal04tkj5uh"
+path="res://.godot/imported/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png-4d6c1e57596c9f32c2b9b8256cfbaccb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Game Boy Advance - Advance Wars 2_ Black Hole Rising - Overworld - Tileset (Normal)(1).png"
-dest_files=["res://.godot/imported/Game Boy Advance - Advance Wars 2_ Black Hole Rising - Overworld - Tileset (Normal)(1).png-86d5edc853aa4058966653a2b09bbba3.ctex"]
+source_file="res://assets/sprites/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png"
+dest_files=["res://.godot/imported/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png-4d6c1e57596c9f32c2b9b8256cfbaccb.ctex"]
 
 [params]
 

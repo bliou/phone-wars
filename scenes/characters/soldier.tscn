@@ -1,0 +1,157 @@
+[gd_scene load_steps=21 format=3 uid="uid://mu0vq50rfsva"]
+
+[ext_resource type="Script" uid="uid://b7jpfauiivl3c" path="res://scenes/characters/soldier.gd" id="1_53ncc"]
+[ext_resource type="Texture2D" uid="uid://cwqal04tkj5uh" path="res://assets/sprites/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png" id="1_q648l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53ncc"]
+atlas = ExtResource("1_q648l")
+region = Rect2(9, 95, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q648l"]
+atlas = ExtResource("1_q648l")
+region = Rect2(30, 95, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixdpc"]
+atlas = ExtResource("1_q648l")
+region = Rect2(50, 95, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hlyi"]
+atlas = ExtResource("1_q648l")
+region = Rect2(30, 95, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63llp"]
+atlas = ExtResource("1_q648l")
+region = Rect2(7, 123, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r35bd"]
+atlas = ExtResource("1_q648l")
+region = Rect2(28, 123, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iikqq"]
+atlas = ExtResource("1_q648l")
+region = Rect2(50, 123, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghq6f"]
+atlas = ExtResource("1_q648l")
+region = Rect2(68, 123, 16, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tti8"]
+atlas = ExtResource("1_q648l")
+region = Rect2(76, 94, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op21a"]
+atlas = ExtResource("1_q648l")
+region = Rect2(97, 94, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qk1c0"]
+atlas = ExtResource("1_q648l")
+region = Rect2(118, 94, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8g1i6"]
+atlas = ExtResource("1_q648l")
+region = Rect2(140, 94, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4ykb"]
+atlas = ExtResource("1_q648l")
+region = Rect2(94, 124, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tvmh"]
+atlas = ExtResource("1_q648l")
+region = Rect2(118, 124, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13a7e"]
+atlas = ExtResource("1_q648l")
+region = Rect2(139, 124, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq2fw"]
+atlas = ExtResource("1_q648l")
+region = Rect2(162, 124, 16, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_op21a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53ncc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q648l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixdpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hlyi")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63llp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r35bd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iikqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghq6f")
+}],
+"loop": true,
+"name": &"walk_bottom",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tti8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op21a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qk1c0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8g1i6")
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a4ykb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tvmh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13a7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qq2fw")
+}],
+"loop": true,
+"name": &"walk_top",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53ncc"]
+size = Vector2(14, 16)
+
+[node name="Soldier" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_53ncc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_op21a")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.6366159
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_53ncc")
