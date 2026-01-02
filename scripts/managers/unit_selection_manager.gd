@@ -3,12 +3,12 @@ extends Node2D
 
 @export var grid: Grid
 
-var selectedUnit: Soldier = null
+var selectedUnit: Unit = null
 
 func _ready() -> void:
 	grid.cell_clicked.connect(on_cell_clicked)	
 
-func select_unit(unit: Soldier) -> void:
+func select_unit(unit: Unit) -> void:
 	if selectedUnit:
 		selectedUnit.deselect()
 	selectedUnit = unit
@@ -24,8 +24,8 @@ func on_cell_clicked(cell_position: Vector2i, _terrain: Variant, occupant: Varia
 		move_unit_to_cell(cell_position)
 		return
 
-	if occupant is Soldier:
-		select_unit(occupant as Soldier)
+	if occupant is Unit:
+		select_unit(occupant as Unit)
 	else:
 		deselect_unit()
 

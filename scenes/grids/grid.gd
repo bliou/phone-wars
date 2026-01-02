@@ -49,6 +49,7 @@ func init_terrain_cells() -> void:
 	for layer in terrain_layers:
 		for cell in layer.get_used_cells():
 			terrain_cells[cell] = layer.name
+			# TODO: Add terrain-specific weight scaling using terrain data
 			if layer.name == "Forest":
 				astar.set_point_weight_scale(cell, 2.0)  # Example: forests are harder to traverse
 			else:
@@ -58,7 +59,7 @@ func init_terrain_cells() -> void:
 func init_occupied_cells() -> void:
 	occupied_cells.clear()
 	for unit in units_node.get_children():
-		if unit is Soldier:
+		if unit is Unit:
 			var cell_pos: Vector2i = Vector2i(unit.position / cell_size)
 			occupied_cells[cell_pos] = unit
 			astar.set_point_solid(cell_pos, true)
