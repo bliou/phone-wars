@@ -2,11 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cdffnybnxplpn" path="res://scenes/tests/tilemap/test_scene_tilemap.gd" id="1_0ahi1"]
 [ext_resource type="TileSet" uid="uid://45ako5jwxjpx" path="res://tilesets/game_tileset_tres.tres" id="1_scvqk"]
+[ext_resource type="PackedScene" uid="uid://bqeqp2n1diaug" path="res://scenes/grids/grid.tscn" id="2_0gqcb"]
 [ext_resource type="PackedScene" uid="uid://mu0vq50rfsva" path="res://scenes/characters/soldier.tscn" id="3_h1w33"]
-[ext_resource type="Script" uid="uid://c7vfib7aar6wr" path="res://scripts/selection_manager.gd" id="4_0gqcb"]
 
 [node name="TestSceneTileMap" type="Node2D"]
 script = ExtResource("1_0ahi1")
+
+[node name="Grid" parent="." node_paths=PackedStringArray("terrain_node") instance=ExtResource("2_0gqcb")]
+terrain_node = NodePath("../Terrain")
 
 [node name="Terrain" type="Node2D" parent="."]
 
@@ -25,6 +28,3 @@ tile_set = ExtResource("1_scvqk")
 
 [node name="Soldier" parent="Units" instance=ExtResource("3_h1w33")]
 position = Vector2(40, 100)
-
-[node name="SelectionManager" type="Node2D" parent="."]
-script = ExtResource("4_0gqcb")

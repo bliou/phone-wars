@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqeqp2n1diaug"]
+
+[ext_resource type="Script" uid="uid://ba6fuf5xpnof6" path="res://scenes/grids/grid.gd" id="1_td1a3"]
+[ext_resource type="Script" uid="uid://bmayh5tavm2id" path="res://scenes/grids/debug_overlay.gd" id="2_4of1p"]
+
+[node name="Grid" type="Node2D"]
+script = ExtResource("1_td1a3")
+
+[node name="DebugOverlay" type="Node2D" parent="." node_paths=PackedStringArray("grid")]
+top_level = true
+script = ExtResource("2_4of1p")
+grid = NodePath("..")
+highlight_cell = Vector2i(1, 1)
