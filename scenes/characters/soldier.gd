@@ -6,12 +6,12 @@ extends Node2D
 @export var speed: float = 100.0
 
 var is_selected: bool = false
-var target_position: Vector2 = Vector2.ZERO
-var should_move: bool = false
+var path: Array[Vector2] = []
+var currentPathIndex: int = 0
+var moving: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	target_position = global_position
 	pass # Replace with function body.
 
 
@@ -21,16 +21,20 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not should_move:
+	if not moving:
 		return
-		
+
+	if currentPathIndex >= path.size():
+		stop_moving()
+		return
+
+	var target_position = path[currentPathIndex]
 	var direction: Vector2 = (target_position - global_position).normalized()
 	global_position += direction * speed * delta
 	animated_sprite.play("walk_right")
 
-	if should_move and global_position.distance_to(target_position) < 5.0:
-		should_move = false
-		animated_sprite.play("idle")
+	if global_position.distance_to(target_position) < 1.0:
+		currentPathIndex += 1
 
 
 func select() -> void:
@@ -43,7 +47,17 @@ func deselect() -> void:
 	animated_sprite.modulate = Color(1, 1, 1)  # Change color back to white when deselected
 
 
-func move_to_position(tp: Vector2) -> void:
-	print("Moving to position: ", tp)
-	target_position = tp
-	should_move = true
+func move_following_path(p: Array[Vector2]) -> void:
+	print("Moving following path: ", p)
+	if p.is_empty():
+		return
+
+	path = p
+	currentPathIndex = 0
+	moving = true
+
+
+func stop_moving() -> void:
+	moving = false
+	animated_sprite.play("idle")
+	path.clear()

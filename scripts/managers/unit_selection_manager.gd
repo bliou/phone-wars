@@ -36,7 +36,7 @@ func move_unit_to_cell(cell_position: Vector2) -> void:
 	var previous_cell: Vector2i = Vector2i(selectedUnit.global_position / grid.cell_size)
 	grid.set_occupied_cell(previous_cell, null)
 
-	var world_pos = grid.get_world_position_from_cell(cell_position)
-	selectedUnit.move_to_position(world_pos)
+	var path = grid.get_world_path(previous_cell, cell_position)
+	selectedUnit.move_following_path(path)
 
 	grid.set_occupied_cell(cell_position, selectedUnit)
