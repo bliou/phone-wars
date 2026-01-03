@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://mu0vq50rfsva"]
 
-[ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/characters/unit.gd" id="1_53ncc"]
+[ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_53ncc"]
 [ext_resource type="Texture2D" uid="uid://cwqal04tkj5uh" path="res://assets/sprites/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png" id="1_q648l"]
 [ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/components/movement_indicator_component.gd" id="3_ixdpc"]
 
@@ -101,7 +101,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ghq6f")
 }],
 "loop": true,
-"name": &"walk_down",
+"name": &"move_down",
 "speed": 5.0
 }, {
 "frames": [{
@@ -118,7 +118,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_8g1i6")
 }],
 "loop": true,
-"name": &"walk_right",
+"name": &"move_right",
 "speed": 5.0
 }, {
 "frames": [{
@@ -135,7 +135,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_qq2fw")
 }],
 "loop": true,
-"name": &"walk_up",
+"name": &"move_up",
 "speed": 5.0
 }]
 
@@ -146,16 +146,19 @@ size = Vector2(14, 16)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_53ncc")
+terrain_cost = {
+1: 1,
+2: 1.5
+}
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_op21a")
-animation = &"walk_down"
+animation = &"move_up"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_53ncc")
 
-[node name="MovementIndicatorComponent" type="Node2D" parent="." node_paths=PackedStringArray("unit")]
+[node name="MovementIndicatorComponent" type="Node2D" parent="."]
 script = ExtResource("3_ixdpc")
-unit = NodePath("..")

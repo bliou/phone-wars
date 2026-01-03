@@ -11,11 +11,10 @@ signal cell_clicked(cell_position: Vector2i, terrain: Variant, occupant: Variant
 
 var terrain_layers: Array[TileMapLayer] = []
 var terrain_cells := {}  # Vector2i → terrain type
-var occupied_cells := {}  # Vector2i → unit/building
+var unit_cells := {}  # Vector2i → unit
+var building_cells := {}  # Vector2i → building
 
 var cell_size: Vector2 = Vector2(16, 16)  # default cell size
-
-var astar: AStarGrid2D = AStarGrid2D.new()
 
 func _ready() -> void:
 	if not terrain_node:
@@ -25,93 +24,66 @@ func _ready() -> void:
 		if child is TileMapLayer:
 			terrain_layers.append(child as TileMapLayer)
 
-	init_astar()
 	init_terrain_cells()
-	init_occupied_cells()
+	init_unit_cells()
 
 	# subscribe to input events
 	inputManager.click_detected.connect(on_click_detected)
-	
 
-func init_astar() -> void:
-	astar.clear()
-	var grid_size = Vector2i(100, 100)  # Example grid size, adjust as needed
-	astar.region = Rect2i(Vector2i.ZERO, grid_size)
-	astar.cell_size = cell_size
-	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
-	astar.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
-	astar.default_estimate_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
-	astar.update()
 
 
 func init_terrain_cells() -> void:
 	terrain_cells.clear()
 	for layer in terrain_layers:
 		for cell in layer.get_used_cells():
-			terrain_cells[cell] = layer.name
-			# TODO: Add terrain-specific weight scaling using terrain data
-			if layer.name == "Forest":
-				astar.set_point_weight_scale(cell, 2.0)  # Example: forests are harder to traverse
-			else:
-				astar.set_point_weight_scale(cell, 1.0)  # Adjust weight scale based on terrain type if needed
+			terrain_cells[cell] = Terrain.get_type_from_name(layer.name)
 
 
-func init_occupied_cells() -> void:
-	occupied_cells.clear()
+func init_unit_cells() -> void:
+	unit_cells.clear()
 	for unit in units_node.get_children():
 		if unit is Unit:
 			var cell_pos: Vector2i = Vector2i(unit.position / cell_size)
-			occupied_cells[cell_pos] = unit
+			unit_cells[cell_pos] = unit
 			unit.grid_pos = cell_pos
-			astar.set_point_solid(cell_pos, true)
 
 
 func on_click_detected(world_pos: Vector2) -> void:
 	var cell_pos: Vector2i = world_pos / cell_size
-	cell_clicked.emit(cell_pos, terrain_cells.get(cell_pos, null), occupied_cells.get(cell_pos, null))
+	cell_clicked.emit(cell_pos, terrain_cells.get(cell_pos, null), unit_cells.get(cell_pos, null))
 
 
 func get_world_position_from_cell(cell_position: Vector2i) -> Vector2:
 	return Vector2(cell_position) * cell_size + cell_size / 2
 
 
-func set_occupied_cell(cell_position: Vector2i, occupant: Variant) -> void:
+func set_unit_cell(cell_position: Vector2i, occupant: Unit) -> void:
 	if occupant == null:
-		occupied_cells.erase(cell_position)
-		astar.set_point_solid(cell_position, false)
+		unit_cells.erase(cell_position)
 	else:
-		occupied_cells[cell_position] = occupant
-		astar.set_point_solid(cell_position, true)
+		unit_cells[cell_position] = occupant
 
 
 func is_cell_blocked(cell_position: Vector2i) -> bool:
-	return occupied_cells.has (cell_position)
+	return unit_cells.has(cell_position)
 
 
-func get_grid_path(start_cell: Vector2i, end_cell: Vector2i) -> Array[Vector2i]:
+func get_grid_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Array[Vector2i]:
 	if is_cell_blocked(end_cell):
 		return []
 
-	return astar.get_id_path(start_cell, end_cell)
+	return Pathfinding.find_path(self, unit, start_cell, end_cell)
 
 
-func get_world_path(start_cell: Vector2i, end_cell: Vector2i) -> Array[Vector2]:
-	var cell_path = get_grid_path(start_cell, end_cell)
+func get_world_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Array[Vector2]:
+	var cell_path = get_grid_path(unit, start_cell, end_cell)
 	var world_path: Array[Vector2] = []
 	for cell in cell_path:
 		world_path.append(get_world_position_from_cell(cell))
 	return world_path
 
 
-func get_world_reachablle_cells(start: Vector2i, max_cost: float) -> Dictionary:
-	var grid_cells = get_reachable_cells(start, max_cost)
-	var world_cells: Dictionary = {}
-	for cell in grid_cells.keys():
-		world_cells[get_world_position_from_cell(cell)] = grid_cells[cell]
-	return world_cells
-	
-
-func get_reachable_cells(start: Vector2i, max_cost: float) -> Dictionary:
+func get_reachable_cells(start: Vector2i, unit: Unit) -> Dictionary:
 	var frontier := [{ "cell": start, "cost": 0.0 }]
 	var visited := { start: 0.0 }
 
@@ -122,11 +94,13 @@ func get_reachable_cells(start: Vector2i, max_cost: float) -> Dictionary:
 		var cost: float = current.cost
 
 		for neighbor in get_neighbors(cell):
-			if astar.is_point_solid(neighbor):
+			var terrain = terrain_cells.get(neighbor, Terrain.Type.NONE)
+			var step_cost = unit.terrain_cost.get(terrain, INF)
+			if step_cost == INF:
 				continue
 
-			var new_cost = cost + astar.get_point_weight_scale(neighbor)
-			if new_cost > max_cost:
+			var new_cost = cost + step_cost
+			if new_cost > unit.movement_points:
 				continue
 
 			if not visited.has(neighbor) or new_cost < visited[neighbor]:
@@ -147,9 +121,6 @@ func get_neighbors(cell: Vector2i) -> Array[Vector2i]:
 	var neighbors: Array[Vector2i] = []
 
 	for d in DIRS:
-		var n := cell + d
-		if not astar.is_in_bounds(n.x, n.y):
-			continue
-		neighbors.append(n)
+		neighbors.append(cell + d)
 
 	return neighbors

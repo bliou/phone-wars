@@ -14,10 +14,6 @@ config/name="Phone wars"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
-[autoload]
-
-SignalBus="*res://scripts/signal_bus.gd"
-
 [display]
 
 window/size/viewport_width=320
@@ -35,7 +31,7 @@ folder_colors={
 [layer_names]
 
 2d_physics/layer_1="Terrain"
-2d_physics/layer_2="Soldier"
+2d_physics/layer_2="Unit"
 2d_physics/layer_3="Building"
 
 [rendering]

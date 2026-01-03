@@ -6,6 +6,10 @@ signal unit_deselected()
 
 @export var speed: float = 100.0
 @export var movement_points: int = 3
+@export var terrain_cost: Dictionary = {
+	Terrain.Type.GRASS: 1,
+	Terrain.Type.FOREST: 2,
+}
 @export var size: Vector2i = Vector2i(16, 16)
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 

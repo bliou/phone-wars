@@ -1,0 +1,120 @@
+[gd_scene load_steps=16 format=3 uid="uid://csvvf54hn6ta3"]
+
+[ext_resource type="Texture2D" uid="uid://cwqal04tkj5uh" path="res://assets/sprites/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png" id="1_844k1"]
+[ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_psyjl"]
+[ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/components/movement_indicator_component.gd" id="2_844k1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_et2pw"]
+atlas = ExtResource("1_844k1")
+region = Rect2(17, 252, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_844k1"]
+atlas = ExtResource("1_844k1")
+region = Rect2(104, 252, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lthcx"]
+atlas = ExtResource("1_844k1")
+region = Rect2(123, 252, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2sao"]
+atlas = ExtResource("1_844k1")
+region = Rect2(141, 252, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8exu"]
+atlas = ExtResource("1_844k1")
+region = Rect2(39, 252, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqi3d"]
+atlas = ExtResource("1_844k1")
+region = Rect2(61, 252, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6s1h7"]
+atlas = ExtResource("1_844k1")
+region = Rect2(80, 252, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30pnp"]
+atlas = ExtResource("1_844k1")
+region = Rect2(23, 274, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykl54"]
+atlas = ExtResource("1_844k1")
+region = Rect2(45, 274, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rq2q4"]
+atlas = ExtResource("1_844k1")
+region = Rect2(63, 274, 16, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_psyjl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_et2pw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_844k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lthcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2sao")
+}],
+"loop": true,
+"name": &"move_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8exu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqi3d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6s1h7")
+}],
+"loop": true,
+"name": &"move_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30pnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykl54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rq2q4")
+}],
+"loop": true,
+"name": &"move_up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_844k1"]
+size = Vector2(16, 16)
+
+[node name="Recon" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_psyjl")
+movement_points = 7
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_psyjl")
+animation = &"move_up"
+autoplay = "idle"
+frame_progress = 0.9940183
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_844k1")
+
+[node name="MovementIndicatorComponent" type="Node2D" parent="."]
+script = ExtResource("2_844k1")
+metadata/_custom_type_script = "uid://cswx45saif5wp"

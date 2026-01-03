@@ -16,7 +16,8 @@ func select_unit(unit: Unit) -> void:
 
 	selectedUnit = unit
 	selectedUnit.select()
-	selectedUnit.reachable_cells = grid.get_reachable_cells(Vector2i(selectedUnit.global_position / grid.cell_size), selectedUnit.movement_points)
+	selectedUnit.reachable_cells = grid.get_reachable_cells(Vector2i(selectedUnit.global_position / grid.cell_size), selectedUnit)
+
 
 func deselect_unit() -> void:
 	if selectedUnit:
@@ -39,11 +40,15 @@ func move_unit_to_cell(cell_position: Vector2i) -> void:
 	if selectedUnit == null:
 		return
 
-	var previous_cell: Vector2i = Vector2i(selectedUnit.global_position / grid.cell_size)
-	grid.set_occupied_cell(previous_cell, null)
+	# Check if the cell is reachable
+	if not selectedUnit.reachable_cells.has(cell_position):
+		return
 
-	var path = grid.get_world_path(previous_cell, cell_position)
+	var previous_cell: Vector2i = Vector2i(selectedUnit.global_position / grid.cell_size)
+	grid.set_unit_cell(previous_cell, null)
+
+	var path = grid.get_world_path(selectedUnit, previous_cell, cell_position)
 	selectedUnit.grid_pos = cell_position
 	selectedUnit.move_following_path(path)
 
-	grid.set_occupied_cell(cell_position, selectedUnit)
+	grid.set_unit_cell(cell_position, selectedUnit)
