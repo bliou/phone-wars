@@ -3,6 +3,7 @@ extends Node2D
 
 signal unit_selected()
 signal unit_deselected()
+signal unit_previewed(p_path: Array[Vector2])
 
 @export var speed: float = 100.0
 @export var movement_points: int = 3
@@ -17,12 +18,14 @@ var fsm: StateMachine
 var idle_state: IdleState
 var moving_state: MovingState
 var selected_state: SelectedState
+var preview_state: PreviewState
 
 
 func _ready() -> void:
 	idle_state = IdleState.new("idle", self)
 	moving_state = MovingState.new("moving", self)
 	selected_state = SelectedState.new("selected", self)
+	preview_state = PreviewState.new("preview", self)
 
 	fsm = StateMachine.new(idle_state)
 
@@ -43,10 +46,20 @@ func deselect() -> void:
 	fsm.change_state(idle_state)
 
 
-func move_following_path(p: Array[Vector2]) -> void:
-	if p.is_empty():
+func move_intent_to(intent: MovementIntent) -> void:
+	if intent.path.is_empty():
 		return
 
-	print("Unit moving along path: %s" % str(p))
+	print("Unit moving with intent to: %s" % str(intent.final_cell))
 
-	fsm.change_state(moving_state, {"path": p})
+	fsm.change_state(preview_state, {"movement_intent": intent})
+
+
+func execute_intent(intent: MovementIntent) -> void:
+	if intent.path.is_empty():
+		return
+
+	print("Unit moving along path: %s" % str(intent.path))
+	grid_pos = intent.final_cell
+
+	fsm.change_state(moving_state, {"path": intent.path})

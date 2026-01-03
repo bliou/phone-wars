@@ -1,3 +1,6 @@
+# IdleState.gd
+# Represents the idle state of a unit in the state machine.
+
 class_name IdleState
 extends State
 

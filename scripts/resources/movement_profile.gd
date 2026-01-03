@@ -1,3 +1,7 @@
+# MovementProfile.gd
+# Defines movement costs for different terrain types for a unit.
+# Used in pathfinding to determine the best route.
+
 class_name MovementProfile
 extends Resource
 

@@ -1,3 +1,7 @@
+# SelectedState.gd
+# Represents the selected state of a unit in the state machine.
+# Handles visual feedback for selection.
+
 class_name SelectedState
 extends State
 

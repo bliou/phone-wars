@@ -9,8 +9,8 @@
 
 [node name="TestSceneTileMap" type="Node2D"]
 
-[node name="Grid" parent="." node_paths=PackedStringArray("inputManager", "terrain_node", "units_node") instance=ExtResource("2_0gqcb")]
-inputManager = NodePath("../Managers/InputManager")
+[node name="Grid" parent="." node_paths=PackedStringArray("input_manager", "terrain_node", "units_node") instance=ExtResource("2_0gqcb")]
+input_manager = NodePath("../Managers/InputManager")
 terrain_node = NodePath("../Terrain")
 units_node = NodePath("../Units")
 
@@ -27,9 +27,10 @@ tile_set = ExtResource("1_scvqk")
 tile_map_data = PackedByteArray("AAAIAAcAAAADAAEAAAAIAAYAAAABAAIAAAAIAAUAAAAAAAAAAAAHAAcAAAAAAAEAAAAHAAYAAAABAAIAAAAHAAUAAAABAAIAAAAGAAcAAAAAAAEAAAAGAAYAAAABAAIAAAAGAAUAAAABAAIAAAAFAAcAAAAAAAEAAAAFAAYAAAABAAIAAAAFAAUAAAABAAIAAAAEAAcAAAAAAAEAAAAEAAYAAAABAAIAAAAEAAUAAAABAAEAAAAJAAYAAAAAAAIAAAAGAAQAAAAEAAAAAAAFAAQAAAAEAAAAAAAIAAQAAAAAAAIAAAAHAAQAAAAEAAAAAAA=")
 tile_set = ExtResource("1_scvqk")
 
-[node name="Units" type="Node2D" parent="." node_paths=PackedStringArray("grid")]
+[node name="Units" type="Node2D" parent="." node_paths=PackedStringArray("grid", "input_manager")]
 script = ExtResource("6_vxlj3")
 grid = NodePath("../Grid")
+input_manager = NodePath("../Managers/InputManager")
 
 [node name="Soldier" parent="Units" instance=ExtResource("3_h1w33")]
 position = Vector2(40, 104)

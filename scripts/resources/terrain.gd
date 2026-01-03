@@ -1,3 +1,7 @@
+# Terrain.gd
+# Defines different terrain types used in the game.
+# Used by MovementProfile to determine movement costs.
+
 class_name Terrain
 extends Resource
 

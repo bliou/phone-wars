@@ -1,3 +1,7 @@
+# MovingState.gd
+# Represents the moving state of a unit in the state machine.
+# Handles movement along a given path.
+
 class_name  MovingState
 extends State
 

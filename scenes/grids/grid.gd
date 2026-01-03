@@ -4,7 +4,7 @@ extends Node2D
 
 signal cell_clicked(cell_position: Vector2i, terrain: Variant, occupant: Variant)
 
-@export var inputManager: InputManager
+@export var input_manager: InputManager
 
 @export var terrain_node: Node2D
 @export var units_node: Node2D
@@ -13,6 +13,7 @@ var terrain_layers: Array[TileMapLayer] = []
 var terrain_cells := {}  # Vector2i → terrain type
 var unit_cells := {}  # Vector2i → unit
 var building_cells := {}  # Vector2i → building
+var reserved_cells := {}  # Vector2i → reserver (unit planned movement)
 
 var cell_size: Vector2 = Vector2(16, 16)  # default cell size
 
@@ -28,8 +29,7 @@ func _ready() -> void:
 	init_unit_cells()
 
 	# subscribe to input events
-	inputManager.click_detected.connect(on_click_detected)
-
+	input_manager.click_detected.connect(on_click_detected)
 
 
 func init_terrain_cells() -> void:

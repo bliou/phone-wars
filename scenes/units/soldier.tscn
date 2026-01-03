@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://mu0vq50rfsva"]
+[gd_scene load_steps=25 format=3 uid="uid://mu0vq50rfsva"]
 
 [ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_53ncc"]
 [ext_resource type="Texture2D" uid="uid://cwqal04tkj5uh" path="res://assets/sprites/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png" id="1_q648l"]
 [ext_resource type="Script" uid="uid://ek5inq6a6e24" path="res://scripts/resources/movement_profile.gd" id="2_rdxj4"]
 [ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/components/movement_indicator_component.gd" id="3_ixdpc"]
+[ext_resource type="Script" uid="uid://rtdn0btj8wqb" path="res://scripts/components/path_preview_component.gd" id="5_e84y0"]
 
 [sub_resource type="Resource" id="Resource_e84y0"]
 script = ExtResource("2_rdxj4")
@@ -165,3 +166,6 @@ shape = SubResource("RectangleShape2D_53ncc")
 
 [node name="MovementIndicatorComponent" type="Node2D" parent="."]
 script = ExtResource("3_ixdpc")
+
+[node name="PathPreviewComponent" type="Node2D" parent="."]
+script = ExtResource("5_e84y0")
