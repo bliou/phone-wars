@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://mu0vq50rfsva"]
+[gd_scene load_steps=22 format=3 uid="uid://mu0vq50rfsva"]
 
 [ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/characters/unit.gd" id="1_53ncc"]
 [ext_resource type="Texture2D" uid="uid://cwqal04tkj5uh" path="res://assets/sprites/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png" id="1_q648l"]
+[ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/components/movement_indicator_component.gd" id="3_ixdpc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_53ncc"]
 atlas = ExtResource("1_q648l")
@@ -154,3 +155,7 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_53ncc")
+
+[node name="MovementIndicatorComponent" type="Node2D" parent="." node_paths=PackedStringArray("unit")]
+script = ExtResource("3_ixdpc")
+unit = NodePath("..")

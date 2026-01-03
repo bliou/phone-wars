@@ -1,19 +1,26 @@
 class_name Unit
 extends Node2D
 
+signal unit_selected()
+signal unit_deselected()
+
 @export var speed: float = 100.0
+@export var movement_range: int = 3
+@export var size: Vector2 = Vector2(16, 16)
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-var is_selected: bool = false
+var grid_pos: Vector2 = Vector2.ZERO
 
 var idle_state: IdleState
 var moving_state: MovingState
+var selected_state: SelectedState
 
 var fsm: StateMachine
 
 func _ready() -> void:
 	idle_state = IdleState.new("idle", self)
 	moving_state = MovingState.new("moving", self)
+	selected_state = SelectedState.new("selected", self)
 
 	fsm = StateMachine.new(idle_state)
 
@@ -25,14 +32,13 @@ func _physics_process(delta: float) -> void:
 	fsm._physics_process(delta)
 
 func select() -> void:
-	is_selected = true
-	animated_sprite.modulate = Color(1, 1, 0)  # Change color to yellow when selected
+	fsm.change_state(selected_state)
+	unit_selected.emit()
 
 
 func deselect() -> void:
-	is_selected = false
-	animated_sprite.modulate = Color(1, 1, 1)  # Change color back to white when deselected
-
+	fsm.change_state(idle_state)
+	unit_deselected.emit()
 
 func move_following_path(p: Array[Vector2]) -> void:
 	if p.is_empty():

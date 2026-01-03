@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bqeqp2n1diaug" path="res://scenes/grids/grid.tscn" id="2_0gqcb"]
 [ext_resource type="PackedScene" uid="uid://mu0vq50rfsva" path="res://scenes/characters/soldier.tscn" id="3_h1w33"]
 [ext_resource type="Script" uid="uid://cky8p0fqqxnii" path="res://scripts/managers/input_manager.gd" id="5_11flk"]
-[ext_resource type="Script" uid="uid://kqyvrw5mibew" path="res://scripts/managers/unit_selection_manager.gd" id="6_vxlj3"]
+[ext_resource type="Script" uid="uid://kqyvrw5mibew" path="res://scripts/managers/units_manager.gd" id="6_vxlj3"]
 
 [node name="TestSceneTileMap" type="Node2D"]
 
@@ -26,19 +26,23 @@ tile_set = ExtResource("1_scvqk")
 tile_map_data = PackedByteArray("AAAIAAcAAAADAAEAAAAIAAYAAAABAAIAAAAIAAUAAAAAAAAAAAAHAAcAAAAAAAEAAAAHAAYAAAABAAIAAAAHAAUAAAABAAIAAAAGAAcAAAAAAAEAAAAGAAYAAAABAAIAAAAGAAUAAAABAAIAAAAFAAcAAAAAAAEAAAAFAAYAAAABAAIAAAAFAAUAAAABAAIAAAAEAAcAAAAAAAEAAAAEAAYAAAABAAIAAAAEAAUAAAABAAEAAAAJAAYAAAAAAAIAAAAGAAQAAAAEAAAAAAAFAAQAAAAEAAAAAAAIAAQAAAAAAAIAAAAHAAQAAAAEAAAAAAA=")
 tile_set = ExtResource("1_scvqk")
 
-[node name="Units" type="Node2D" parent="."]
+[node name="Units" type="Node2D" parent="." node_paths=PackedStringArray("grid")]
+script = ExtResource("6_vxlj3")
+grid = NodePath("../Grid")
 
 [node name="Soldier" parent="Units" instance=ExtResource("3_h1w33")]
 position = Vector2(40, 104)
+speed = null
+movement_range = null
+size = null
 
 [node name="Soldier2" parent="Units" instance=ExtResource("3_h1w33")]
 position = Vector2(40, 136)
+speed = null
+movement_range = null
+size = null
 
 [node name="Managers" type="Node" parent="."]
 
 [node name="InputManager" type="Node2D" parent="Managers"]
 script = ExtResource("5_11flk")
-
-[node name="UnitSelectionManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("grid")]
-script = ExtResource("6_vxlj3")
-grid = NodePath("../../Grid")

@@ -62,6 +62,7 @@ func init_occupied_cells() -> void:
 		if unit is Unit:
 			var cell_pos: Vector2i = Vector2i(unit.position / cell_size)
 			occupied_cells[cell_pos] = unit
+			unit.grid_pos = cell_pos
 			astar.set_point_solid(cell_pos, true)
 
 

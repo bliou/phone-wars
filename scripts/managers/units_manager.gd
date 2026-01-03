@@ -1,3 +1,4 @@
+class_name UnitsManager
 extends Node2D
 
 
@@ -37,6 +38,7 @@ func move_unit_to_cell(cell_position: Vector2) -> void:
 	grid.set_occupied_cell(previous_cell, null)
 
 	var path = grid.get_world_path(previous_cell, cell_position)
+	selectedUnit.grid_pos = cell_position
 	selectedUnit.move_following_path(path)
 
 	grid.set_occupied_cell(cell_position, selectedUnit)
