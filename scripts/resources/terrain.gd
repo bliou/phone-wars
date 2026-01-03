@@ -1,8 +1,9 @@
 class_name Terrain
-
+extends Resource
 
 enum Type {
 	NONE,
+	ROAD,
 	GRASS,
 	FOREST,
 	WATER,
@@ -12,6 +13,8 @@ enum Type {
 
 static func get_type_from_name(name: String) -> Type:
 	match name.to_upper():
+		"ROAD":
+			return Type.ROAD
 		"GRASS":
 			return Type.GRASS
 		"FOREST":

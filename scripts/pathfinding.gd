@@ -16,8 +16,8 @@ static func find_path(grid: Grid, unit: Unit, start: Vector2i, target: Vector2i)
 			break
 
 		for next in grid.get_neighbors(current):
-			var terrain = grid.terrain_cells.get(next, Terrain.Type.NONE)
-			var step_cost = unit.terrain_cost.get(terrain, INF)
+			var terrain: Terrain.Type = grid.terrain_cells.get(next, Terrain.Type.NONE)
+			var step_cost = unit.movement_profile.get_cost(terrain)
 			if step_cost == INF:
 				continue
 

@@ -94,8 +94,8 @@ func get_reachable_cells(start: Vector2i, unit: Unit) -> Dictionary:
 		var cost: float = current.cost
 
 		for neighbor in get_neighbors(cell):
-			var terrain = terrain_cells.get(neighbor, Terrain.Type.NONE)
-			var step_cost = unit.terrain_cost.get(terrain, INF)
+			var terrain: Terrain.Type = terrain_cells.get(neighbor, Terrain.Type.NONE)
+			var step_cost = unit.movement_profile.get_cost(terrain)
 			if step_cost == INF:
 				continue
 

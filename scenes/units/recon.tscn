@@ -1,8 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://csvvf54hn6ta3"]
+[gd_scene load_steps=18 format=3 uid="uid://csvvf54hn6ta3"]
 
 [ext_resource type="Texture2D" uid="uid://cwqal04tkj5uh" path="res://assets/sprites/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png" id="1_844k1"]
 [ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_psyjl"]
 [ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/components/movement_indicator_component.gd" id="2_844k1"]
+[ext_resource type="Script" uid="uid://ek5inq6a6e24" path="res://scripts/resources/movement_profile.gd" id="2_lthcx"]
+
+[sub_resource type="Resource" id="Resource_f2sao"]
+script = ExtResource("2_lthcx")
+grass_cost = 1.5
+forest_cost = 3.0
+metadata/_custom_type_script = "uid://ek5inq6a6e24"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_et2pw"]
 atlas = ExtResource("1_844k1")
@@ -105,6 +112,7 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_psyjl")
 movement_points = 7
+movement_profile = SubResource("Resource_f2sao")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_psyjl")
