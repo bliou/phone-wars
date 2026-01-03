@@ -12,21 +12,20 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	for x in range(-unit.movement_range, unit.movement_range + 1):
-		for y in range(-unit.movement_range, unit.movement_range + 1):
-			if abs(x) + abs(y) > unit.movement_range:
-				continue  # Manhattan distance
-
-			var cell_offset = Vector2(x, y) * unit.size
-			draw_rect(
-				Rect2(
-					cell_offset - unit.size * 0.5,
-					unit.size
-				),
-				COLOR,
-				true
-			)
-
+	for cell: Vector2i in unit.reachable_cells.keys():
+		var offset: Vector2i = cell - unit.grid_pos
+		var local_pos := Vector2(
+			offset.x * unit.size.x,
+			offset.y * unit.size.y
+		)
+		draw_rect(
+			Rect2(
+				local_pos - unit.size * 0.5,
+				unit.size
+			),
+			COLOR,
+			true
+		)
 
 func _on_unit_selected() -> void:
 	print("MovementIndicatorComponent: Unit selected, showing movement range.")

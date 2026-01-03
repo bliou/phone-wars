@@ -9,16 +9,20 @@ var selectedUnit: Unit = null
 func _ready() -> void:
 	grid.cell_clicked.connect(on_cell_clicked)	
 
+
 func select_unit(unit: Unit) -> void:
 	if selectedUnit:
 		selectedUnit.deselect()
+
 	selectedUnit = unit
 	selectedUnit.select()
+	selectedUnit.reachable_cells = grid.get_reachable_cells(Vector2i(selectedUnit.global_position / grid.cell_size), selectedUnit.movement_points)
 
 func deselect_unit() -> void:
 	if selectedUnit:
 		selectedUnit.deselect()
 	selectedUnit = null
+
 
 func on_cell_clicked(cell_position: Vector2i, _terrain: Variant, occupant: Variant) -> void:
 	if occupant == null:
@@ -30,7 +34,8 @@ func on_cell_clicked(cell_position: Vector2i, _terrain: Variant, occupant: Varia
 	else:
 		deselect_unit()
 
-func move_unit_to_cell(cell_position: Vector2) -> void:
+
+func move_unit_to_cell(cell_position: Vector2i) -> void:
 	if selectedUnit == null:
 		return
 

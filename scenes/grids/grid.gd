@@ -101,3 +101,55 @@ func get_world_path(start_cell: Vector2i, end_cell: Vector2i) -> Array[Vector2]:
 	for cell in cell_path:
 		world_path.append(get_world_position_from_cell(cell))
 	return world_path
+
+
+func get_world_reachablle_cells(start: Vector2i, max_cost: float) -> Dictionary:
+	var grid_cells = get_reachable_cells(start, max_cost)
+	var world_cells: Dictionary = {}
+	for cell in grid_cells.keys():
+		world_cells[get_world_position_from_cell(cell)] = grid_cells[cell]
+	return world_cells
+	
+
+func get_reachable_cells(start: Vector2i, max_cost: float) -> Dictionary:
+	var frontier := [{ "cell": start, "cost": 0.0 }]
+	var visited := { start: 0.0 }
+
+	while frontier.size() > 0:
+		frontier.sort_custom(func(a, b): return a.cost < b.cost)
+		var current = frontier.pop_front()
+		var cell: Vector2i = current.cell
+		var cost: float = current.cost
+
+		for neighbor in get_neighbors(cell):
+			if astar.is_point_solid(neighbor):
+				continue
+
+			var new_cost = cost + astar.get_point_weight_scale(neighbor)
+			if new_cost > max_cost:
+				continue
+
+			if not visited.has(neighbor) or new_cost < visited[neighbor]:
+				visited[neighbor] = new_cost
+				frontier.append({ "cell": neighbor, "cost": new_cost })
+
+	return visited  # cell → cost
+
+
+# Helpers method to get all the neighbors of a cell even if disabled in AStar
+func get_neighbors(cell: Vector2i) -> Array[Vector2i]:
+	const DIRS : Array[Vector2i] = [
+		Vector2i.LEFT,
+		Vector2i.RIGHT,
+		Vector2i.UP,
+		Vector2i.DOWN
+	]
+	var neighbors: Array[Vector2i] = []
+
+	for d in DIRS:
+		var n := cell + d
+		if not astar.is_in_bounds(n.x, n.y):
+			continue
+		neighbors.append(n)
+
+	return neighbors
