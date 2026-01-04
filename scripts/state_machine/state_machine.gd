@@ -2,9 +2,10 @@ class_name StateMachine
 extends RefCounted
 
 var current_state: State = null
+var name: String
 
-
-func _init(initial_state: State) -> void:
+func _init(p_name: String, initial_state: State) -> void:
+	name = p_name
 	current_state = initial_state
 	current_state._enter()
 	
@@ -16,7 +17,7 @@ func change_state(new_state: State, enter_params: Dictionary = {}) -> void:
 	if new_state != null:
 		new_state._enter(enter_params)
 
-	print("State changed from %s to: %s" % [str(current_state), str(new_state)])
+	print("StateMachine [%s] - State changed from %s to: %s" % [name, str(current_state), str(new_state)])
 	current_state = new_state
 
 

@@ -1,17 +1,17 @@
 class_name MovementIndicatorComponent
 extends Node2D
 
-@onready var unit: Unit = get_parent() as Unit
-
 const COLOR := Color(0.2, 0.6, 1.0, 0.25)
+
+@onready var unit: Unit = get_parent() as Unit
 
 func _ready() -> void:
 	visible = false
-	unit.unit_selected.connect(_on_unit_selected)
-	unit.unit_deselected.connect(_on_unit_deselected)
-
 
 func _draw() -> void:
+	if unit == null:
+		return
+
 	for cell: Vector2i in unit.reachable_cells.keys():
 		var offset: Vector2i = cell - unit.grid_pos
 		var local_pos := Vector2(
@@ -27,13 +27,10 @@ func _draw() -> void:
 			true
 		)
 
-func _on_unit_selected() -> void:
-	print("MovementIndicatorComponent: Unit selected, showing movement range.")
+
+func show_move_range():
 	visible = true
-	queue_redraw()  # triggers _draw()
 
 
-func _on_unit_deselected() -> void:
-	print("MovementIndicatorComponent: Unit deselected, hiding movement range.")
+func hide_move_range():
 	visible = false
-	queue_redraw()  # triggers _draw()

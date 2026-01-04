@@ -1,0 +1,28 @@
+class_name UIState
+extends State
+
+
+var controller: UIController
+
+func _init(state_name: String, p_controller: UIController) -> void:
+	super._init(state_name)
+	controller = p_controller
+
+func _enter(_params: Dictionary = {}) -> void:
+	pass
+
+
+func _exit() -> void:
+	pass
+
+
+func _process(_delta: float) -> void:
+	pass
+
+
+func _physics_process(_delta: float) -> void:
+	pass
+
+
+func _on_cell_clicked(_cell: Vector2i) -> void:
+	pass

@@ -25,6 +25,6 @@ func _draw():
 			draw_rect(Rect2(local_pos, cell_size), Color(0, 1, 0, 0.3), true)
 
 
-func on_cell_clicked(cell: Vector2i, _cell: Variant, _occupant: Variant) -> void:
+func on_cell_clicked(cell: Vector2i) -> void:
 	highlight_cell = cell
 	queue_redraw()  # triggers _draw()

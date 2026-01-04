@@ -165,3 +165,4 @@ shape = SubResource("RectangleShape2D_53ncc")
 
 [node name="MovementIndicatorComponent" type="Node2D" parent="."]
 script = ExtResource("3_ixdpc")
+metadata/_custom_type_script = "uid://cswx45saif5wp"
