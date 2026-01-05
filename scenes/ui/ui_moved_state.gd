@@ -1,15 +1,9 @@
-class_name UIState
-extends State
-
-
-var controller: UIController
-
-func _init(state_name: String, p_controller: UIController) -> void:
-	super._init(state_name)
-	controller = p_controller
+class_name UIMovedState
+extends UIState
 
 func _enter(_params: Dictionary = {}) -> void:
-	pass
+	controller.visible = true
+	controller.action_panel.visible = true
 
 
 func _exit() -> void:
@@ -27,6 +21,7 @@ func _physics_process(_delta: float) -> void:
 func _on_cell_clicked(_cell: Vector2i) -> void:
 	pass
 
-
+	
 func _on_cancel_clicked() -> void:
-	pass
+	controller.units_manager.cancel_unit_movement()
+	controller.fsm.change_state(controller.selected_state)

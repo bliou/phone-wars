@@ -1,0 +1,22 @@
+class_name MoveUnitCommand
+extends Command
+
+var unit: Unit
+var start_cell: Vector2i
+var target_cell: Vector2i
+var path: Array[Vector2] = [] 
+
+func _init(p_unit: Unit, p_target_cell: Vector2i, p_path: Array[Vector2]):
+    unit = p_unit
+    start_cell = p_unit.grid_pos
+    target_cell = p_target_cell
+    path = p_path
+
+func execute():
+    unit.grid_pos = target_cell
+    unit.movement_indicator.hide()
+    unit.move_following_path(path)
+
+func undo():
+    unit.grid_pos = start_cell
+    unit.movement_indicator.show()

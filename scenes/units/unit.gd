@@ -1,6 +1,8 @@
 class_name Unit
 extends Node2D
 
+signal unit_moved()
+
 @export var speed: float = 100.0
 @export var movement_points: int = 3
 @export var movement_profile: MovementProfile

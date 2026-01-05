@@ -16,25 +16,41 @@ grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 12
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -41.0
-offset_right = 139.0
+grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ActionPanel" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="MoveButton" type="Button" parent="Control/MarginContainer/HBoxContainer"]
+[node name="IdleButton" type="Button" parent="Control/MarginContainer/HBoxContainer/ActionPanel"]
 layout_mode = 2
-size_flags_horizontal = 0
-text = "Move"
+text = "Idle"
 
-[node name="AttackButton" type="Button" parent="Control/MarginContainer/HBoxContainer"]
+[node name="AttackButton" type="Button" parent="Control/MarginContainer/HBoxContainer/ActionPanel"]
 layout_mode = 2
 text = "Attack"
+
+[node name="MainPanel" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/separation = 10
+
+[node name="CancelButton" type="Button" parent="Control/MarginContainer/HBoxContainer/MainPanel"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Cancel"

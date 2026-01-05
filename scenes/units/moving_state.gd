@@ -29,6 +29,7 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if currentPathIndex >= path.size():
 		unit.fsm.change_state(unit.idle_state)
+		unit.unit_moved.emit()
 		return
 
 	var target_position = path[currentPathIndex]
