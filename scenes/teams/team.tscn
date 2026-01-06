@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci7d8ddulm6b5"]
+
+[ext_resource type="Script" uid="uid://dwu4lqfkdjoc3" path="res://scenes/teams/team.gd" id="1_62bd5"]
+[ext_resource type="Script" uid="uid://kqyvrw5mibew" path="res://scripts/managers/units_manager.gd" id="1_yo8v3"]
+
+[node name="Team" type="Node"]
+script = ExtResource("1_62bd5")
+
+[node name="UnitsManager" type="Node" parent="."]
+script = ExtResource("1_yo8v3")

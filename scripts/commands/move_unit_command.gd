@@ -19,4 +19,4 @@ func execute():
 
 func undo():
     unit.grid_pos = start_cell
-    unit.movement_indicator.show()
+    unit.select()

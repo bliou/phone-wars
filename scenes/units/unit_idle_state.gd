@@ -10,7 +10,7 @@ func _init(state_name: String, p_unit: Unit) -> void:
 
 func _enter(_params: Dictionary = {}) -> void:
 	unit.animated_sprite.play("idle")
-	unit.animated_sprite.flip_h = false
+	unit.animated_sprite.flip_h = unit.team.team_face_direction == Team.FaceDirection.LEFT
 
 
 func _exit() -> void:

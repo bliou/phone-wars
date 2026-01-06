@@ -1,29 +1,30 @@
 class_name UnitsManager
-extends Node2D
+extends Node
 
 signal unit_selected(unit: Unit)
 signal unit_deselected(unit: Unit)
 signal unit_moved(unit: Unit)
 
 
-@export var grid: Grid
-
+var grid: Grid
 var selected_unit: Unit = null
 var units: Dictionary = {} # Vector2i -> Unit
 
 var move_unit_command: MoveUnitCommand
 
-func _ready() -> void:
-	init_units()
+func setup(p_grid: Grid, team: Team) -> void:
+	grid = p_grid
+	init_units(team)
 
 
-func init_units() -> void:
+func init_units(team: Team) -> void:
 	for unit in get_children():
 		if unit is Unit:
 			var cell_pos: Vector2i = Vector2i(unit.position / grid.cell_size)
 			units[cell_pos] = unit
 			unit.grid_pos = cell_pos
 			unit.unit_moved.connect(on_unit_moved)
+			unit.setup(team)
 
 
 func get_grid_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Array[Vector2i]:
@@ -97,7 +98,7 @@ func cancel_unit_movement() -> void:
 
 
 func confirm_unit_movement() -> void:
-	units[move_unit_command.start_cell] = null
+	units.erase(move_unit_command.start_cell)
 	units[move_unit_command.target_cell] = selected_unit
 	move_unit_command = null
 	exhaust_unit()
@@ -106,3 +107,8 @@ func confirm_unit_movement() -> void:
 func exhaust_unit() -> void:
 	selected_unit.exhaust()
 	selected_unit = null
+
+
+func reset_units() -> void:
+	for unit in units.values():
+		unit.ready_to_move()

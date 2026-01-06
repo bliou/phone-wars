@@ -14,19 +14,13 @@ var grid_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost
 var exhausted: bool = false
 
+var team: Team
+
 var fsm: StateMachine
 var idle_state: UnitIdleState
 var moving_state: UnitMovingState
 var selected_state: UnitSelectedState
 var done_state: UnitDoneState
-
-func _ready() -> void:
-	idle_state = UnitIdleState.new("unit_idle", self)
-	moving_state = UnitMovingState.new("unit_moving", self)
-	selected_state = UnitSelectedState.new("unit_selected", self)
-	done_state = UnitDoneState.new("unit_done", self)
-
-	fsm = StateMachine.new(name, idle_state)
 
 
 func _process(delta: float) -> void:
@@ -36,6 +30,16 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	fsm._physics_process(delta)
 
+
+func setup(p_team: Team) -> void:
+	team = p_team
+	
+	idle_state = UnitIdleState.new("unit_idle", self)
+	moving_state = UnitMovingState.new("unit_moving", self)
+	selected_state = UnitSelectedState.new("unit_selected", self)
+	done_state = UnitDoneState.new("unit_done", self)
+
+	fsm = StateMachine.new(name, idle_state)
 
 func select() -> void:
 	fsm.change_state(selected_state)
@@ -47,6 +51,10 @@ func deselect() -> void:
 
 func exhaust() -> void:
 	fsm.change_state(done_state)
+
+
+func ready_to_move() -> void:
+	fsm.change_state(idle_state)
 	
 
 func move_following_path(p: Array[Vector2]) -> void:

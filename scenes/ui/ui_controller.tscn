@@ -48,9 +48,13 @@ text = "Attack"
 [node name="MainPanel" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
-theme_override_constants/separation = 10
+theme_override_constants/separation = 30
 
 [node name="CancelButton" type="Button" parent="Control/MarginContainer/HBoxContainer/MainPanel"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Cancel"
+
+[node name="EndTurnButton" type="Button" parent="Control/MarginContainer/HBoxContainer/MainPanel"]
+layout_mode = 2
+text = "End turn"
