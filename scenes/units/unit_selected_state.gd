@@ -1,4 +1,4 @@
-class_name SelectedState
+class_name UnitSelectedState
 extends State
 
 var unit: Unit

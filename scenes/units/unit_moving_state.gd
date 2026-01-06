@@ -1,4 +1,4 @@
-class_name  MovingState
+class_name UnitMovingState
 extends State
 
 var unit: Unit

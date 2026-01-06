@@ -12,16 +12,19 @@ signal unit_moved()
 
 var grid_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost
+var exhausted: bool = false
 
 var fsm: StateMachine
-var idle_state: IdleState
-var moving_state: MovingState
-var selected_state: SelectedState
+var idle_state: UnitIdleState
+var moving_state: UnitMovingState
+var selected_state: UnitSelectedState
+var done_state: UnitDoneState
 
 func _ready() -> void:
-	idle_state = IdleState.new("idle", self)
-	moving_state = MovingState.new("moving", self)
-	selected_state = SelectedState.new("selected", self)
+	idle_state = UnitIdleState.new("unit_idle", self)
+	moving_state = UnitMovingState.new("unit_moving", self)
+	selected_state = UnitSelectedState.new("unit_selected", self)
+	done_state = UnitDoneState.new("unit_done", self)
 
 	fsm = StateMachine.new(name, idle_state)
 
@@ -41,6 +44,10 @@ func select() -> void:
 func deselect() -> void:
 	fsm.change_state(idle_state)
 
+
+func exhaust() -> void:
+	fsm.change_state(done_state)
+	
 
 func move_following_path(p: Array[Vector2]) -> void:
 	if p.is_empty():

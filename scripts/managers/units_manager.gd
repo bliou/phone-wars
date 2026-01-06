@@ -27,9 +27,6 @@ func init_units() -> void:
 
 
 func get_grid_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Array[Vector2i]:
-	if has_unit_on_cell(end_cell):
-		return []
-
 	return Pathfinding.find_path(grid, unit, start_cell, end_cell)
 
 
@@ -43,7 +40,7 @@ func get_world_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Arr
 
 func select_unit(unit: Unit) -> void:
 	if selected_unit:
-		selected_unit.deselect()
+		return
 
 	selected_unit = unit
 	selected_unit.select()
@@ -67,7 +64,7 @@ func deselect_unit() -> void:
 
 func select_unit_at_position(cell_position: Vector2i) -> void:
 	var unit: Unit = units.get(cell_position, null)
-	if unit == null:
+	if (unit == null or unit.exhausted):
 		return
 
 	select_unit(unit)
@@ -82,6 +79,9 @@ func on_unit_moved() -> void:
 
 
 func move_unit_to_cell(target_cell: Vector2i) -> void:
+	if units.has(target_cell):
+		return
+
 	var previous_cell: Vector2i = Vector2i(selected_unit.global_position / grid.cell_size)
 
 	var path = get_world_path(selected_unit, previous_cell, target_cell)
@@ -100,5 +100,9 @@ func confirm_unit_movement() -> void:
 	units[move_unit_command.start_cell] = null
 	units[move_unit_command.target_cell] = selected_unit
 	move_unit_command = null
+	exhaust_unit()
 
-	deselect_unit()
+
+func exhaust_unit() -> void:
+	selected_unit.exhaust()
+	selected_unit = null

@@ -20,9 +20,9 @@ func _draw():
 				draw_rect(Rect2(local_pos, cell_size), Color(1, 1, 1, 0.3), false, 1.0)
 
 		# Highlight a cell (e.g., mouse over)
-		if highlight_cell.x != -1:
-			var local_pos = highlight_cell * cell_size
-			draw_rect(Rect2(local_pos, cell_size), Color(0, 1, 0, 0.3), true)
+		# if highlight_cell.x != -1:
+		# 	var local_pos = highlight_cell * cell_size
+		# 	draw_rect(Rect2(local_pos, cell_size), Color(0, 1, 0, 0.3), true)
 
 
 func on_cell_clicked(cell: Vector2i) -> void:
