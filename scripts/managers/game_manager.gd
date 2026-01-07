@@ -12,55 +12,53 @@ signal turn_ended()
 
 var teams: Array[Team] = []
 var active_team: Team
+var query_manager: QueryManager = QueryManager.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	init_teams()
+
+
 	grid.setup(input_manager, terrain_node)
+	ui_controller.setup(self, grid)
+	
+
+func init_teams() -> void:
+	var units_managers: Array[UnitsManager] = []
+	var buildings_managers: Array[BuildingsManager] = []
 
 	for child in get_node("Teams").get_children():
 		var team :Team = child as Team 
-		if (team != null and not team.neutral_team()):
+		if team != null:
 			teams.append(team)
+			team.setup(grid, query_manager)
+			units_managers.append(team.units_manager)
+			buildings_managers.append(team.buildings_manager)
 			print("team added: %s" % team.name)
+
+	query_manager.setup(units_managers, buildings_managers)
 
 	active_team = teams[0]
 	active_team.start_turn()
 
-	ui_controller.setup(self, grid)	
-	
 
 func end_turn() -> void:
 	active_team.end_turn()
-	active_team = next_team()
+	active_team = next_team(active_team)
 	active_team.start_turn()
 
 	print("Turn ended. New team %s to play" % active_team.name)
 	turn_ended.emit()
 
 
-func next_team() -> Team:
-	var active_team_idx :int = teams.find(active_team, 0)
+func next_team(current_team: Team) -> Team:
+	var active_team_idx :int = teams.find(current_team, 0)
 	active_team_idx +=1
 	if active_team_idx >= teams.size():
 		active_team_idx = 0
 
-	return teams.get(active_team_idx)
-
-
-func get_unit_at(cell_pos: Vector2i) -> Unit:
-	for team in teams:
-		var unit: Unit = team.units_manager.get_unit_at(cell_pos)
-		if unit != null:
-			return unit
-
-	return null
-		
-
-
-func get_building_at(cell_pos: Vector2i) -> Building:
-	for team in teams:
-		var building: Building = team.buildings_manager.get_building_at(cell_pos)
-		if building != null:
-			return building
-
-	return null
+	var team: Team = teams.get(active_team_idx)
+	if team.neutral_team():
+		return next_team(team)
+	
+	return team

@@ -73,7 +73,8 @@ func on_idle_clicked() -> void:
 
 
 func on_capture_clicked() -> void:
-	pass
+	current_units_manager.capture_building()
+	fsm.change_state(idle_state)
 
 
 func on_turn_ended() -> void:

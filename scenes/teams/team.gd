@@ -16,15 +16,14 @@ enum FaceDirection {
 @export var team_color: Color = Color.BLACK
 @export var team_type: Type = Type.NEUTRAL
 @export var team_face_direction: FaceDirection = FaceDirection.RIGHT
-@export var grid: Grid
 
 @onready var units_manager: UnitsManager = $UnitsManager
 @onready var buildings_manager: BuildingsManager = $BuildingsManager
 
-
-func _ready() -> void:
-	units_manager.setup(grid, self)
-	buildings_manager.setup(grid, self)
+func setup(grid: Grid, query_manager: QueryManager) -> void:
+	units_manager.setup(grid, query_manager, self)
+	buildings_manager.setup(grid, query_manager, self)
+	
 
 func start_turn() -> void:
 	pass

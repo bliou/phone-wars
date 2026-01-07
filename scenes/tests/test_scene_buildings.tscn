@@ -39,23 +39,23 @@ tile_set = ExtResource("2_u82ts")
 
 [node name="Teams" type="Node" parent="."]
 
-[node name="RedTeam" parent="Teams" node_paths=PackedStringArray("grid") instance=ExtResource("4_r146u")]
+[node name="RedTeam" parent="Teams" instance=ExtResource("4_r146u")]
 team_color = Color(0.6745098, 0, 0, 1)
 team_type = 0
-grid = NodePath("../../Grid")
 
 [node name="Soldier" parent="Teams/RedTeam/UnitsManager" index="0" instance=ExtResource("5_u82ts")]
 position = Vector2(216, 224)
 
-[node name="BlueTeam" parent="Teams" node_paths=PackedStringArray("grid") instance=ExtResource("4_r146u")]
+[node name="Soldier2" parent="Teams/RedTeam/UnitsManager" index="1" instance=ExtResource("5_u82ts")]
+position = Vector2(264, 224)
+
+[node name="BlueTeam" parent="Teams" instance=ExtResource("4_r146u")]
 team_color = Color(0, 0, 0.7019608, 1)
 team_type = 0
 team_face_direction = 1
-grid = NodePath("../../Grid")
 
-[node name="NeutralTeam" parent="Teams" node_paths=PackedStringArray("grid") instance=ExtResource("4_r146u")]
+[node name="NeutralTeam" parent="Teams" instance=ExtResource("4_r146u")]
 team_color = Color(0.47788018, 0.47788012, 0.47788012, 1)
-grid = NodePath("../../Grid")
 
 [node name="City" parent="Teams/NeutralTeam/BuildingsManager" index="0" instance=ExtResource("6_u82ts")]
 position = Vector2(240, 176)

@@ -71,3 +71,13 @@ func move_following_path(p: Array[Vector2]) -> void:
 
 func get_terrain_cost(terrain: Terrain.Type) -> float:
 	return unit_profile.movement_profile.get_cost(terrain)
+
+
+func can_capture_building(building: Building) -> bool:
+	if building.grid_pos != grid_pos:
+		return false
+
+	if building.team == team:
+		return false
+
+	return unit_profile.capture_capacity > 0

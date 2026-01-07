@@ -11,4 +11,5 @@ metadata/_custom_type_script = "uid://ek5inq6a6e24"
 [resource]
 script = ExtResource("2_bvr5d")
 movement_profile = SubResource("Resource_y1odh")
+capture_capacity = 20
 metadata/_custom_type_script = "uid://c5bqt1boq7g83"

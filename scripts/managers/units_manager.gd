@@ -7,13 +7,15 @@ signal unit_moved(unit: Unit)
 
 
 var grid: Grid
+var query_manager: QueryManager
 var selected_unit: Unit = null
 var units: Dictionary = {} # Vector2i -> Unit
 
 var move_unit_command: MoveUnitCommand
 
-func setup(p_grid: Grid, team: Team) -> void:
+func setup(p_grid: Grid, p_query_manager: QueryManager, team: Team) -> void:
 	grid = p_grid
+	query_manager = p_query_manager
 	init_units(team)
 
 
@@ -80,7 +82,8 @@ func on_unit_moved() -> void:
 
 
 func move_unit_to_cell(target_cell: Vector2i) -> void:
-	if units.has(target_cell):
+	var unit_on_cell = units.get(target_cell, null)
+	if unit_on_cell != null and unit_on_cell != selected_unit:
 		return
 
 	var previous_cell: Vector2i = Vector2i(selected_unit.global_position / grid.cell_size)
@@ -112,3 +115,19 @@ func exhaust_unit() -> void:
 func reset_units() -> void:
 	for unit in units.values():
 		unit.ready_to_move()
+
+
+func capture_available() -> bool:
+	var unit_pos: Vector2i = selected_unit.grid_pos
+	var building: Building = query_manager.get_building_at(unit_pos)
+	if building == null:
+		return false
+
+	return selected_unit.can_capture_building(building)
+
+
+func capture_building() -> void:
+	var unit_pos: Vector2i = selected_unit.grid_pos
+	var building: Building = query_manager.get_building_at(unit_pos)
+	building.try_to_capture_by(selected_unit)
+	confirm_unit_movement()
