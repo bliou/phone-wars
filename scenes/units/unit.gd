@@ -4,9 +4,9 @@ extends Area2D
 signal unit_moved()
 
 @export var speed: float = 100.0
-@export var movement_points: int = 3
-@export var movement_profile: MovementProfile
+@export var unit_profile: UnitProfile = null
 @export var size: Vector2i = Vector2i(32, 32)
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var movement_indicator: MovementIndicatorComponent = $MovementIndicatorComponent
 
@@ -22,6 +22,9 @@ var moving_state: UnitMovingState
 var selected_state: UnitSelectedState
 var done_state: UnitDoneState
 
+
+func _ready() -> void:
+	z_index = 2 # To make sure the unit is always visible
 
 func _process(delta: float) -> void:
 	fsm._process(delta)
@@ -64,3 +67,7 @@ func move_following_path(p: Array[Vector2]) -> void:
 	print("Unit moving along path: %s" % str(p))
 
 	fsm.change_state(moving_state, {"path": p})
+
+
+func get_terrain_cost(terrain: Terrain.Type) -> float:
+	return unit_profile.movement_profile.get_cost(terrain)

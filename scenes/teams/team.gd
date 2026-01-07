@@ -23,9 +23,7 @@ enum FaceDirection {
 
 
 func _ready() -> void:
-	if team_type != Type.NEUTRAL: 
-		units_manager.setup(grid, self)
-	
+	units_manager.setup(grid, self)
 	buildings_manager.setup(grid, self)
 
 func start_turn() -> void:
@@ -33,8 +31,7 @@ func start_turn() -> void:
 
 
 func end_turn() -> void:
-	if team_type != Type.NEUTRAL: 
-		units_manager.reset_units()
+	units_manager.reset_units()
 
 
 func is_playable() -> bool:

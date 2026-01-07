@@ -4,9 +4,7 @@ extends Node2D
 
 signal cell_clicked(cell_position: Vector2i)
 
-@export var inputManager: InputManager
-
-@export var terrain_node: Node2D
+var terrain_node: Node2D
 
 var terrain_layers: Array[TileMapLayer] = []
 var terrain_cells := {}  # Vector2i → terrain type
@@ -14,9 +12,8 @@ var building_cells := {}  # Vector2i → building
 
 var cell_size: Vector2 = Vector2(32, 32)  # default cell size
 
-func _ready() -> void:
-	if not terrain_node:
-		return
+func setup(input_manager: InputManager, p_terrain_node: Node2D) -> void:
+	terrain_node = p_terrain_node
 
 	for child in terrain_node.get_children():
 		if child is TileMapLayer:
@@ -25,7 +22,7 @@ func _ready() -> void:
 	init_terrain_cells()
 
 	# subscribe to input events
-	inputManager.click_detected.connect(on_click_detected)
+	input_manager.click_detected.connect(on_click_detected)
 
 
 func init_terrain_cells() -> void:
@@ -56,12 +53,12 @@ func get_reachable_cells(start: Vector2i, unit: Unit) -> Dictionary:
 
 		for neighbor in get_neighbors(cell):
 			var terrain: Terrain.Type = terrain_cells.get(neighbor, Terrain.Type.NONE)
-			var step_cost = unit.movement_profile.get_cost(terrain)
+			var step_cost = unit.get_terrain_cost(terrain)
 			if step_cost == INF:
 				continue
 
 			var new_cost = cost + step_cost
-			if new_cost > unit.movement_points:
+			if new_cost > unit.unit_profile.movement_points:
 				continue
 
 			if not visited.has(neighbor) or new_cost < visited[neighbor]:

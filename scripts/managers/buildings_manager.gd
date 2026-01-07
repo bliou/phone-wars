@@ -19,3 +19,7 @@ func init_buildings(team: Team) -> void:
 			building.grid_pos = cell_pos
 			building.setup(team)
 			print("adding building %s at %s" % [building.name, building.grid_pos])
+
+
+func get_building_at(cell_pos: Vector2i) -> Building:
+	return buildings.get(cell_pos, null) as Building

@@ -45,6 +45,10 @@ text = "Idle"
 layout_mode = 2
 text = "Attack"
 
+[node name="CaptureButton" type="Button" parent="Control/MarginContainer/HBoxContainer/ActionPanel"]
+layout_mode = 2
+text = "Capture"
+
 [node name="MainPanel" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10

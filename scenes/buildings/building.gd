@@ -3,7 +3,7 @@ extends Area2D
 
 
 @export var construction_profile: ConstructionProfile
-
+@export var capture_point: int = 20
 
 var grid_pos: Vector2i = Vector2i.ZERO
 var team: Team

@@ -3,7 +3,7 @@ extends UIState
 
 
 func _enter(_params: Dictionary = {}) -> void:
-	controller.visible = controller.turn_manager.active_team.is_playable()
+	controller.visible = controller.game_manager.active_team.is_playable()
 	controller.action_panel.visible = false
 	controller.cancel_button.visible = false
 	controller.end_turn_button.visible = true

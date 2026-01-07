@@ -71,8 +71,8 @@ func select_unit_at_position(cell_position: Vector2i) -> void:
 	select_unit(unit)
 
 
-func has_unit_on_cell(cell_position: Vector2i) -> bool:
-	return units.has(cell_position)
+func get_unit_at(cell_position: Vector2i) -> Unit:
+	return units.get(cell_position, null) as Unit
 
 
 func on_unit_moved() -> void:

@@ -1,18 +1,19 @@
-[gd_scene load_steps=9 format=4 uid="uid://dxril5owa1jv5"]
+[gd_scene load_steps=10 format=4 uid="uid://dxril5owa1jv5"]
 
 [ext_resource type="PackedScene" uid="uid://bqeqp2n1diaug" path="res://scenes/grids/grid.tscn" id="1_gxs1p"]
 [ext_resource type="TileSet" uid="uid://45ako5jwxjpx" path="res://tilesets/game_tileset_tres.tres" id="2_u82ts"]
-[ext_resource type="Script" uid="uid://cyj1lsu0epdxb" path="res://scripts/managers/turn_manager.gd" id="3_bwuq5"]
+[ext_resource type="Script" uid="uid://cyj1lsu0epdxb" path="res://scripts/managers/game_manager.gd" id="3_bwuq5"]
 [ext_resource type="PackedScene" uid="uid://ci7d8ddulm6b5" path="res://scenes/teams/team.tscn" id="4_r146u"]
+[ext_resource type="PackedScene" uid="uid://mu0vq50rfsva" path="res://scenes/units/soldier.tscn" id="5_u82ts"]
 [ext_resource type="PackedScene" uid="uid://coewfg6qqq82j" path="res://scenes/buildings/city.tscn" id="6_u82ts"]
 [ext_resource type="Script" uid="uid://cky8p0fqqxnii" path="res://scripts/managers/input_manager.gd" id="7_6gxhs"]
 [ext_resource type="PackedScene" uid="uid://cbb2legf80c0p" path="res://scenes/buildings/base.tscn" id="7_bwuq5"]
 [ext_resource type="PackedScene" uid="uid://baity5p4rgu1j" path="res://scenes/ui/ui_controller.tscn" id="8_fdo4a"]
 
 [node name="TestSceneTiles" type="Node2D"]
+script = ExtResource("3_bwuq5")
 
-[node name="Grid" parent="." node_paths=PackedStringArray("inputManager") instance=ExtResource("1_gxs1p")]
-inputManager = NodePath("../Managers/InputManager")
+[node name="Grid" parent="." instance=ExtResource("1_gxs1p")]
 
 [node name="Terrain" type="Node2D" parent="."]
 
@@ -36,29 +37,30 @@ tile_set = ExtResource("2_u82ts")
 tile_map_data = PackedByteArray("AAALAAYABAAEAAAAAAALAAUABAAEAAAAAAALAAQABAAEAAAAAAA=")
 tile_set = ExtResource("2_u82ts")
 
-[node name="TurnManager" type="Node2D" parent="."]
-script = ExtResource("3_bwuq5")
-metadata/_custom_type_script = "uid://cyj1lsu0epdxb"
+[node name="Teams" type="Node" parent="."]
 
-[node name="RedTeam" parent="TurnManager" node_paths=PackedStringArray("grid") instance=ExtResource("4_r146u")]
+[node name="RedTeam" parent="Teams" node_paths=PackedStringArray("grid") instance=ExtResource("4_r146u")]
 team_color = Color(0.6745098, 0, 0, 1)
 team_type = 0
 grid = NodePath("../../Grid")
 
-[node name="BlueTeam" parent="TurnManager" node_paths=PackedStringArray("grid") instance=ExtResource("4_r146u")]
+[node name="Soldier" parent="Teams/RedTeam/UnitsManager" index="0" instance=ExtResource("5_u82ts")]
+position = Vector2(216, 224)
+
+[node name="BlueTeam" parent="Teams" node_paths=PackedStringArray("grid") instance=ExtResource("4_r146u")]
 team_color = Color(0, 0, 0.7019608, 1)
 team_type = 0
 team_face_direction = 1
 grid = NodePath("../../Grid")
 
-[node name="Team" parent="TurnManager" node_paths=PackedStringArray("grid") instance=ExtResource("4_r146u")]
+[node name="NeutralTeam" parent="Teams" node_paths=PackedStringArray("grid") instance=ExtResource("4_r146u")]
 team_color = Color(0.47788018, 0.47788012, 0.47788012, 1)
 grid = NodePath("../../Grid")
 
-[node name="City" parent="TurnManager/Team/BuildingsManager" index="0" instance=ExtResource("6_u82ts")]
+[node name="City" parent="Teams/NeutralTeam/BuildingsManager" index="0" instance=ExtResource("6_u82ts")]
 position = Vector2(240, 176)
 
-[node name="Base" parent="TurnManager/Team/BuildingsManager" index="1" instance=ExtResource("7_bwuq5")]
+[node name="Base" parent="Teams/NeutralTeam/BuildingsManager" index="1" instance=ExtResource("7_bwuq5")]
 position = Vector2(168, 184)
 
 [node name="Managers" type="Node" parent="."]
@@ -66,10 +68,8 @@ position = Vector2(168, 184)
 [node name="InputManager" type="Node2D" parent="Managers"]
 script = ExtResource("7_6gxhs")
 
-[node name="UIController" parent="." node_paths=PackedStringArray("turn_manager", "grid") instance=ExtResource("8_fdo4a")]
-turn_manager = NodePath("../TurnManager")
-grid = NodePath("../Grid")
+[node name="UIController" parent="." instance=ExtResource("8_fdo4a")]
 
-[editable path="TurnManager/RedTeam"]
-[editable path="TurnManager/BlueTeam"]
-[editable path="TurnManager/Team"]
+[editable path="Teams/RedTeam"]
+[editable path="Teams/BlueTeam"]
+[editable path="Teams/NeutralTeam"]
