@@ -1,9 +1,16 @@
-[gd_scene load_steps=21 format=3 uid="uid://mu0vq50rfsva"]
+[gd_scene load_steps=23 format=3 uid="uid://mu0vq50rfsva"]
 
 [ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_53ncc"]
 [ext_resource type="Resource" uid="uid://ci1bjji27j03c" path="res://scenes/units/soldier.tres" id="2_rdxj4"]
+[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://scenes/teams/team_tint.gdshader" id="3_e84y0"]
 [ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/components/movement_indicator_component.gd" id="3_ixdpc"]
 [ext_resource type="Texture2D" uid="uid://dw3sqhxufg8t7" path="res://assets/sprites/phone_wars_units.png" id="3_rdxj4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y1odh"]
+shader = ExtResource("3_e84y0")
+shader_parameter/disabled = 0.0
+shader_parameter/original_color = Color(0.64705884, 0.64705884, 0.64705884, 1)
+shader_parameter/replace_color = Color(0.5647059, 0.16078432, 0.08235294, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e84y0"]
 atlas = ExtResource("3_rdxj4")
@@ -137,12 +144,14 @@ script = ExtResource("1_53ncc")
 unit_profile = ExtResource("2_rdxj4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_y1odh")
 sprite_frames = SubResource("SpriteFrames_op21a")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.30663878
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_53ncc")
 
 [node name="MovementIndicatorComponent" type="Node2D" parent="."]

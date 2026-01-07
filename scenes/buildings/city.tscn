@@ -1,7 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://coewfg6qqq82j"]
+[gd_scene load_steps=8 format=3 uid="uid://coewfg6qqq82j"]
 
 [ext_resource type="Script" uid="uid://c0ghc8sqosbe7" path="res://scenes/buildings/building.gd" id="1_fsm37"]
 [ext_resource type="Texture2D" uid="uid://dnhkm7sviseoy" path="res://assets/sprites/phone_wars_sprites.png" id="1_o2xkr"]
+[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://scenes/teams/team_tint.gdshader" id="2_s8d14"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sctt1"]
+shader = ExtResource("2_s8d14")
+shader_parameter/original_color = Color(0.2901961, 0.30980393, 0.33333334, 1)
+shader_parameter/replace_color = Color(0.5647059, 0.16078432, 0.08235294, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fsm37"]
 atlas = ExtResource("1_o2xkr")
@@ -25,7 +31,9 @@ size = Vector2(32, 32)
 script = ExtResource("1_fsm37")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_sctt1")
 sprite_frames = SubResource("SpriteFrames_ylkap")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_ylkap")

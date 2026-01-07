@@ -24,7 +24,10 @@ var done_state: UnitDoneState
 
 
 func _ready() -> void:
+	# Make the material unique to this instance
+	animated_sprite.material = animated_sprite.material.duplicate()
 	z_index = 2 # To make sure the unit is always visible
+
 
 func _process(delta: float) -> void:
 	fsm._process(delta)
@@ -35,7 +38,7 @@ func _physics_process(delta: float) -> void:
 
 
 func setup(p_team: Team) -> void:
-	team = p_team
+	set_team(p_team)
 	
 	idle_state = UnitIdleState.new("unit_idle", self)
 	moving_state = UnitMovingState.new("unit_moving", self)
@@ -43,6 +46,12 @@ func setup(p_team: Team) -> void:
 	done_state = UnitDoneState.new("unit_done", self)
 
 	fsm = StateMachine.new(name, idle_state)
+
+
+func set_team(p_team: Team) -> void:
+	team = p_team
+	animated_sprite.material.set_shader_parameter("replace_color", p_team.team_color)
+
 
 func select() -> void:
 	fsm.change_state(selected_state)
