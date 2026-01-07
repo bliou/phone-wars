@@ -6,7 +6,7 @@ signal unit_moved()
 @export var speed: float = 100.0
 @export var movement_points: int = 3
 @export var movement_profile: MovementProfile
-@export var size: Vector2i = Vector2i(16, 16)
+@export var size: Vector2i = Vector2i(32, 32)
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var movement_indicator: MovementIndicatorComponent = $MovementIndicatorComponent
 

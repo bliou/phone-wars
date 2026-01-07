@@ -10,6 +10,22 @@ enum Type {
 	MOUNTAIN,
 }
 
+static func get_name_from_type(type: Type) -> String:
+	match type:
+		Type.ROAD:
+			return "ROAD" 
+		Type.GRASS:
+			return "GRASS"
+		Type.FOREST:
+			return "FOREST"
+		Type.WATER:
+			return "WATER"
+		Type.MOUNTAIN:
+			return "MOUNTAIN"
+	
+	push_error("Unknown terrain type: %d" % type)
+	return "NONE"  # default fallback
+
 
 static func get_type_from_name(name: String) -> Type:
 	match name.to_upper():

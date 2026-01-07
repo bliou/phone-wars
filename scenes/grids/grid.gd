@@ -12,7 +12,7 @@ var terrain_layers: Array[TileMapLayer] = []
 var terrain_cells := {}  # Vector2i → terrain type
 var building_cells := {}  # Vector2i → building
 
-var cell_size: Vector2 = Vector2(16, 16)  # default cell size
+var cell_size: Vector2 = Vector2(32, 32)  # default cell size
 
 func _ready() -> void:
 	if not terrain_node:

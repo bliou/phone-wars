@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwqal04tkj5uh"
-path="res://.godot/imported/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png-4d6c1e57596c9f32c2b9b8256cfbaccb.ctex"
+uid="uid://dnhkm7sviseoy"
+path="res://.godot/imported/phone_wars_sprites.png-0c2c4a39528103947772d72772911219.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png"
-dest_files=["res://.godot/imported/Game Boy Advance - Advance Wars - Units - Orange Star Land Units.png-4d6c1e57596c9f32c2b9b8256cfbaccb.ctex"]
+source_file="res://assets/sprites/phone_wars_sprites.png"
+dest_files=["res://.godot/imported/phone_wars_sprites.png-0c2c4a39528103947772d72772911219.ctex"]
 
 [params]
 
