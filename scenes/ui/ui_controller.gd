@@ -10,6 +10,7 @@ extends CanvasLayer
 @onready var idle_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/IdleButton
 @onready var attack_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/AttackButton
 @onready var capture_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/CaptureButton
+@onready var merge_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/MergeButton
 
 
 var fsm: StateMachine
@@ -38,6 +39,7 @@ func setup(p_game_manager: GameManager, grid: Grid) -> void:
 
 	idle_button.pressed.connect(on_idle_clicked)
 	capture_button.pressed.connect(on_capture_clicked)
+	merge_button.pressed.connect(on_merge_clicked)
 
 
 func on_cell_clicked(cell: Vector2i) -> void:
@@ -74,6 +76,11 @@ func on_idle_clicked() -> void:
 
 func on_capture_clicked() -> void:
 	current_units_manager.capture_building()
+	fsm.change_state(idle_state)
+
+
+func on_merge_clicked() -> void:
+	current_units_manager.merge_units()
 	fsm.change_state(idle_state)
 
 

@@ -29,6 +29,12 @@ func init_units(team: Team) -> void:
 			unit.setup(team)
 
 
+func remove_unit(unit: Unit) -> void:
+	print("removing unit %s at %s" % [unit.name, unit.grid_pos])
+	units.erase(unit)
+	remove_child(unit)
+
+
 func get_grid_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Array[Vector2i]:
 	return Pathfinding.find_path(grid, unit, start_cell, end_cell)
 
@@ -82,8 +88,7 @@ func on_unit_moved() -> void:
 
 
 func move_unit_to_cell(target_cell: Vector2i) -> void:
-	var unit_on_cell = units.get(target_cell, null)
-	if unit_on_cell != null and unit_on_cell != selected_unit:
+	if not can_move_on_cell(target_cell):
 		return
 
 	var previous_cell: Vector2i = Vector2i(selected_unit.global_position / grid.cell_size)
@@ -92,6 +97,15 @@ func move_unit_to_cell(target_cell: Vector2i) -> void:
 	
 	move_unit_command = MoveUnitCommand.new(selected_unit, target_cell, path)
 	move_unit_command.execute()
+
+
+func can_move_on_cell(target_cell: Vector2i) -> bool:
+	var unit_on_cell: Unit = units.get(target_cell, null)
+	return (unit_on_cell == null or
+		unit_on_cell == selected_unit or
+		not unit_on_cell.is_max_health()
+	)
+
 
 
 func cancel_unit_movement() -> void:
@@ -130,4 +144,22 @@ func capture_building() -> void:
 	var unit_pos: Vector2i = selected_unit.grid_pos
 	var building: Building = query_manager.get_building_at(unit_pos)
 	building.try_to_capture_by(selected_unit)
+	confirm_unit_movement()
+
+
+func merge_available() -> bool:
+	var unit_pos: Vector2i = selected_unit.grid_pos
+	var unit: Unit = query_manager.get_unit_at(unit_pos)
+	if unit == null or unit == selected_unit:
+		return false
+
+	return selected_unit.can_merge_with_unit(unit)
+
+
+func merge_units() -> void:
+	var unit_pos: Vector2i = selected_unit.grid_pos
+	var unit: Unit = query_manager.get_unit_at(unit_pos)
+	selected_unit.merge_with_unit(unit)
+
+	remove_unit(unit)
 	confirm_unit_movement()

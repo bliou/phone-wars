@@ -5,6 +5,15 @@ func _enter(_params: Dictionary = {}) -> void:
 	controller.visible = true
 	controller.action_panel.visible = true
 	controller.capture_button.visible = show_capture_button()
+	if show_merge_button():
+		controller.idle_button.visible = false
+		controller.attack_button.visible = false
+		controller.merge_button.visible = true
+	else:
+		controller.idle_button.visible = true
+		controller.attack_button.visible = true
+		controller.merge_button.visible = false
+
 
 
 func _exit() -> void:
@@ -30,3 +39,7 @@ func _on_cancel_clicked() -> void:
 
 func show_capture_button() -> bool:
 	return controller.current_units_manager.capture_available()
+
+
+func show_merge_button() -> bool:
+	return controller.current_units_manager.merge_available()

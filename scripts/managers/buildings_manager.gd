@@ -32,6 +32,7 @@ func remove_building(building: Building) -> void:
 	buildings.erase(building)
 	remove_child(building)
 
+
 func add_building(building: Building) -> void:
 	var cell_pos: Vector2i = Vector2i(building.position / grid.cell_size)
 	buildings[cell_pos] = building

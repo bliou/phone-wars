@@ -13,6 +13,7 @@ signal unit_moved()
 var grid_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost
 var exhausted: bool = false
+var actual_health: int = 10
 
 var team: Team
 
@@ -39,6 +40,7 @@ func _physics_process(delta: float) -> void:
 
 func setup(p_team: Team) -> void:
 	set_team(p_team)
+	actual_health = unit_profile.health
 	
 	idle_state = UnitIdleState.new("unit_idle", self)
 	moving_state = UnitMovingState.new("unit_moving", self)
@@ -82,6 +84,10 @@ func get_terrain_cost(terrain: Terrain.Type) -> float:
 	return unit_profile.movement_profile.get_cost(terrain)
 
 
+func is_max_health() -> bool:
+	return actual_health >= unit_profile.health
+
+
 func can_capture_building(building: Building) -> bool:
 	if building.grid_pos != grid_pos:
 		return false
@@ -90,3 +96,31 @@ func can_capture_building(building: Building) -> bool:
 		return false
 
 	return unit_profile.capture_capacity > 0
+
+
+func can_merge_with_unit(unit: Unit) -> bool:
+	# not on the same cell
+	if unit.grid_pos != grid_pos:
+		return false
+
+	# not the same team
+	if unit.team != team:
+		return false
+
+	# not the same type
+	if unit.unit_profile.type != unit_profile.type:
+		return false
+
+	# both of them are full hp
+	if unit.is_max_health() and is_max_health():
+		return false
+
+	return true
+
+
+func merge_with_unit(unit: Unit) -> void:
+	actual_health += unit.actual_health
+
+	# TODO: add funds if merge lead to reduce health
+	if actual_health > unit_profile.health:
+		actual_health = unit_profile.health
