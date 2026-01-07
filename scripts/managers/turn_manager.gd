@@ -10,9 +10,10 @@ var active_team: Team
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for child in get_children():
-		if child is Team:
-			teams.append(child as Team)
-			print("team added: %s" % child.name)
+		var team :Team = child as Team 
+		if (team != null and not team.neutral_team()):
+			teams.append(team)
+			print("team added: %s" % team.name)
 
 	active_team = teams[0]
 	active_team.start_turn()

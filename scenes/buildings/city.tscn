@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://coewfg6qqq82j"]
+
+[ext_resource type="Script" uid="uid://c0ghc8sqosbe7" path="res://scenes/buildings/building.gd" id="1_fsm37"]
+[ext_resource type="Texture2D" uid="uid://dnhkm7sviseoy" path="res://assets/sprites/phone_wars_sprites.png" id="1_o2xkr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsm37"]
+atlas = ExtResource("1_o2xkr")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ylkap"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsm37")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ylkap"]
+size = Vector2(32, 32)
+
+[node name="City" type="Area2D"]
+script = ExtResource("1_fsm37")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ylkap")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ylkap")

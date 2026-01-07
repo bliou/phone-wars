@@ -132,7 +132,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53ncc"]
-size = Vector2(24, 32)
+size = Vector2(32, 32)
 
 [node name="Soldier" type="Area2D"]
 collision_layer = 2
@@ -142,12 +142,11 @@ movement_profile = SubResource("Resource_e84y0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_op21a")
-animation = &"move_up"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.22097446
+frame_progress = 0.8736939
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4, 0)
 shape = SubResource("RectangleShape2D_53ncc")
 
 [node name="MovementIndicatorComponent" type="Node2D" parent="."]

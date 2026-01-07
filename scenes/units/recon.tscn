@@ -112,7 +112,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_844k1"]
-size = Vector2(24, 20)
+size = Vector2(32, 32)
 
 [node name="Recon" type="Area2D"]
 collision_layer = 2
@@ -125,10 +125,9 @@ movement_profile = SubResource("Resource_f2sao")
 sprite_frames = SubResource("SpriteFrames_psyjl")
 animation = &"move_down"
 autoplay = "idle"
-frame_progress = 0.3662299
+frame_progress = 0.3298041
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_844k1")
 
 [node name="MovementIndicatorComponent" type="Node2D" parent="."]

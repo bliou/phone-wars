@@ -1,5 +1,5 @@
 class_name Unit
-extends Node2D
+extends Area2D
 
 signal unit_moved()
 
