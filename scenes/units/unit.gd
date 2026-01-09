@@ -2,6 +2,7 @@ class_name Unit
 extends Area2D
 
 signal unit_moved()
+signal unit_killed()
 
 @export var speed: float = 100.0
 @export var unit_profile: UnitProfile = null
@@ -124,3 +125,22 @@ func merge_with_unit(unit: Unit) -> void:
 	# TODO: add funds if merge lead to reduce health
 	if actual_health > unit_profile.health:
 		actual_health = unit_profile.health
+
+
+func can_attack_unit(unit: Unit) -> bool:
+	return unit.team != team
+
+
+func attack_unit(unit: Unit) -> void:
+	var attack_dmg: int = CombatManager.compute_damage(self, unit)
+	
+	# check to play an animation
+	unit.take_dmg(attack_dmg)
+
+
+func take_dmg(dmg: int) -> void:
+	actual_health -= dmg
+	print("dmg taken %s / health left %s" %[dmg, actual_health])
+	if actual_health <= 0:
+		unit_killed.emit(self)
+

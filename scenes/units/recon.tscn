@@ -8,6 +8,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j8exu"]
 shader = ExtResource("3_f2sao")
+shader_parameter/disabled = 0.0
 shader_parameter/original_color = Color(0.64705884, 0.64705884, 0.64705884, 1)
 shader_parameter/replace_color = Color(0.5647059, 0.16078432, 0.08235294, 1)
 

@@ -17,6 +17,8 @@ var fsm: StateMachine
 var idle_state: UIIdleState
 var selected_state: UISelectedState
 var moved_state: UIMovedState
+var combat_state: UICombatState
+var attack_preview_state: UIAttackPreviewState
 
 var current_units_manager: UnitsManager
 
@@ -27,6 +29,8 @@ func setup(p_game_manager: GameManager, grid: Grid) -> void:
 	idle_state = UIIdleState.new("ui_idle", self)
 	selected_state = UISelectedState.new("ui_selected", self)
 	moved_state = UIMovedState.new("ui_moved", self)
+	combat_state = UICombatState.new("ui_combat", self)
+	attack_preview_state = UIAttackPreviewState.new("ui_attack_preview", self)
 
 	fsm = StateMachine.new(name, idle_state)
 
@@ -40,6 +44,7 @@ func setup(p_game_manager: GameManager, grid: Grid) -> void:
 	idle_button.pressed.connect(on_idle_clicked)
 	capture_button.pressed.connect(on_capture_clicked)
 	merge_button.pressed.connect(on_merge_clicked)
+	attack_button.pressed.connect(on_attack_clicked)
 
 
 func on_cell_clicked(cell: Vector2i) -> void:
@@ -83,6 +88,11 @@ func on_merge_clicked() -> void:
 	current_units_manager.merge_units()
 	fsm.change_state(idle_state)
 
+
+func on_attack_clicked() -> void:
+	var state: UIState = fsm.current_state as UIState
+	state._on_attack_clicked()
+	
 
 func on_turn_ended() -> void:
 	set_current_units_manager()

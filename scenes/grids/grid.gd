@@ -82,3 +82,22 @@ func get_neighbors(cell: Vector2i) -> Array[Vector2i]:
 		neighbors.append(cell + d)
 
 	return neighbors
+
+
+func get_cells_in_manhattan_range(
+	center: Vector2i,
+	min_range: int,
+	max_range: int
+) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+
+	for dx in range(-max_range, max_range + 1):
+		var dy_limit = max_range - abs(dx)
+		for dy in range(-dy_limit, dy_limit + 1):
+			var dist = abs(dx) + abs(dy)
+			if dist < min_range:
+				continue
+
+			cells.append(center + Vector2i(dx, dy))
+
+	return cells

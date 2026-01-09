@@ -55,7 +55,7 @@ team_type = 0
 team_face_direction = 1
 
 [node name="Soldier3" parent="Teams/BlueTeam/UnitsManager" index="0" instance=ExtResource("5_u82ts")]
-position = Vector2(336, 144)
+position = Vector2(336, 240)
 
 [node name="NeutralTeam" parent="Teams" instance=ExtResource("4_r146u")]
 team_color = Color(0.64705884, 0.64705884, 0.64705884, 1)

@@ -30,3 +30,7 @@ func _on_cell_clicked(_cell: Vector2i) -> void:
 
 func _on_cancel_clicked() -> void:
 	pass
+
+
+func _on_attack_clicked() -> void:
+	pass
