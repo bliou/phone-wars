@@ -8,6 +8,7 @@ func setup(p_units_manager: Array[UnitsManager], p_buildings_manager: Array[Buil
 	units_manager = p_units_manager
 	buildings_manager = p_buildings_manager
 	
+
 func get_unit_at(cell_pos: Vector2i) -> Unit:
 	for um in units_manager:
 		var unit: Unit = um.get_unit_at(cell_pos)
@@ -16,6 +17,24 @@ func get_unit_at(cell_pos: Vector2i) -> Unit:
 
 	return null
 		
+
+func get_units_at(cells: Array[Vector2i]) -> Array[Unit]:
+	var units: Array [Unit] = []
+	for cell in cells:
+		var unit: Unit = get_unit_at(cell)
+		if unit != null:
+			units.append(unit)
+
+	return units
+		
+
+func get_units_positions(units: Array[Unit]) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+
+	for unit in units:
+		cells.append(unit.grid_pos)
+
+	return cells
 
 
 func get_building_at(cell_pos: Vector2i) -> Building:

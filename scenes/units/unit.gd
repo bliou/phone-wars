@@ -9,7 +9,7 @@ signal unit_killed()
 @export var size: Vector2i = Vector2i(32, 32)
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var movement_indicator: MovementIndicatorComponent = $MovementIndicatorComponent
+@onready var movement_indicator: MovementIndicator = $MovementIndicator
 
 var grid_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost
@@ -144,3 +144,6 @@ func take_dmg(dmg: int) -> void:
 	if actual_health <= 0:
 		unit_killed.emit(self)
 
+
+func set_attack_highlight(highlight: bool) -> void:
+	print("set hihglight: ", highlight)

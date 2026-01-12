@@ -1,8 +1,6 @@
 class_name UIController
 extends CanvasLayer
 
-@export var game_manager: GameManager
-
 @onready var cancel_button: Button = $Control/MarginContainer/HBoxContainer/MainPanel/CancelButton
 @onready var end_turn_button: Button = $Control/MarginContainer/HBoxContainer/MainPanel/EndTurnButton
 
@@ -12,6 +10,8 @@ extends CanvasLayer
 @onready var capture_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/CaptureButton
 @onready var merge_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/MergeButton
 
+var game_manager: GameManager
+var attack_indicator: AttackIndicator
 
 var fsm: StateMachine
 var idle_state: UIIdleState
@@ -22,8 +22,9 @@ var attack_preview_state: UIAttackPreviewState
 
 var current_units_manager: UnitsManager
 
-func setup(p_game_manager: GameManager, grid: Grid) -> void:
+func setup(p_game_manager: GameManager, grid: Grid, p_attack_indicator: AttackIndicator) -> void:
 	game_manager = p_game_manager
+	attack_indicator = p_attack_indicator
 	set_current_units_manager()
 
 	idle_state = UIIdleState.new("ui_idle", self)

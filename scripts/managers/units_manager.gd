@@ -172,7 +172,7 @@ func merge_units() -> void:
 
 
 func combat_available() -> bool:
-	var attack_positions: Array[Vector2i] = get_enemy_in_range_of_attack()
+	var attack_positions: Array[Vector2i] = get_cells_in_range_of_attack()
 
 	for ap in attack_positions:
 		var unit: Unit = query_manager.get_unit_at(ap)
@@ -188,15 +188,28 @@ func attack_unit() -> void:
 	confirm_unit_movement()
 
 
-func get_enemy_in_range_of_attack() -> Array[Vector2i]:
+func get_cells_in_range_of_attack() -> Array[Vector2i]:
 	var unit_pos: Vector2i = selected_unit.grid_pos
 	var attack_profile: AttackProfile = selected_unit.unit_profile.attack_profile
 	
 	return grid.get_cells_in_manhattan_range(unit_pos, attack_profile.min_range, attack_profile.max_range)
 
 
+func get_units_in_attack_range() -> Array[Unit]:
+	var attacked_units: Array[Unit] = []
+	var attack_positions: Array[Vector2i] = get_cells_in_range_of_attack()
+	for ap in attack_positions:
+		var unit: Unit = query_manager.get_unit_at(ap)
+		if (unit != null and
+			unit != selected_unit and
+			selected_unit.can_attack_unit(unit)):
+				attacked_units.append(unit)
+
+	return attacked_units
+
+
 func get_enemy_unit_on_cell(cell: Vector2i) -> Unit:
-	var attack_positions: Array[Vector2i] = get_enemy_in_range_of_attack()
+	var attack_positions: Array[Vector2i] = get_cells_in_range_of_attack()
 
 	for ap in attack_positions:
 		var unit: Unit = query_manager.get_unit_at(ap)

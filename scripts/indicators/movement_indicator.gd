@@ -1,4 +1,4 @@
-class_name MovementIndicatorComponent
+class_name MovementIndicator
 extends Node2D
 
 const COLOR := Color(0.2, 0.6, 1.0, 0.25)
@@ -7,6 +7,7 @@ const COLOR := Color(0.2, 0.6, 1.0, 0.25)
 
 func _ready() -> void:
 	visible = false
+
 
 func _draw() -> void:
 	if unit == null:
