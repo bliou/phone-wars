@@ -43,7 +43,8 @@ func try_to_capture_by(unit: Unit) -> void:
 	if unit.team == team:
 		return
 
-	actual_capture_point -= unit.unit_profile.capture_capacity
+	actual_capture_point -= unit.capture_capacity()
+	print("capture_capacity %s / actual_capture_point %s" %[unit.capture_capacity(), actual_capture_point])
 	if actual_capture_point > 0:
 		return
 

@@ -50,6 +50,9 @@ position = Vector2(216, 224)
 [node name="Soldier2" parent="Teams/RedTeam/UnitsManager" index="1" instance=ExtResource("5_u82ts")]
 position = Vector2(264, 224)
 
+[node name="Base" parent="Teams/RedTeam/BuildingsManager" index="0" instance=ExtResource("7_bwuq5")]
+position = Vector2(176, 176)
+
 [node name="BlueTeam" parent="Teams" instance=ExtResource("4_r146u")]
 team_color = Color(0.25502887, 0.2628792, 0.75195503, 1)
 team_type = 0
@@ -63,9 +66,6 @@ team_color = Color(0.64705884, 0.64705884, 0.64705884, 1)
 
 [node name="City" parent="Teams/NeutralTeam/BuildingsManager" index="0" instance=ExtResource("6_u82ts")]
 position = Vector2(240, 176)
-
-[node name="Base" parent="Teams/NeutralTeam/BuildingsManager" index="1" instance=ExtResource("7_bwuq5")]
-position = Vector2(168, 184)
 
 [node name="Managers" type="Node" parent="."]
 

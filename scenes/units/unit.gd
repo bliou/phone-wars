@@ -99,6 +99,13 @@ func can_capture_building(building: Building) -> bool:
 	return unit_profile.capture_capacity > 0
 
 
+func capture_capacity() -> int:
+	var ratio: float = float(actual_health) / unit_profile.health
+
+	print("ratio: ", ratio)
+
+	return round(ratio*unit_profile.capture_capacity)
+
 func can_merge_with_unit(unit: Unit) -> bool:
 	# not on the same cell
 	if unit.grid_pos != grid_pos:
