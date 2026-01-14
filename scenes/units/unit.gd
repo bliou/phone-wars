@@ -9,7 +9,6 @@ signal unit_killed()
 @export var size: Vector2i = Vector2i(32, 32)
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var movement_indicator: MovementIndicator = $MovementIndicator
 
 var grid_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost
@@ -89,14 +88,11 @@ func is_max_health() -> bool:
 	return actual_health >= unit_profile.health
 
 
-func is_same_team(p_team: Team) -> bool:
-	return p_team == team
-
 func can_capture_building(building: Building) -> bool:
 	if building.grid_pos != grid_pos:
 		return false
 
-	if is_same_team(building.team):
+	if team.is_same_team(building.team):
 		return false
 
 	return unit_profile.capture_capacity > 0
@@ -115,7 +111,7 @@ func can_merge_with_unit(unit: Unit) -> bool:
 		return false
 
 	# not the same team
-	if not self.is_same_team(unit.team):
+	if not team.is_same_team(unit.team):
 		return false
 
 	# not the same type
@@ -135,17 +131,6 @@ func merge_with_unit(unit: Unit) -> void:
 	# TODO: add funds if merge lead to reduce health
 	if actual_health > unit_profile.health:
 		actual_health = unit_profile.health
-
-
-func can_attack_unit(unit: Unit) -> bool:
-	return not self.is_same_team(unit.team)
-
-
-func attack_unit(unit: Unit) -> void:
-	var attack_dmg: int = CombatManager.compute_damage(self, unit)
-	
-	# check to play an animation
-	unit.take_dmg(attack_dmg)
 
 
 func take_dmg(dmg: int) -> void:

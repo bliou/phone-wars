@@ -17,7 +17,6 @@ func _enter(_params: Dictionary = {}) -> void:
 func _exit() -> void:
 	unit.animated_sprite.stop()
 	unit.animated_sprite.modulate = Color(1, 1, 1)  # Change color back to white when deselected
-	unit.movement_indicator.hide_move_range()
 
 
 func _process(_delta: float) -> void:

@@ -39,3 +39,7 @@ func is_playable() -> bool:
 
 func neutral_team() -> bool:
 	return team_type == Type.NEUTRAL
+
+
+func is_same_team(team: Team) -> bool:
+	return self == team

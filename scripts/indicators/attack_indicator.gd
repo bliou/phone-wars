@@ -7,7 +7,6 @@ var grid: Grid
 
 var cells: Array[Vector2i] = []
 var units: Array[Unit] = []
-var cell_size := 32
 
 
 func setup(p_grid: Grid):
@@ -18,11 +17,8 @@ func _draw() -> void:
 	for cell in cells:
 		var pos: Vector2 = grid.get_world_position_from_cell(cell)
 		draw_rect(
-			Rect2(
-				Vector2(pos.x - cell_size*0.5, pos.y - cell_size*0.5),
-				Vector2(cell_size, cell_size)
-			),
-			Color(1, 0, 0, 0.4)
+			Rect2(pos-grid.cell_size*0.5, grid.cell_size),
+			COLOR,
 		)
 
 

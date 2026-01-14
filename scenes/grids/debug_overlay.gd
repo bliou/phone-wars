@@ -7,7 +7,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	grid.cell_clicked.connect(on_cell_clicked)
+	grid.cell_short_tap.connect(on_cell_clicked)
 
 func _draw():
 	for grid_map in grid.terrain_layers:

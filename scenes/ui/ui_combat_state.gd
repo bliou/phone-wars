@@ -11,7 +11,7 @@ func _enter(_params: Dictionary = {}) -> void:
 
 
 func _exit() -> void:
-	controller.attack_indicator.clear()
+	controller.indicators_manager.clear()
 
 
 func _process(_delta: float) -> void:
@@ -22,7 +22,7 @@ func _physics_process(_delta: float) -> void:
 	pass
 
 
-func _on_cell_clicked(cell: Vector2i) -> void:
+func _on_cell_tap(cell: Vector2i) -> void:
 	if controller.current_units_manager.can_attack_cell(cell):
 		controller.fsm.change_state(controller.attack_preview_state)
 	

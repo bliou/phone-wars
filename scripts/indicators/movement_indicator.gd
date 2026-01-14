@@ -3,35 +3,29 @@ extends Node2D
 
 const COLOR := Color(0.2, 0.6, 1.0, 0.25)
 
-@onready var unit: Unit = get_parent() as Unit
+var grid: Grid
+var cells: Array[Vector2i] = []
 
-func _ready() -> void:
-	visible = false
+
+func setup(p_grid: Grid):
+	grid = p_grid 
 
 
 func _draw() -> void:
-	if unit == null:
-		return
-
-	for cell: Vector2i in unit.reachable_cells.keys():
-		var offset: Vector2i = cell - unit.grid_pos
-		var local_pos := Vector2(
-			offset.x * unit.size.x,
-			offset.y * unit.size.y
-		)
+	for cell: Vector2i in cells:
+		print("drawing for cell: %s" %cell)
+		var pos: Vector2 = grid.get_world_position_from_cell(cell)
 		draw_rect(
-			Rect2(
-				local_pos - unit.size * 0.5,
-				unit.size
-			),
+			Rect2(pos-grid.cell_size*0.5, grid.cell_size),
 			COLOR,
-			true
 		)
 
 
-func show_move_range():
-	visible = true
+func show_cells(reachable_cells: Array[Vector2i]):
+	cells = reachable_cells
+	queue_redraw()
 
 
-func hide_move_range():
-	visible = false
+func clear():
+	cells.clear()
+	queue_redraw()

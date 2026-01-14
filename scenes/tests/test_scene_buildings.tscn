@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dxril5owa1jv5"]
+[gd_scene load_steps=13 format=4 uid="uid://dxril5owa1jv5"]
 
 [ext_resource type="PackedScene" uid="uid://bqeqp2n1diaug" path="res://scenes/grids/grid.tscn" id="1_gxs1p"]
 [ext_resource type="Script" uid="uid://bkdjbl6q7p7ek" path="res://scripts/indicators/attack_indicator.gd" id="1_u82ts"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://cky8p0fqqxnii" path="res://scripts/managers/input_manager.gd" id="7_6gxhs"]
 [ext_resource type="PackedScene" uid="uid://cbb2legf80c0p" path="res://scenes/buildings/base.tscn" id="7_bwuq5"]
 [ext_resource type="PackedScene" uid="uid://baity5p4rgu1j" path="res://scenes/ui/ui_controller.tscn" id="8_fdo4a"]
+[ext_resource type="Script" uid="uid://ckdden1i04wey" path="res://scripts/managers/indicators_manager.gd" id="10_6hwog"]
+[ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/indicators/movement_indicator.gd" id="11_r146u"]
 
 [node name="TestSceneTiles" type="Node2D"]
 script = ExtResource("3_bwuq5")
@@ -69,14 +71,21 @@ position = Vector2(240, 176)
 
 [node name="Managers" type="Node" parent="."]
 
-[node name="InputManager" type="Node2D" parent="Managers"]
+[node name="InputManager" type="Node" parent="Managers"]
 script = ExtResource("7_6gxhs")
 
 [node name="UIController" parent="." instance=ExtResource("8_fdo4a")]
 
-[node name="AttackIndicator" type="Node2D" parent="."]
+[node name="Indicators" type="Node" parent="."]
+script = ExtResource("10_6hwog")
+
+[node name="AttackIndicator" type="Node2D" parent="Indicators"]
 script = ExtResource("1_u82ts")
 metadata/_custom_type_script = "uid://bkdjbl6q7p7ek"
+
+[node name="MovementIndicator" type="Node2D" parent="Indicators"]
+script = ExtResource("11_r146u")
+metadata/_custom_type_script = "uid://cswx45saif5wp"
 
 [editable path="Teams/RedTeam"]
 [editable path="Teams/BlueTeam"]

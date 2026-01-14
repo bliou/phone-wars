@@ -40,7 +40,7 @@ func set_team(p_team: Team) -> void:
 
 
 func try_to_capture_by(unit: Unit) -> void:
-	if unit.is_same_team(team):
+	if unit.team.is_same_team(team):
 		return
 
 	actual_capture_point -= unit.capture_capacity()

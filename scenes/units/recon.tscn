@@ -1,7 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://csvvf54hn6ta3"]
+[gd_scene load_steps=19 format=3 uid="uid://csvvf54hn6ta3"]
 
 [ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_psyjl"]
-[ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/indicators/movement_indicator.gd" id="2_844k1"]
 [ext_resource type="Resource" uid="uid://dhg03x03melnx" path="res://scenes/units/recon.tres" id="2_lthcx"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://scenes/teams/team_tint.gdshader" id="3_f2sao"]
 [ext_resource type="Texture2D" uid="uid://dw3sqhxufg8t7" path="res://assets/sprites/phone_wars_units.png" id="3_lthcx"]
@@ -132,7 +131,3 @@ frame_progress = 0.002758638
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("RectangleShape2D_844k1")
-
-[node name="MovementIndicator" type="Node2D" parent="."]
-script = ExtResource("2_844k1")
-metadata/_custom_type_script = "uid://cswx45saif5wp"

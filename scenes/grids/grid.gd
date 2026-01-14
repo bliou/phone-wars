@@ -2,7 +2,9 @@ class_name Grid
 extends Node2D
 
 
-signal cell_clicked(cell_position: Vector2i)
+signal cell_short_tap(cell_position: Vector2i)
+signal cell_long_press(cell_position: Vector2i)
+signal cell_long_press_release(cell_position: Vector2i)
 
 var query_manager: QueryManager
 var terrain_node: Node2D
@@ -24,7 +26,9 @@ func setup(input_manager: InputManager, p_query_manager: QueryManager, p_terrain
 	init_terrain_cells()
 
 	# subscribe to input events
-	input_manager.click_detected.connect(on_click_detected)
+	input_manager.short_tap.connect(on_short_tap)
+	input_manager.long_press.connect(on_long_press)
+	input_manager.long_press_release.connect(on_long_press_release)
 
 
 func init_terrain_cells() -> void:
@@ -34,16 +38,30 @@ func init_terrain_cells() -> void:
 			terrain_cells[cell] = Terrain.get_type_from_name(layer.name)
 
 
-func on_click_detected(world_pos: Vector2) -> void:
+func on_short_tap(world_pos: Vector2) -> void:
 	var cell_pos: Vector2i = world_pos / cell_size
-	cell_clicked.emit(cell_pos)
+	cell_short_tap.emit(cell_pos)
+
+
+func on_long_press(world_pos: Vector2) -> void:
+	var cell_pos: Vector2i = world_pos / cell_size
+	cell_long_press.emit(cell_pos)
+
+
+func on_long_press_release(world_pos: Vector2) -> void:
+	var cell_pos: Vector2i = world_pos / cell_size
+	cell_long_press_release.emit(cell_pos)
 
 
 func get_world_position_from_cell(cell_position: Vector2i) -> Vector2:
 	return Vector2(cell_position) * cell_size + cell_size / 2
 
 
-func get_reachable_cells(start: Vector2i, unit: Unit) -> Dictionary:
+# Return a dictionary of all the reachable cells with:
+# key: cell position in grid space
+# value: cost to move into this cell
+func get_reachable_cells(unit: Unit) -> Dictionary:
+	var start: Vector2i = unit.grid_pos
 	var frontier := [{ "cell": start, "cost": 0.0 }]
 	var visited := { start: 0.0 }
 
@@ -67,7 +85,7 @@ func get_reachable_cells(start: Vector2i, unit: Unit) -> Dictionary:
 
 			# cannot walk through enemy units
 			var enemy_unit: Unit = query_manager.get_unit_at(neighbor)
-			if enemy_unit != null and not enemy_unit.is_same_team(unit.team):
+			if enemy_unit != null and not enemy_unit.team.is_same_team(unit.team):
 				continue
 
 			if not visited.has(neighbor) or new_cost < visited[neighbor]:

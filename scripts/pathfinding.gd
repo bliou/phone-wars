@@ -24,7 +24,7 @@ static func find_path(grid: Grid, unit: Unit, start: Vector2i, target: Vector2i)
 				
 			# cannot walk through enemy units
 			var enemy_unit: Unit = grid.query_manager.get_unit_at(next)
-			if enemy_unit != null and not enemy_unit.is_same_team(unit.team):
+			if enemy_unit != null and not enemy_unit.team.is_same_team(unit.team):
 				continue
 
 			var new_cost = cost_so_far[current] + step_cost

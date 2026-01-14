@@ -11,7 +11,7 @@ extends CanvasLayer
 @onready var merge_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/MergeButton
 
 var game_manager: GameManager
-var attack_indicator: AttackIndicator
+var indicators_manager: IndicatorsManager
 
 var fsm: StateMachine
 var idle_state: UIIdleState
@@ -22,9 +22,9 @@ var attack_preview_state: UIAttackPreviewState
 
 var current_units_manager: UnitsManager
 
-func setup(p_game_manager: GameManager, grid: Grid, p_attack_indicator: AttackIndicator) -> void:
+func setup(p_game_manager: GameManager, grid: Grid, p_indicators_manager: IndicatorsManager) -> void:
 	game_manager = p_game_manager
-	attack_indicator = p_attack_indicator
+	indicators_manager = p_indicators_manager
 	set_current_units_manager()
 
 	idle_state = UIIdleState.new("ui_idle", self)
@@ -37,7 +37,9 @@ func setup(p_game_manager: GameManager, grid: Grid, p_attack_indicator: AttackIn
 
 	game_manager.turn_ended.connect(on_turn_ended)
 
-	grid.cell_clicked.connect(on_cell_clicked)
+	grid.cell_short_tap.connect(on_cell_tap)
+	grid.cell_long_press.connect(on_long_press)
+	grid.cell_long_press_release.connect(on_long_press_release)
 
 	cancel_button.pressed.connect(on_cancel_clicked)
 	end_turn_button.pressed.connect(on_end_turn_clicked)
@@ -48,9 +50,19 @@ func setup(p_game_manager: GameManager, grid: Grid, p_attack_indicator: AttackIn
 	attack_button.pressed.connect(on_attack_clicked)
 
 
-func on_cell_clicked(cell: Vector2i) -> void:
+func on_cell_tap(cell: Vector2i) -> void:
 	var state: UIState = fsm.current_state as UIState
-	state._on_cell_clicked(cell)
+	state._on_cell_tap(cell)
+
+
+func on_long_press(cell: Vector2i) -> void:
+	var state: UIState = fsm.current_state as UIState
+	state._on_long_press(cell)
+
+	
+func on_long_press_release(cell: Vector2i) -> void:
+	var state: UIState = fsm.current_state as UIState
+	state._on_long_press_release(cell)
 
 
 func on_unit_selected(_unit: Unit) -> void:
@@ -115,8 +127,12 @@ func set_current_units_manager() -> void:
 
 
 func show_attack_indicator() -> void:
-	var units: Array[Unit] = current_units_manager.get_units_in_attack_range()
+	var unit_context: UnitContext = UnitContext.create_unit_context(current_units_manager.selected_unit)
+	var units: Array[Unit] = current_units_manager.get_units_in_attack_range(unit_context)
 	var cells: Array[Vector2i] = game_manager.query_manager.get_units_positions(units)
 	
-	attack_indicator.show_cells(cells)
-	attack_indicator.highlight_units(units)
+	indicators_manager.show_attack_indicator(cells, units)
+
+
+func show_movement_indicator() -> void:
+	indicators_manager.show_movement_indicator(current_units_manager.selected_unit)
