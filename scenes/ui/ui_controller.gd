@@ -112,3 +112,11 @@ func set_current_units_manager() -> void:
 	current_units_manager.unit_selected.connect(on_unit_selected)
 	current_units_manager.unit_deselected.connect(on_unit_deselected)
 	current_units_manager.unit_moved.connect(on_unit_moved)
+
+
+func show_attack_indicator() -> void:
+	var units: Array[Unit] = current_units_manager.get_units_in_attack_range()
+	var cells: Array[Vector2i] = game_manager.query_manager.get_units_positions(units)
+	
+	attack_indicator.show_cells(cells)
+	attack_indicator.highlight_units(units)

@@ -4,6 +4,7 @@ extends Node2D
 
 signal cell_clicked(cell_position: Vector2i)
 
+var query_manager: QueryManager
 var terrain_node: Node2D
 
 var terrain_layers: Array[TileMapLayer] = []
@@ -12,8 +13,9 @@ var building_cells := {}  # Vector2i → building
 
 var cell_size: Vector2 = Vector2(32, 32)  # default cell size
 
-func setup(input_manager: InputManager, p_terrain_node: Node2D) -> void:
+func setup(input_manager: InputManager, p_query_manager: QueryManager, p_terrain_node: Node2D) -> void:
 	terrain_node = p_terrain_node
+	query_manager = p_query_manager
 
 	for child in terrain_node.get_children():
 		if child is TileMapLayer:
@@ -52,13 +54,20 @@ func get_reachable_cells(start: Vector2i, unit: Unit) -> Dictionary:
 		var cost: float = current.cost
 
 		for neighbor in get_neighbors(cell):
+			# cannot walk on this terrain
 			var terrain: Terrain.Type = terrain_cells.get(neighbor, Terrain.Type.NONE)
 			var step_cost = unit.get_terrain_cost(terrain)
 			if step_cost == INF:
 				continue
 
+			# not enough movement points left
 			var new_cost = cost + step_cost
 			if new_cost > unit.unit_profile.movement_points:
+				continue
+
+			# cannot walk through enemy units
+			var enemy_unit: Unit = query_manager.get_unit_at(neighbor)
+			if enemy_unit != null and not enemy_unit.is_same_team(unit.team):
 				continue
 
 			if not visited.has(neighbor) or new_cost < visited[neighbor]:

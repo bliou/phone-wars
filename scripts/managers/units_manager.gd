@@ -94,9 +94,6 @@ func on_unit_killed(unit: Unit) -> void:
 
 
 func move_unit_to_cell(target_cell: Vector2i) -> void:
-	if not can_move_on_cell(target_cell):
-		return
-
 	var previous_cell: Vector2i = Vector2i(selected_unit.global_position / grid.cell_size)
 
 	var path = get_world_path(selected_unit, previous_cell, target_cell)
@@ -121,9 +118,10 @@ func cancel_unit_movement() -> void:
 
 
 func confirm_unit_movement() -> void:
-	units.erase(move_unit_command.start_cell)
-	units[move_unit_command.target_cell] = selected_unit
-	move_unit_command = null
+	if move_unit_command != null:
+		units.erase(move_unit_command.start_cell)
+		units[move_unit_command.target_cell] = selected_unit
+		move_unit_command = null
 	exhaust_unit()
 
 
@@ -221,3 +219,7 @@ func get_enemy_unit_on_cell(cell: Vector2i) -> Unit:
 				return unit
 
 	return null
+
+
+func can_attack_cell(cell: Vector2i) -> bool:
+	return get_enemy_unit_on_cell(cell) != null

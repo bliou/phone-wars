@@ -16,9 +16,15 @@ static func find_path(grid: Grid, unit: Unit, start: Vector2i, target: Vector2i)
 			break
 
 		for next in grid.get_neighbors(current):
+			# cannot walk on this terrain
 			var terrain: Terrain.Type = grid.terrain_cells.get(next, Terrain.Type.NONE)
 			var step_cost = unit.get_terrain_cost(terrain)
 			if step_cost == INF:
+				continue
+				
+			# cannot walk through enemy units
+			var enemy_unit: Unit = grid.query_manager.get_unit_at(next)
+			if enemy_unit != null and not enemy_unit.is_same_team(unit.team):
 				continue
 
 			var new_cost = cost_so_far[current] + step_cost

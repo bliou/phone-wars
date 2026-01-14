@@ -25,7 +25,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_cancel_clicked() -> void:
-	controller.fsm.change_state(controller.combat_state)
+	controller.fsm.change_state(controller.fsm.previous_state)
 
 
 func _on_attack_clicked() -> void:

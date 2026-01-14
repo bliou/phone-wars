@@ -20,7 +20,7 @@ func _ready() -> void:
 	init_teams()
 
 
-	grid.setup(input_manager, terrain_node)
+	grid.setup(input_manager, query_manager, terrain_node)
 	attack_indicator.setup(grid)
 	ui_controller.setup(self, grid, attack_indicator)
 	
