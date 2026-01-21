@@ -3,14 +3,7 @@ extends UIState
 
 
 func _enter(_params: Dictionary = {}) -> void:
-	controller.action_panel.visible = true
-	controller.idle_button.visible = false
-	controller.capture_button.visible = false
-	controller.merge_button.visible = false
-	controller.attack_button.visible = true
-	controller.cancel_button.visible = true
-	controller.end_turn_button.visible = false
-
+	controller.game_hud.show_attack_preview_state()
 
 func _exit() -> void:
 	pass

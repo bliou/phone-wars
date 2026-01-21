@@ -1,14 +1,10 @@
 class_name UIController
 extends CanvasLayer
 
-@onready var cancel_button: Button = $Control/MarginContainer/HBoxContainer/MainPanel/CancelButton
-@onready var end_turn_button: Button = $Control/MarginContainer/HBoxContainer/MainPanel/EndTurnButton
 
-@onready var action_panel: HBoxContainer = $Control/MarginContainer/HBoxContainer/ActionPanel 
-@onready var idle_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/IdleButton
-@onready var attack_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/AttackButton
-@onready var capture_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/CaptureButton
-@onready var merge_button: Button = $Control/MarginContainer/HBoxContainer/ActionPanel/MergeButton
+@onready var game_hud: GameHUD = $GameHUD
+@onready var unit_preview: UnitPreview = $Previews/UnitPreview
+
 
 var game_manager: GameManager
 var indicators_manager: IndicatorsManager
@@ -41,13 +37,13 @@ func setup(p_game_manager: GameManager, grid: Grid, p_indicators_manager: Indica
 	grid.cell_long_press.connect(on_long_press)
 	grid.cell_long_press_release.connect(on_long_press_release)
 
-	cancel_button.pressed.connect(on_cancel_clicked)
-	end_turn_button.pressed.connect(on_end_turn_clicked)
+	game_hud.cancel_button_clicked.connect(on_cancel_clicked)
+	game_hud.end_turn_button_clicked.connect(on_end_turn_clicked)
 
-	idle_button.pressed.connect(on_idle_clicked)
-	capture_button.pressed.connect(on_capture_clicked)
-	merge_button.pressed.connect(on_merge_clicked)
-	attack_button.pressed.connect(on_attack_clicked)
+	game_hud.idle_button_clicked.connect(on_idle_clicked)
+	game_hud.capture_button_clicked.connect(on_capture_clicked)
+	game_hud.merge_button_clicked.connect(on_merge_clicked)
+	game_hud.attack_button_clicked.connect(on_attack_clicked)
 
 
 func on_cell_tap(cell: Vector2i) -> void:

@@ -3,7 +3,7 @@ extends UIState
 
 func _enter(_params: Dictionary = {}) -> void:
 	controller.visible = true
-	controller.action_panel.visible = false
+	controller.game_hud.show_selected_state()
 	
 	controller.show_attack_indicator()
 	controller.show_movement_indicator()

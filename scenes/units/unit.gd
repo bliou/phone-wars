@@ -8,7 +8,9 @@ signal unit_killed()
 @export var unit_profile: UnitProfile = null
 @export var size: Vector2i = Vector2i(32, 32)
 
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 
 var grid_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost

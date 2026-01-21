@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://coewfg6qqq82j" path="res://scenes/buildings/city.tscn" id="6_u82ts"]
 [ext_resource type="Script" uid="uid://cky8p0fqqxnii" path="res://scripts/managers/input_manager.gd" id="7_6gxhs"]
 [ext_resource type="PackedScene" uid="uid://cbb2legf80c0p" path="res://scenes/buildings/base.tscn" id="7_bwuq5"]
-[ext_resource type="PackedScene" uid="uid://baity5p4rgu1j" path="res://scenes/ui/ui_controller.tscn" id="8_fdo4a"]
+[ext_resource type="PackedScene" uid="uid://baity5p4rgu1j" path="res://scenes/ui/controller/ui_controller.tscn" id="8_fdo4a"]
 [ext_resource type="Script" uid="uid://ckdden1i04wey" path="res://scripts/managers/indicators_manager.gd" id="10_6hwog"]
 [ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/indicators/movement_indicator.gd" id="11_r146u"]
 

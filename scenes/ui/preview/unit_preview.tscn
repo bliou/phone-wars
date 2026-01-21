@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://bt7tkr3udwmg2"]
+
+[ext_resource type="Script" uid="uid://dtuyjnnplso4x" path="res://scenes/ui/preview/unit_preview.gd" id="1_7l1a0"]
+[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://scenes/teams/team_tint.gdshader" id="2_1ktlv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gb44c"]
+shader = ExtResource("2_1ktlv")
+shader_parameter/disabled = 0.0
+shader_parameter/original_color = Color(0, 0, 0, 1)
+shader_parameter/replace_color = Color(0, 0, 0, 1)
+
+[node name="UnitPreview" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7l1a0")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -80.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UnitType" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Infantry"
+
+[node name="UnitSprite" type="TextureRect" parent="Panel/VBoxContainer"]
+material = SubResource("ShaderMaterial_gb44c")
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="UnitHP" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "10 HP"

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://baity5p4rgu1j"]
+
+[ext_resource type="Script" uid="uid://c64es3vgfrpk6" path="res://scenes/ui/controller/ui_controller.gd" id="1_urrig"]
+[ext_resource type="PackedScene" uid="uid://cxnwvpw6ma8gv" path="res://scenes/ui/hud/game_hud.tscn" id="2_fdbyg"]
+[ext_resource type="PackedScene" uid="uid://bt7tkr3udwmg2" path="res://scenes/ui/preview/unit_preview.tscn" id="3_hhg7k"]
+
+[node name="UIController" type="CanvasLayer"]
+script = ExtResource("1_urrig")
+
+[node name="GameHUD" parent="." instance=ExtResource("2_fdbyg")]
+
+[node name="Previews" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="UnitPreview" parent="Previews" instance=ExtResource("3_hhg7k")]
+layout_mode = 1

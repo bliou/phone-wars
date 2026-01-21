@@ -4,14 +4,11 @@ extends UIState
 
 func _enter(_params: Dictionary = {}) -> void:
 	controller.visible = controller.game_manager.active_team.is_playable()
-	controller.action_panel.visible = false
-	controller.cancel_button.visible = false
-	controller.end_turn_button.visible = true
-
+	controller.game_hud.show_idle_state()
+	controller.unit_preview.hide()
 
 func _exit() -> void:
-	controller.cancel_button.visible = true
-	controller.end_turn_button.visible = false
+	controller.game_hud.hide_idle_state()
 
 
 func _process(_delta: float) -> void:
@@ -31,7 +28,7 @@ func _on_long_press(cell: Vector2i) -> void:
 	if unit == null:
 		return
 
-	controller.end_turn_button.visible = false
+	controller.game_hud.hide()
 	
 	var units: Array[Unit] = controller.current_units_manager.get_units_in_attack_range_with_movement(unit)
 	controller.indicators_manager.show_attack_indicator(
@@ -39,10 +36,14 @@ func _on_long_press(cell: Vector2i) -> void:
 		units,
 	)
 
+	controller.unit_preview.update(UnitPreview.UnitPreviewData.new(unit))
+	controller.unit_preview.show()
+
 
 func _on_long_press_release(_cell: Vector2i) -> void:
-	controller.end_turn_button.visible = true
+	controller.game_hud.show()
 	controller.indicators_manager.clear()
+	controller.unit_preview.hide()
 
 	
 func _on_cancel_clicked() -> void:
