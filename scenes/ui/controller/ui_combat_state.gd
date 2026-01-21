@@ -8,7 +8,8 @@ func _enter(_params: Dictionary = {}) -> void:
 
 
 func _exit() -> void:
-	controller.indicators_manager.clear()
+	controller.attack_indicator.clear()
+	controller.movement_indicator.clear()
 
 
 func _process(_delta: float) -> void:

@@ -8,7 +8,6 @@ signal turn_ended()
 @onready var ui_controller: UIController = $UIController
 @onready var terrain_node: Node2D = $Terrain
 @onready var input_manager: InputManager = $Managers/InputManager
-@onready var indicators_manager: IndicatorsManager = $Indicators
 
 
 var teams: Array[Team] = []
@@ -20,8 +19,7 @@ func _ready() -> void:
 	init_teams()
 
 	grid.setup(input_manager, query_manager, terrain_node)
-	indicators_manager.setup(grid)
-	ui_controller.setup(self, grid, indicators_manager)
+	ui_controller.setup(self, grid)
 	
 
 func init_teams() -> void:

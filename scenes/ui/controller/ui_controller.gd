@@ -4,10 +4,11 @@ extends CanvasLayer
 
 @onready var game_hud: GameHUD = $GameHUD
 @onready var unit_preview: UnitPreview = $Previews/UnitPreview
+@onready var movement_indicator: MovementIndicator = $Indicators/MovementIndicator
+@onready var attack_indicator: AttackIndicator = $Indicators/AttackIndicator
 
 
 var game_manager: GameManager
-var indicators_manager: IndicatorsManager
 
 var fsm: StateMachine
 var idle_state: UIIdleState
@@ -18,9 +19,12 @@ var attack_preview_state: UIAttackPreviewState
 
 var current_units_manager: UnitsManager
 
-func setup(p_game_manager: GameManager, grid: Grid, p_indicators_manager: IndicatorsManager) -> void:
+func setup(p_game_manager: GameManager, grid: Grid) -> void:
 	game_manager = p_game_manager
-	indicators_manager = p_indicators_manager
+
+	attack_indicator.setup(grid)
+	movement_indicator.setup(grid)
+
 	set_current_units_manager()
 
 	idle_state = UIIdleState.new("ui_idle", self)
@@ -127,8 +131,11 @@ func show_attack_indicator() -> void:
 	var units: Array[Unit] = current_units_manager.get_units_in_attack_range(unit_context)
 	var cells: Array[Vector2i] = game_manager.query_manager.get_units_positions(units)
 	
-	indicators_manager.show_attack_indicator(cells, units)
+	attack_indicator.show_cells(cells)
+	attack_indicator.highlight_units(units)
 
 
 func show_movement_indicator() -> void:
-	indicators_manager.show_movement_indicator(current_units_manager.selected_unit)
+	var cells: Array[Vector2i] =  []
+	cells.assign(current_units_manager.selected_unit.reachable_cells.keys())
+	movement_indicator.show_cells(cells)

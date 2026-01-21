@@ -31,10 +31,9 @@ func _on_long_press(cell: Vector2i) -> void:
 	controller.game_hud.hide()
 	
 	var units: Array[Unit] = controller.current_units_manager.get_units_in_attack_range_with_movement(unit)
-	controller.indicators_manager.show_attack_indicator(
-		controller.game_manager.query_manager.get_units_positions(units),
-		units,
-	)
+	var cells: Array[Vector2i] = controller.game_manager.query_manager.get_units_positions(units)
+	controller.attack_indicator.show_cells(cells)
+	controller.attack_indicator.highlight_units(units)
 
 	controller.unit_preview.update(UnitPreview.UnitPreviewData.new(unit))
 	controller.unit_preview.show()
@@ -42,7 +41,7 @@ func _on_long_press(cell: Vector2i) -> void:
 
 func _on_long_press_release(_cell: Vector2i) -> void:
 	controller.game_hud.show()
-	controller.indicators_manager.clear()
+	controller.attack_indicator.clear()
 	controller.unit_preview.hide()
 
 	

@@ -10,7 +10,8 @@ func _enter(_params: Dictionary = {}) -> void:
 
 
 func _exit() -> void:
-	controller.indicators_manager.clear()
+	controller.attack_indicator.clear()
+	controller.movement_indicator.clear()
 
 
 func _process(_delta: float) -> void:
@@ -31,7 +32,8 @@ func _on_cell_tap(cell: Vector2i) -> void:
 
 	if controller.current_units_manager.can_move_on_cell(cell):
 		controller.current_units_manager.move_unit_to_cell(cell)
-		controller.indicators_manager.clear()
+		controller.attack_indicator.clear()
+		controller.movement_indicator.clear()
 		return
 
 
