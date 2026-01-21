@@ -7,7 +7,7 @@ extends Control
 
 
 class UnitPreviewData:
-	var type: UnitType.Values = UnitType.Values.INFANTRY
+	var type: UnitType.Values
 	var icon: Texture2D
 	var actual_health: int = 0
 	var team: Team

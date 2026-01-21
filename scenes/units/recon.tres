@@ -11,6 +11,7 @@ metadata/_custom_type_script = "uid://ek5inq6a6e24"
 
 [resource]
 script = ExtResource("2_felq0")
+type = 1
 movement_points = 7
 movement_profile = SubResource("Resource_felq0")
 capture_capacity = 0

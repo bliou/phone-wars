@@ -17,7 +17,7 @@ static func find_path(grid: Grid, unit: Unit, start: Vector2i, target: Vector2i)
 
 		for next in grid.get_neighbors(current):
 			# cannot walk on this terrain
-			var terrain: Terrain.Type = grid.terrain_cells.get(next, Terrain.Type.NONE)
+			var terrain: TerrainType.Values = grid.terrain_manager.get_terrain_type(next)
 			var step_cost = unit.get_terrain_cost(terrain)
 			if step_cost == INF:
 				continue

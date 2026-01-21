@@ -1,41 +1,25 @@
 class_name Grid
 extends Node2D
 
-
 signal cell_short_tap(cell_position: Vector2i)
 signal cell_long_press(cell_position: Vector2i)
 signal cell_long_press_release(cell_position: Vector2i)
 
 var query_manager: QueryManager
-var terrain_node: Node2D
+var terrain_manager: TerrainManager
 
-var terrain_layers: Array[TileMapLayer] = []
-var terrain_cells := {}  # Vector2i → terrain type
 var building_cells := {}  # Vector2i → building
 
 var cell_size: Vector2 = Vector2(32, 32)  # default cell size
 
-func setup(input_manager: InputManager, p_query_manager: QueryManager, p_terrain_node: Node2D) -> void:
-	terrain_node = p_terrain_node
+func setup(input_manager: InputManager, p_query_manager: QueryManager, p_terrain_manager) -> void:
+	terrain_manager = p_terrain_manager
 	query_manager = p_query_manager
-
-	for child in terrain_node.get_children():
-		if child is TileMapLayer:
-			terrain_layers.append(child as TileMapLayer)
-
-	init_terrain_cells()
 
 	# subscribe to input events
 	input_manager.short_tap.connect(on_short_tap)
 	input_manager.long_press.connect(on_long_press)
 	input_manager.long_press_release.connect(on_long_press_release)
-
-
-func init_terrain_cells() -> void:
-	terrain_cells.clear()
-	for layer in terrain_layers:
-		for cell in layer.get_used_cells():
-			terrain_cells[cell] = Terrain.get_type_from_name(layer.name)
 
 
 func on_short_tap(world_pos: Vector2) -> void:
@@ -73,7 +57,7 @@ func get_reachable_cells(unit: Unit) -> Dictionary:
 
 		for neighbor in get_neighbors(cell):
 			# cannot walk on this terrain
-			var terrain: Terrain.Type = terrain_cells.get(neighbor, Terrain.Type.NONE)
+			var terrain: TerrainType.Values = terrain_manager.get_terrain_type(neighbor)
 			var step_cost = unit.get_terrain_cost(terrain)
 			if step_cost == INF:
 				continue

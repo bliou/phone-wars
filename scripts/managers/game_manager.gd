@@ -6,7 +6,7 @@ signal turn_ended()
 
 @onready var grid: Grid = $Grid
 @onready var ui_controller: UIController = $UIController
-@onready var terrain_node: Node2D = $Terrain
+@onready var terrain_manager: TerrainManager = $Terrain
 @onready var input_manager: InputManager = $Managers/InputManager
 
 
@@ -18,7 +18,7 @@ var query_manager: QueryManager = QueryManager.new()
 func _ready() -> void:
 	init_teams()
 
-	grid.setup(input_manager, query_manager, terrain_node)
+	grid.setup(input_manager, query_manager, terrain_manager)
 	ui_controller.setup(self, grid)
 	
 

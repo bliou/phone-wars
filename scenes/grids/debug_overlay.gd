@@ -10,7 +10,7 @@ func _ready() -> void:
 	grid.cell_short_tap.connect(on_cell_clicked)
 
 func _draw():
-	for grid_map in grid.terrain_layers:
+	for grid_map in grid.terrain_manager.terrain_layers:
 		var cell_size = grid_map.tile_set.tile_size
 			
 		# Draw grid

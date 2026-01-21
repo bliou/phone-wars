@@ -82,7 +82,7 @@ func move_following_path(p: Array[Vector2]) -> void:
 	fsm.change_state(moving_state, {"path": p})
 
 
-func get_terrain_cost(terrain: Terrain.Type) -> float:
+func get_terrain_cost(terrain: TerrainType.Values) -> float:
 	return unit_profile.movement_profile.get_cost(terrain)
 
 

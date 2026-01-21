@@ -1,14 +1,27 @@
-[gd_scene load_steps=10 format=4 uid="uid://dxril5owa1jv5"]
+[gd_scene load_steps=19 format=4 uid="uid://dxril5owa1jv5"]
 
 [ext_resource type="PackedScene" uid="uid://bqeqp2n1diaug" path="res://scenes/grids/grid.tscn" id="1_gxs1p"]
 [ext_resource type="TileSet" uid="uid://45ako5jwxjpx" path="res://tilesets/game_tileset_tres.tres" id="2_u82ts"]
 [ext_resource type="Script" uid="uid://cyj1lsu0epdxb" path="res://scripts/managers/game_manager.gd" id="3_bwuq5"]
+[ext_resource type="Script" uid="uid://b4bglf1qv6woa" path="res://scripts/managers/terrain_manager.gd" id="3_r146u"]
+[ext_resource type="Script" uid="uid://3ayikrqceb2l" path="res://scripts/resources/terrains/terrain_database.gd" id="4_6hwog"]
 [ext_resource type="PackedScene" uid="uid://ci7d8ddulm6b5" path="res://scenes/teams/team.tscn" id="4_r146u"]
+[ext_resource type="Script" uid="uid://dnop8yi4lsey8" path="res://scripts/resources/terrains/terrain_data.gd" id="5_6hwog"]
 [ext_resource type="PackedScene" uid="uid://mu0vq50rfsva" path="res://scenes/units/soldier.tscn" id="5_u82ts"]
+[ext_resource type="Resource" uid="uid://bj5me6f7bmym8" path="res://resources/terrains/grass.tres" id="6_5bptm"]
+[ext_resource type="Resource" uid="uid://dwxloe1ridhm3" path="res://resources/terrains/sea.tres" id="6_6gxhs"]
 [ext_resource type="PackedScene" uid="uid://coewfg6qqq82j" path="res://scenes/buildings/city.tscn" id="6_u82ts"]
 [ext_resource type="Script" uid="uid://cky8p0fqqxnii" path="res://scripts/managers/input_manager.gd" id="7_6gxhs"]
 [ext_resource type="PackedScene" uid="uid://cbb2legf80c0p" path="res://scenes/buildings/base.tscn" id="7_bwuq5"]
+[ext_resource type="Resource" uid="uid://me5ftqrn14oh" path="res://resources/terrains/forest.tres" id="7_fdo4a"]
+[ext_resource type="Resource" uid="uid://dgi1ege5lgpb4" path="res://resources/terrains/road.tres" id="8_8td8s"]
 [ext_resource type="PackedScene" uid="uid://baity5p4rgu1j" path="res://scenes/ui/controller/ui_controller.tscn" id="8_fdo4a"]
+[ext_resource type="Resource" uid="uid://c48h8xucyvg1n" path="res://resources/terrains/hill.tres" id="10_k0wbs"]
+
+[sub_resource type="Resource" id="Resource_5bptm"]
+script = ExtResource("4_6hwog")
+terrains = Array[ExtResource("5_6hwog")]([ExtResource("6_6gxhs"), ExtResource("6_5bptm"), ExtResource("7_fdo4a"), ExtResource("8_8td8s"), ExtResource("10_k0wbs")])
+metadata/_custom_type_script = "uid://3ayikrqceb2l"
 
 [node name="TestSceneTiles" type="Node2D"]
 script = ExtResource("3_bwuq5")
@@ -16,8 +29,10 @@ script = ExtResource("3_bwuq5")
 [node name="Grid" parent="." instance=ExtResource("1_gxs1p")]
 
 [node name="Terrain" type="Node2D" parent="."]
+script = ExtResource("3_r146u")
+terrain_database = SubResource("Resource_5bptm")
 
-[node name="Water" type="TileMapLayer" parent="Terrain"]
+[node name="Sea" type="TileMapLayer" parent="Terrain"]
 tile_map_data = PackedByteArray("AAAAAAIAAwAAAAAAAAAAAAMAAwAAAAAAAAAAAAQAAwAAAAAAAAAAAAUAAwAAAAAAAAAAAAYAAwAAAAAAAAAAAAcAAwAAAAAAAAAAAAgAAwAAAAAAAAAAAAkAAwAAAAAAAAABAAIAAwAAAAAAAAABAAMAAwAAAAAAAAABAAQAAwAAAAAAAAABAAUAAwAAAAAAAAABAAYAAwAAAAAAAAABAAcAAwAAAAAAAAABAAgAAwAAAAAAAAABAAkAAwAAAAAAAAACAAIAAwAAAAAAAAACAAMAAwAAAAAAAAACAAQAAwAAAAAAAAACAAUAAwAAAAAAAAACAAYAAwAAAAAAAAACAAcAAwAAAAAAAAACAAgAAwAAAAAAAAACAAkAAwAAAAAAAAADAAIAAwAAAAAAAAADAAMAAwAAAAAAAAADAAQAAwAAAAAAAAADAAUAAwAAAAAAAAADAAYAAwAAAAAAAAADAAcAAwAAAAAAAAADAAgAAwAAAAAAAAADAAkAAwAAAAAAAAAEAAIAAwAAAAAAAAAEAAMAAwAAAAAAAAAEAAQAAwAAAAAAAAAEAAUAAwAAAAAAAAAEAAYAAwAAAAAAAAAEAAcAAwAAAAAAAAAEAAgAAwAAAAAAAAAEAAkAAwAAAAAAAAAFAAIAAwAAAAAAAAAFAAMAAwAAAAAAAAAFAAQAAwAAAAAAAAAFAAUAAwAAAAAAAAAFAAYAAwAAAAAAAAAFAAcAAwAAAAAAAAAFAAgAAwAAAAAAAAAFAAkAAwAAAAAAAAAGAAIAAwAAAAAAAAAGAAMAAwAAAAAAAAAGAAQAAwAAAAAAAAAGAAUAAwAAAAAAAAAGAAYAAwAAAAAAAAAGAAcAAwAAAAAAAAAGAAgAAwAAAAAAAAAGAAkAAwAAAAAAAAAHAAIAAwAAAAAAAAAHAAMAAwAAAAAAAAAHAAQAAwAAAAAAAAAHAAUAAwAAAAAAAAAHAAYAAwAAAAAAAAAHAAcAAwAAAAAAAAAHAAgAAwAAAAAAAAAHAAkAAwAAAAAAAAAIAAIAAwAAAAAAAAAIAAMAAwAAAAAAAAAIAAQAAwAAAAAAAAAIAAUAAwAAAAAAAAAIAAYAAwAAAAAAAAAIAAcAAwAAAAAAAAAIAAgAAwAAAAAAAAAIAAkAAwAAAAAAAAAJAAIAAwAAAAAAAAAJAAMAAwAAAAAAAAAJAAQAAwAAAAAAAAAJAAUAAwAAAAAAAAAJAAYAAwAAAAAAAAAJAAcAAwAAAAAAAAAJAAgAAwAAAAAAAAAJAAkAAwAAAAAAAAAKAAIAAwAAAAAAAAAKAAMAAwAAAAAAAAAKAAQAAwAAAAAAAAAKAAUAAwAAAAAAAAAKAAYAAwAAAAAAAAAKAAcAAwAAAAAAAAAKAAgAAwAAAAAAAAAKAAkAAwAAAAAAAAALAAIAAwAAAAAAAAALAAMAAwAAAAAAAAALAAQAAwAAAAAAAAALAAUAAwAAAAAAAAALAAYAAwAAAAAAAAALAAcAAwAAAAAAAAALAAgAAwAAAAAAAAALAAkAAwAAAAAAAAAMAAIAAwAAAAAAAAAMAAMAAwAAAAAAAAAMAAQAAwAAAAAAAAAMAAUAAwAAAAAAAAAMAAYAAwAAAAAAAAAMAAcAAwAAAAAAAAAMAAgAAwAAAAAAAAAMAAkAAwAAAAAAAAANAAIAAwAAAAAAAAANAAMAAwAAAAAAAAANAAQAAwAAAAAAAAANAAUAAwAAAAAAAAANAAYAAwAAAAAAAAANAAcAAwAAAAAAAAANAAgAAwAAAAAAAAANAAkAAwAAAAAAAAAOAAIAAwAAAAAAAAAOAAMAAwAAAAAAAAAOAAQAAwAAAAAAAAAOAAUAAwAAAAAAAAAOAAYAAwAAAAAAAAAOAAcAAwAAAAAAAAAOAAgAAwAAAAAAAAAOAAkAAwAAAAAAAAA=")
 tile_set = ExtResource("2_u82ts")
 
@@ -33,7 +48,7 @@ tile_set = ExtResource("2_u82ts")
 tile_map_data = PackedByteArray("AAADAAYABAABAAIAAAAEAAYABAADAAAAAAAFAAYABAADAAAAAAAGAAYABAADAAAAAAAHAAYABAADAAAAAAAIAAYABAADAAAAAAAJAAUABAACAAIAAAAJAAQABAACAAIAAAAJAAcABAACAAIAAAAJAAgABAABAAEAAAADAAgABAABAAAAAAAEAAgABAADAAAAAAAFAAgABAADAAAAAAAGAAgABAADAAAAAAAHAAgABAADAAAAAAAIAAgABAADAAAAAAADAAcABAACAAIAAAAJAAYABAACAAEAAAA=")
 tile_set = ExtResource("2_u82ts")
 
-[node name="Mountain" type="TileMapLayer" parent="Terrain"]
+[node name="Hill" type="TileMapLayer" parent="Terrain"]
 tile_map_data = PackedByteArray("AAALAAYABAAEAAAAAAALAAUABAAEAAAAAAALAAQABAAEAAAAAAA=")
 tile_set = ExtResource("2_u82ts")
 

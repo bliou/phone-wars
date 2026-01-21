@@ -8,17 +8,17 @@ extends Resource
 @export var mountain_cost: float = INF
 
 
-func get_cost(terrain_type: Terrain.Type) -> float:
+func get_cost(terrain_type: TerrainType.Values) -> float:
 	match terrain_type:
-		Terrain.Type.ROAD:
+		TerrainType.Values.ROAD:
 			return road_cost
-		Terrain.Type.GRASS:
+		TerrainType.Values.GRASS:
 			return grass_cost
-		Terrain.Type.FOREST:
+		TerrainType.Values.FOREST:
 			return forest_cost
-		Terrain.Type.WATER:
+		TerrainType.Values.SEA:
 			return water_cost
-		Terrain.Type.MOUNTAIN:
+		TerrainType.Values.HILL:
 			return mountain_cost
 		_:
 			return INF

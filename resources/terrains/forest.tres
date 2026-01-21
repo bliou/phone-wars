@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TerrainData" load_steps=4 format=3 uid="uid://me5ftqrn14oh"]
+
+[ext_resource type="Script" uid="uid://dnop8yi4lsey8" path="res://scripts/resources/terrains/terrain_data.gd" id="1_ju8id"]
+[ext_resource type="Texture2D" uid="uid://dnhkm7sviseoy" path="res://assets/sprites/phone_wars_sprites.png" id="1_uley8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju8id"]
+atlas = ExtResource("1_uley8")
+region = Rect2(128, 32, 32, 32)
+
+[resource]
+script = ExtResource("1_ju8id")
+terrain_type = 3
+icon = SubResource("AtlasTexture_ju8id")
+defense_bonus = 2
+metadata/_custom_type_script = "uid://dnop8yi4lsey8"
