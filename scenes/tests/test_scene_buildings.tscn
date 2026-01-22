@@ -87,6 +87,7 @@ position = Vector2(240, 176)
 script = ExtResource("7_6gxhs")
 
 [node name="UIController" parent="." instance=ExtResource("8_fdo4a")]
+visible = false
 
 [editable path="Teams/RedTeam"]
 [editable path="Teams/BlueTeam"]

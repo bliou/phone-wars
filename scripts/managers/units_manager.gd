@@ -169,7 +169,8 @@ func combat_available() -> bool:
 
 
 func attack_unit() -> void:
-	var attack_dmg: float = CombatManager.compute_damage(selected_unit, target_unit)
+	var terrain_data: TerrainData = grid.terrain_manager.get_terrain_data(target_unit.grid_pos)
+	var attack_dmg: float = CombatManager.compute_damage(selected_unit, target_unit, terrain_data)
 	target_unit.take_dmg(attack_dmg)
 	target_unit = null
 	confirm_unit_movement()

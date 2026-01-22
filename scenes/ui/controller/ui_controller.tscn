@@ -15,40 +15,38 @@ script = ExtResource("1_urrig")
 
 [node name="Previews" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 0
-grow_vertical = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Previews"]
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -4.0
+offset_left = -160.0
+offset_bottom = 160.0
 grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/separation = 80
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Previews/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 80
-
-[node name="CombatPreview" parent="Previews/HBoxContainer/VBoxContainer" instance=ExtResource("3_5n6d6")]
-layout_mode = 2
+size_flags_horizontal = 10
+alignment = 1
 
 [node name="UnitPreview" parent="Previews/HBoxContainer/VBoxContainer" instance=ExtResource("3_hhg7k")]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 10
+
+[node name="CombatPreview" parent="Previews/HBoxContainer/VBoxContainer" instance=ExtResource("3_5n6d6")]
+layout_mode = 2
+size_flags_vertical = 10
 
 [node name="TerrainPreview" parent="Previews/HBoxContainer" instance=ExtResource("5_2qvht")]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 
 [node name="Indicators" type="Node" parent="."]
 

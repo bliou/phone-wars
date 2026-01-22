@@ -7,7 +7,7 @@ func _enter(_params: Dictionary = {}) -> void:
 	var attacker: Unit = controller.current_units_manager.selected_unit
 	var target_unit: Unit = controller.current_units_manager.target_unit
 	var terrain_data: TerrainData = controller.grid.terrain_manager.get_terrain_data(target_unit.grid_pos)
-	var estimated_damage: float = CombatManager.compute_damage(attacker, target_unit)
+	var estimated_damage: float = CombatManager.compute_damage(attacker, target_unit, terrain_data)
 
 	controller.unit_preview.update(UnitPreview.UnitPreviewData.new(target_unit))
 	controller.terrain_preview.update(TerrainPreview.TerrainPreviewData.new(terrain_data))
