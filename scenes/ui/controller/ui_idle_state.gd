@@ -5,8 +5,7 @@ extends UIState
 func _enter(_params: Dictionary = {}) -> void:
 	controller.visible = controller.game_manager.active_team.is_playable()
 	controller.game_hud.show_idle_state()
-	controller.unit_preview.hide()
-	controller.terrain_preview.hide()
+
 
 func _exit() -> void:
 	controller.game_hud.hide_idle_state()
@@ -36,19 +35,14 @@ func _on_long_press(cell: Vector2i) -> void:
 	controller.attack_indicator.show_cells(cells)
 	controller.attack_indicator.highlight_units(units)
 
-	var terrain_data: TerrainData = controller.grid.terrain_manager.get_terrain_data(cell)
-
 	controller.unit_preview.update(UnitPreview.UnitPreviewData.new(unit))
-	controller.terrain_preview.update(TerrainPreview.TerrainPreviewData.new(terrain_data))
 	controller.unit_preview.show()
-	controller.terrain_preview.show()
 
 
 func _on_long_press_release(_cell: Vector2i) -> void:
 	controller.game_hud.show()
 	controller.attack_indicator.clear()
 	controller.unit_preview.hide()
-	controller.terrain_preview.hide()
 
 	
 func _on_cancel_clicked() -> void:

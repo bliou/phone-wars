@@ -169,7 +169,7 @@ func combat_available() -> bool:
 
 
 func attack_unit() -> void:
-	var attack_dmg := CombatManager.compute_damage(selected_unit, target_unit)
+	var attack_dmg: float = CombatManager.compute_damage(selected_unit, target_unit)
 	target_unit.take_dmg(attack_dmg)
 	target_unit = null
 	confirm_unit_movement()

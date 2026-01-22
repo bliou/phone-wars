@@ -13,7 +13,6 @@ func setup(p_grid: Grid):
 
 func _draw() -> void:
 	for cell: Vector2i in cells:
-		print("drawing for cell: %s" %cell)
 		var pos: Vector2 = grid.get_world_position_from_cell(cell)
 		draw_rect(
 			Rect2(pos-grid.cell_size*0.5, grid.cell_size),

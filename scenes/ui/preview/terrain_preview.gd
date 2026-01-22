@@ -6,6 +6,10 @@ extends Control
 @onready var terrain_defense: Label = $Panel/VBoxContainer/TerrainDefense
 
 
+func _ready() -> void:
+	visible = false
+	
+
 class TerrainPreviewData:
 	var type: TerrainType.Values
 	var icon: Texture2D

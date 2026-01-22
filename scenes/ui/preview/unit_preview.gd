@@ -6,6 +6,10 @@ extends Control
 @onready var unit_hp: Label = $Panel/VBoxContainer/UnitHP
 
 
+func _ready() -> void:
+	visible = false
+
+
 class UnitPreviewData:
 	var type: UnitType.Values
 	var icon: Texture2D
@@ -18,7 +22,6 @@ class UnitPreviewData:
 		icon = unit.unit_profile.icon.duplicate()
 		team = unit.team
 		
-
 
 func update(upd: UnitPreviewData) -> void:
 	unit_type.text = UnitType.get_name_from_type(upd.type)

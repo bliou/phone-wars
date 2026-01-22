@@ -15,7 +15,7 @@ signal unit_killed()
 var grid_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost
 var exhausted: bool = false
-var actual_health: int = 10
+var actual_health: float = 10.0
 
 var team: Team
 
@@ -101,7 +101,7 @@ func can_capture_building(building: Building) -> bool:
 
 
 func capture_capacity() -> int:
-	var ratio: float = float(actual_health) / unit_profile.health
+	var ratio: float = actual_health / unit_profile.health
 
 	print("ratio: ", ratio)
 
@@ -135,7 +135,7 @@ func merge_with_unit(unit: Unit) -> void:
 		actual_health = unit_profile.health
 
 
-func take_dmg(dmg: int) -> void:
+func take_dmg(dmg: float) -> void:
 	actual_health -= dmg
 	print("dmg taken %s / health left %s" %[dmg, actual_health])
 	if actual_health <= 0:
