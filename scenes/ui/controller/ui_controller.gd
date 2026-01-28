@@ -3,9 +3,7 @@ extends CanvasLayer
 
 
 @onready var game_hud: GameHUD = $GameHUD
-@onready var unit_preview: UnitPreview = $Previews/HBoxContainer/VBoxContainer/UnitPreview
-@onready var combat_preview: CombatPreview = $Previews/HBoxContainer/VBoxContainer/CombatPreview
-@onready var terrain_preview: TerrainPreview = $Previews/HBoxContainer/TerrainPreview
+@onready var combat_preview: CombatPreview = $Previews/CombatPreview
 @onready var movement_indicator: MovementIndicator = $Indicators/MovementIndicator
 @onready var attack_indicator: AttackIndicator = $Indicators/AttackIndicator
 

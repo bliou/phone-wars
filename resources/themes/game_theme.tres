@@ -1,0 +1,65 @@
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://bsa4ociwyndea"]
+
+[ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="1_5t46v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04e2q"]
+atlas = ExtResource("1_5t46v")
+region = Rect2(198, 65, 52, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rg8ou"]
+texture = SubResource("AtlasTexture_04e2q")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_bottom = 1.0
+region_rect = Rect2(0, 0, 51, 13)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mmh2r"]
+load_path = "res://.godot/imported/FreshandModern.png-321dac05a756314ceb0362cc1d1f5d43.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnj8q"]
+atlas = SubResource("CompressedTexture2D_mmh2r")
+region = Rect2(134, 65, 52, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1wcms"]
+texture = SubResource("AtlasTexture_hnj8q")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wcms"]
+atlas = ExtResource("1_5t46v")
+region = Rect2(70, 65, 52, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d7nxg"]
+texture = SubResource("AtlasTexture_1wcms")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x63vt"]
+atlas = ExtResource("1_5t46v")
+region = Rect2(272, 303, 48, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8q6pv"]
+texture = SubResource("AtlasTexture_x63vt")
+texture_margin_left = 5.0
+texture_margin_top = 3.0
+texture_margin_right = 5.0
+texture_margin_bottom = 3.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_428ye"]
+atlas = ExtResource("1_5t46v")
+region = Rect2(212, 420, 56, 44)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_04e2q"]
+texture = SubResource("AtlasTexture_428ye")
+
+[resource]
+Button/font_sizes/font_size = 12
+Button/styles/disabled = SubResource("StyleBoxTexture_rg8ou")
+Button/styles/hover = SubResource("StyleBoxTexture_1wcms")
+Button/styles/normal = SubResource("StyleBoxTexture_d7nxg")
+Button/styles/pressed = SubResource("StyleBoxTexture_8q6pv")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_04e2q")

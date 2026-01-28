@@ -9,17 +9,11 @@ func _enter(_params: Dictionary = {}) -> void:
 	var terrain_data: TerrainData = controller.grid.terrain_manager.get_terrain_data(target_unit.grid_pos)
 	var estimated_damage: float = CombatManager.compute_damage(attacker, target_unit, terrain_data)
 
-	controller.unit_preview.update(UnitPreview.UnitPreviewData.new(target_unit))
-	controller.terrain_preview.update(TerrainPreview.TerrainPreviewData.new(terrain_data))
-	controller.combat_preview.update(CombatPreview.CombatPreviewData.new(estimated_damage))
-	controller.unit_preview.show()
-	controller.terrain_preview.show()
-	controller.combat_preview.show()
+	controller.combat_preview.update(CombatPreview.CombatPreviewData.new(target_unit, terrain_data, estimated_damage), target_unit.global_position)
+	controller.combat_preview.animate_in()
 
 func _exit() -> void:
-	controller.unit_preview.hide()
-	controller.terrain_preview.hide()
-	controller.combat_preview.hide()
+	controller.combat_preview.animate_out()
 
 
 func _process(_delta: float) -> void:

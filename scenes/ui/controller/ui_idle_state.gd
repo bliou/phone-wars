@@ -35,14 +35,14 @@ func _on_long_press(cell: Vector2i) -> void:
 	controller.attack_indicator.show_cells(cells)
 	controller.attack_indicator.highlight_units(units)
 
-	controller.unit_preview.update(UnitPreview.UnitPreviewData.new(unit))
-	controller.unit_preview.show()
+	# controller.unit_preview.update(UnitPreview.UnitPreviewData.new(unit))
+	# controller.unit_preview.show()
 
 
 func _on_long_press_release(_cell: Vector2i) -> void:
 	controller.game_hud.show()
 	controller.attack_indicator.clear()
-	controller.unit_preview.hide()
+	# controller.unit_preview.hide()
 
 	
 func _on_cancel_clicked() -> void:

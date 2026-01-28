@@ -54,7 +54,11 @@ func setup(p_team: Team) -> void:
 
 func set_team(p_team: Team) -> void:
 	team = p_team
-	animated_sprite.material.set_shader_parameter("replace_color", p_team.team_color)
+	var replace_colors: PackedColorArray
+	replace_colors.resize(5)
+	replace_colors[0] = team.team_color
+
+	animated_sprite.material.set_shader_parameter("replace_colors", replace_colors)
 
 
 func select() -> void:
