@@ -21,11 +21,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			on_touch_pressed(event.position)
 		else:
 			on_touch_released(event.position)
-	elif event is InputEventMouseButton:
-		if event.pressed:
-			on_touch_pressed(event.position)
-		else:
-			on_touch_released(event.position)
 
 
 func _process(delta: float) -> void:
