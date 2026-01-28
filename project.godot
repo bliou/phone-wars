@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Phone wars"
+run/main_scene="uid://dxril5owa1jv5"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
@@ -20,8 +21,10 @@ Const="*res://scripts/globals/const.gd"
 
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=320
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/resizable=false
+window/stretch/mode="canvas_items"
 
 [file_customization]
 
@@ -40,6 +43,10 @@ end_turn={
 ]
 }
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [layer_names]
 
 2d_physics/layer_1="Terrain"
@@ -50,3 +57,4 @@ end_turn={
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
