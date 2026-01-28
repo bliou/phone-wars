@@ -4,6 +4,7 @@ extends CanvasLayer
 
 @onready var game_hud: GameHUD = $GameHUD
 @onready var combat_preview: CombatPreview = $Previews/CombatPreview
+@onready var info_preview: InfoPreview = $Previews/InfoPreview
 @onready var movement_indicator: MovementIndicator = $Indicators/MovementIndicator
 @onready var attack_indicator: AttackIndicator = $Indicators/AttackIndicator
 

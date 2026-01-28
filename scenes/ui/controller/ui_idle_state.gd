@@ -24,25 +24,30 @@ func _on_cell_tap(cell: Vector2i) -> void:
 
 
 func _on_long_press(cell: Vector2i) -> void:
-	var unit: Unit = controller.current_units_manager.get_unit_at(cell)
+	var unit: Unit = controller.game_manager.query_manager.get_unit_at(cell)
 	if unit == null:
 		return
 
 	controller.game_hud.hide()
+
+	var terrain_data: TerrainData = controller.grid.terrain_manager.get_terrain_data(unit.grid_pos)
+	controller.info_preview.update(InfoPreview.InfoPreviewData.new(unit, terrain_data), unit.global_position)
+	controller.info_preview.animate_in()
+
+	unit = controller.current_units_manager.get_unit_at(cell)
+	if unit == null:
+		return
 	
 	var units: Array[Unit] = controller.current_units_manager.get_units_in_attack_range_with_movement(unit)
 	var cells: Array[Vector2i] = controller.game_manager.query_manager.get_units_positions(units)
 	controller.attack_indicator.show_cells(cells)
 	controller.attack_indicator.highlight_units(units)
 
-	# controller.unit_preview.update(UnitPreview.UnitPreviewData.new(unit))
-	# controller.unit_preview.show()
-
 
 func _on_long_press_release(_cell: Vector2i) -> void:
 	controller.game_hud.show()
 	controller.attack_indicator.clear()
-	# controller.unit_preview.hide()
+	controller.info_preview.animate_out()
 
 	
 func _on_cancel_clicked() -> void:

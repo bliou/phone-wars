@@ -1,13 +1,14 @@
-class_name CombatPreview
+class_name InfoPreview
 extends Control
 
 @onready var panel_container: PanelContainer = $PanelContainer
 @onready var border_texture: TextureRect = $BorderAnimation
-@onready var damage_preview_label: Label = $PanelContainer/MarginContainer/VBoxContainer/DamagePreview
-@onready var defender_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/DefenderIcon
-@onready var defender_hp_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/DefenderHP
-@onready var terrain_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TerrainIcon
-@onready var terrain_def_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TerrainDef
+@onready var unit_type_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/UnitType
+@onready var unit_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/UnitIcon
+@onready var unit_hp_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/UnitHP
+@onready var terrain_type_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/TerrainType
+@onready var terrain_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/TerrainIcon
+@onready var terrain_def_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/TerrainDef
 
 
 func _ready() -> void:
@@ -24,27 +25,30 @@ func _notification(what):
 		update_border()
 
 
-class CombatPreviewData:
-	var damage_preview: float
-	var defender_icon: Texture2D
-	var defender_hp: float = 0
+class InfoPreviewData:
+	var unit_type: String
+	var unit_icon: Texture2D
+	var unit_hp: float = 0
+	var terrain_type: String
 	var terrain_icon: Texture2D
 	var terrain_def: int
 
-	func _init(unit: Unit, terrain_data: TerrainData, estimated_damage: float) -> void:
-		damage_preview = estimated_damage*10
-		defender_icon = unit.unit_profile.icon.duplicate()
-		defender_hp = unit.actual_health
+	func _init(unit: Unit, terrain_data: TerrainData) -> void:
+		unit_type = UnitType.get_name_from_type(unit.unit_profile.type)
+		unit_icon = unit.unit_profile.icon.duplicate()
+		unit_hp = unit.actual_health
+		terrain_type = TerrainType.get_name_from_type(terrain_data.terrain_type)
 		terrain_icon = terrain_data.icon.duplicate()
 		terrain_def = terrain_data.defense_bonus
 
 
-func update(cpd: CombatPreviewData, target_pos: Vector2) -> void:
-	damage_preview_label.text = "-%s %%" % cpd.damage_preview
-	defender_icon.texture = cpd.defender_icon
-	defender_hp_label.text = "%s" %int(cpd.defender_hp)
-	terrain_icon.texture = cpd.terrain_icon
-	terrain_def_label.text = "+%s" %cpd.terrain_def
+func update(ipd: InfoPreviewData, target_pos: Vector2) -> void:
+	unit_type_label.text = ipd.unit_type
+	unit_icon.texture = ipd.unit_icon
+	unit_hp_label.text = "%s" %int(ipd.unit_hp)
+	terrain_type_label.text = ipd.terrain_type
+	terrain_icon.texture = ipd.terrain_icon
+	terrain_def_label.text = "+%s" %ipd.terrain_def
 
 	position_dialog(target_pos)
 
