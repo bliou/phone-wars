@@ -10,6 +10,7 @@ signal unit_killed()
 
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hp_label_component: HPLabelComponent = $HPLabelComponent
 
 
 var grid_pos: Vector2i = Vector2i.ZERO
@@ -59,6 +60,9 @@ func set_team(p_team: Team) -> void:
 	replace_colors[0] = team.team_color
 
 	animated_sprite.material.set_shader_parameter("replace_colors", replace_colors)
+
+	if team.team_face_direction == team.FaceDirection.LEFT:
+		hp_label_component.revert()
 
 
 func select() -> void:
@@ -144,6 +148,8 @@ func take_dmg(dmg: float) -> void:
 	print("dmg taken %s / health left %s" %[dmg, actual_health])
 	if actual_health <= 0:
 		unit_killed.emit(self)
+	else:
+		hp_label_component.update(actual_health)
 
 
 func set_attack_highlight(highlight: bool) -> void:
