@@ -44,9 +44,11 @@ func _physics_process(delta: float) -> void:
 	if direction == Vector2.RIGHT:
 		unit.animated_sprite.play("move_left")
 		unit.animated_sprite.flip_h = true
+		unit.facing = FaceDirection.Values.RIGHT
 	elif direction == Vector2.LEFT:
 		unit.animated_sprite.play("move_left")
 		unit.animated_sprite.flip_h = false
+		unit.facing = FaceDirection.Values.LEFT
 	elif direction == Vector2.UP:
 		unit.animated_sprite.play("move_up")
 	elif direction == Vector2.DOWN:

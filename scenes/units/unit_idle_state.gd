@@ -9,6 +9,7 @@ func _init(state_name: String, p_unit: Unit) -> void:
 
 
 func _enter(_params: Dictionary = {}) -> void:
+	print("entering idle state")
 	unit.idling()
 
 

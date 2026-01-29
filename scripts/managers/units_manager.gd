@@ -26,6 +26,7 @@ func init_units(team: Team) -> void:
 			var cell_pos: Vector2i = Vector2i(unit.position / grid.cell_size)
 			units[cell_pos] = unit
 			unit.grid_pos = cell_pos
+			unit.position = Vector2(cell_pos) * grid.cell_size + grid.cell_size*0.5
 			unit.unit_moved.connect(on_unit_moved)
 			unit.unit_killed.connect(on_unit_killed)
 			unit.setup(team)
@@ -168,10 +169,7 @@ func combat_available() -> bool:
 	return targets.size() > 0
 
 
-func attack_unit() -> void:
-	var terrain_data: TerrainData = grid.terrain_manager.get_terrain_data(target_unit.grid_pos)
-	var attack_dmg: float = CombatManager.compute_damage(selected_unit, target_unit, terrain_data)
-	target_unit.take_dmg(attack_dmg)
+func unit_attack_done() -> void:
 	target_unit = null
 	confirm_unit_movement()
 

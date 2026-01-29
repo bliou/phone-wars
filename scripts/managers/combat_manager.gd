@@ -1,5 +1,23 @@
 class_name CombatManager
 
+class CombatResult:
+	var attacker: Unit
+	var defender: Unit
+	var terrain: TerrainData
+	var damage: float
+	var defender_killed: bool
+
+
+static func resolve_combat(attacker: Unit, defender: Unit, defense_terrain: TerrainData) -> CombatResult:
+	var result: CombatResult = CombatResult.new()
+	result.attacker = attacker
+	result.defender = defender
+	result.terrain = defense_terrain
+	result.damage = compute_damage(attacker, defender, defense_terrain)
+	result.defender_killed = defender.actual_health - result.damage <= 0
+
+	return result
+
 
 static func compute_damage(attacker: Unit, defender: Unit, defense_terrain: TerrainData) -> float:
 	var atk_profile = attacker.unit_profile.attack_profile

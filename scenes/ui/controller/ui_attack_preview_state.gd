@@ -29,5 +29,11 @@ func _on_cancel_clicked() -> void:
 
 
 func _on_attack_clicked() -> void:
-	controller.current_units_manager.attack_unit()
+	var attacker: Unit = controller.current_units_manager.selected_unit
+	var defender: Unit = controller.current_units_manager.target_unit
+	var terrain_data: TerrainData = controller.grid.terrain_manager.get_terrain_data(defender.grid_pos)
+
 	controller.fsm.change_state(controller.idle_state)
+
+	await controller.combat_orchestrator.execute(attacker, defender, terrain_data)
+	controller.current_units_manager.unit_attack_done()

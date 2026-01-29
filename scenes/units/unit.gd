@@ -7,10 +7,13 @@ signal unit_killed()
 @export var speed: float = 100.0
 @export var unit_profile: UnitProfile = null
 @export var size: Vector2i = Vector2i(32, 32)
+@export var shake_strength := 2.0
 
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var hp_label_component: HPLabelComponent = $HPLabelComponent
+@onready var explosion_scene: PackedScene = preload("res://scenes/vfx/explosion.tscn")
 
 
 var grid_pos: Vector2i = Vector2i.ZERO
@@ -19,6 +22,7 @@ var exhausted: bool = false
 var actual_health: float = 10.0
 
 var team: Team
+var facing: FaceDirection.Values
 
 var fsm: StateMachine
 var idle_state: UnitIdleState
@@ -58,6 +62,7 @@ func set_team(p_team: Team) -> void:
 	var replace_colors: PackedColorArray
 	replace_colors.resize(5)
 	replace_colors[0] = team.team_color
+	facing = team.face_direction
 
 	animated_sprite.material.set_shader_parameter("replace_colors", replace_colors)
 
@@ -80,7 +85,8 @@ func ready_to_move() -> void:
 
 func idling() -> void:
 	animated_sprite.play("idle")
-	animated_sprite.flip_h = team.team_face_direction == Team.FaceDirection.RIGHT
+	animated_sprite.flip_h = facing == FaceDirection.Values.RIGHT
+
 
 func move_following_path(p: Array[Vector2]) -> void:
 	if p.is_empty():
@@ -147,11 +153,49 @@ func merge_with_unit(unit: Unit) -> void:
 func take_dmg(dmg: float) -> void:
 	actual_health -= dmg
 	print("dmg taken %s / health left %s" %[dmg, actual_health])
-	if actual_health <= 0:
-		unit_killed.emit(self)
-	else:
-		hp_label_component.update(actual_health)
+	hp_label_component.update(actual_health)
+
+
+func die() -> void:
+	animated_sprite.visible = false
+
+	var explosion: Explosion = explosion_scene.instantiate()
+	explosion.global_position = global_position
+	get_tree().root.add_child(explosion)
+
+	await explosion.finished
+
+	unit_killed.emit(self)
 
 
 func set_attack_highlight(highlight: bool) -> void:
 	print("set hihglight: ", highlight)
+
+
+func attack(defender: Unit) -> void:
+	if defender.global_position.x < global_position.x:
+		facing = FaceDirection.Values.LEFT
+	elif defender.global_position.x < global_position.x:
+		facing = FaceDirection.Values.RIGHT
+
+	animated_sprite.flip_h = facing == FaceDirection.Values.RIGHT
+	animation_player.play("attack")
+	unit_profile.weapon._play_attack(self, defender)
+
+	await animation_player.animation_finished
+
+func play_hit_reaction() -> void:
+	var tween: Tween = create_tween()
+	var pos: Vector2 = position
+
+	# shake
+	tween.tween_property(self, "position:x", position.x + 4, 0.05).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "position:x", position.x - 4, 0.05)
+
+	# blink
+	tween.parallel().tween_property(self, "modulate", Color(1,1,1,0.2), 0.05)
+	tween.parallel().tween_property(self, "modulate", Color.WHITE, 0.05)
+
+	await tween.finished
+
+	position = pos

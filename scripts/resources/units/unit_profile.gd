@@ -11,3 +11,5 @@ extends Resource
 
 @export var attack_profile: AttackProfile
 @export var defense_profile: DefenseProfile
+
+@export var weapon: Weapon

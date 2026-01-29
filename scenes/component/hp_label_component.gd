@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func update(health: float) -> void:
-	if health >= Const.MAX_HP:
+	if health >= Const.MAX_HP or health <= 0:
 		visible = false
 		return
 

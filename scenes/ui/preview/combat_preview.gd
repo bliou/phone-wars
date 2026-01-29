@@ -80,12 +80,12 @@ func animate_out():
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.2)
 
 
-func position_dialog(screen_pos: Vector2):
+func position_dialog(world_pos: Vector2):
 	var dialog_size := panel_container.size
 	var viewport_size := get_viewport_rect().size
 
 
-	var pos := screen_pos + Vector2(0, -dialog_size.y)
+	var pos := world_pos + Vector2(0, -dialog_size.y)
 
 	# Clamp inside screen
 	pos.x = clamp(pos.x, 0, viewport_size.x - dialog_size.x)

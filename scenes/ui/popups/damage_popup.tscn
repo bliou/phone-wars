@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxdifupvx7yvu"]
+
+[ext_resource type="Script" uid="uid://cdamwxca7jgbe" path="res://scenes/ui/popups/damage_popup.gd" id="1_yirpm"]
+
+[node name="DamagePopup" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_yirpm")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "-5"

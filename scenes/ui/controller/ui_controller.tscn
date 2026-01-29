@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://baity5p4rgu1j"]
+[gd_scene load_steps=8 format=3 uid="uid://baity5p4rgu1j"]
 
 [ext_resource type="Script" uid="uid://c64es3vgfrpk6" path="res://scenes/ui/controller/ui_controller.gd" id="1_urrig"]
 [ext_resource type="PackedScene" uid="uid://cxnwvpw6ma8gv" path="res://scenes/ui/hud/game_hud.tscn" id="2_fdbyg"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dbvtob4kw1eil" path="res://scenes/ui/preview/info_preview.tscn" id="4_c3s8q"]
 [ext_resource type="Script" uid="uid://bkdjbl6q7p7ek" path="res://scripts/indicators/attack_indicator.gd" id="5_5n6d6"]
 [ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/indicators/movement_indicator.gd" id="6_2qvht"]
+[ext_resource type="PackedScene" uid="uid://cxdifupvx7yvu" path="res://scenes/ui/popups/damage_popup.tscn" id="7_5n6d6"]
 
 [node name="UIController" type="CanvasLayer"]
 script = ExtResource("1_urrig")
@@ -44,3 +45,12 @@ metadata/_custom_type_script = "uid://bkdjbl6q7p7ek"
 [node name="MovementIndicator" type="Node2D" parent="Indicators"]
 script = ExtResource("6_2qvht")
 metadata/_custom_type_script = "uid://cswx45saif5wp"
+
+[node name="Popups" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DamagePopup" parent="Popups" instance=ExtResource("7_5n6d6")]
+layout_mode = 0

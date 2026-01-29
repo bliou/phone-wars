@@ -3,14 +3,18 @@ extends CanvasLayer
 
 
 @onready var game_hud: GameHUD = $GameHUD
+
 @onready var combat_preview: CombatPreview = $Previews/CombatPreview
 @onready var info_preview: InfoPreview = $Previews/InfoPreview
+
 @onready var movement_indicator: MovementIndicator = $Indicators/MovementIndicator
 @onready var attack_indicator: AttackIndicator = $Indicators/AttackIndicator
 
+@onready var damage_popup: DamagePopup = $Popups/DamagePopup
 
 var game_manager: GameManager
 var grid: Grid
+var combat_orchestrator: CombatOrchestrator
 
 var fsm: StateMachine
 var idle_state: UIIdleState
@@ -21,12 +25,14 @@ var attack_preview_state: UIAttackPreviewState
 
 var current_units_manager: UnitsManager
 
-func setup(p_game_manager: GameManager, p_grid: Grid) -> void:
+func setup(p_game_manager: GameManager) -> void:
 	game_manager = p_game_manager
-	grid = p_grid
+	grid = p_game_manager.grid
+	combat_orchestrator = p_game_manager.combat_orchestrator
 
-	attack_indicator.setup(p_grid)
-	movement_indicator.setup(p_grid)
+	attack_indicator.setup(grid)
+	movement_indicator.setup(grid)
+	combat_orchestrator.set_damage_popup(damage_popup)
 
 	set_current_units_manager()
 
@@ -40,9 +46,9 @@ func setup(p_game_manager: GameManager, p_grid: Grid) -> void:
 
 	game_manager.turn_ended.connect(on_turn_ended)
 
-	p_grid.cell_short_tap.connect(on_cell_tap)
-	p_grid.cell_long_press.connect(on_long_press)
-	p_grid.cell_long_press_release.connect(on_long_press_release)
+	grid.cell_short_tap.connect(on_cell_tap)
+	grid.cell_long_press.connect(on_long_press)
+	grid.cell_long_press_release.connect(on_long_press_release)
 
 	game_hud.cancel_button_clicked.connect(on_cancel_clicked)
 	game_hud.end_turn_button_clicked.connect(on_end_turn_clicked)

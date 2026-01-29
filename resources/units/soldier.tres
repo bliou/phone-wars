@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="UnitProfile" load_steps=10 format=3 uid="uid://ci1bjji27j03c"]
+[gd_resource type="Resource" script_class="UnitProfile" load_steps=13 format=3 uid="uid://ci1bjji27j03c"]
 
 [ext_resource type="Script" uid="uid://dhqeb02d40my3" path="res://scripts/resources/units/attack_profile.gd" id="1_bowyl"]
 [ext_resource type="Script" uid="uid://c1aqkr7x3kn1d" path="res://scripts/resources/units/defense_profile.gd" id="2_7cwwr"]
 [ext_resource type="Texture2D" uid="uid://4s5acvi86j8q" path="res://assets/sprites/phone_wars_units.png" id="3_as5rl"]
 [ext_resource type="Script" uid="uid://ek5inq6a6e24" path="res://scripts/resources/units/movement_profile.gd" id="4_x725v"]
 [ext_resource type="Script" uid="uid://c5bqt1boq7g83" path="res://scripts/resources/units/unit_profile.gd" id="5_lf731"]
+[ext_resource type="PackedScene" uid="uid://bro6ulb3ikndb" path="res://scenes/vfx/bullet.tscn" id="6_as5rl"]
+[ext_resource type="Script" uid="uid://b06l06gkgnqmh" path="res://scripts/resources/weapons/machine_gun_weapon.gd" id="7_as5rl"]
 
 [sub_resource type="Resource" id="Resource_c6t5x"]
 script = ExtResource("1_bowyl")
-dmg_vs_light = 5.5
 metadata/_custom_type_script = "uid://dhqeb02d40my3"
 
 [sub_resource type="Resource" id="Resource_vgl3c"]
@@ -24,10 +25,15 @@ script = ExtResource("4_x725v")
 mountain_cost = 2.0
 metadata/_custom_type_script = "uid://ek5inq6a6e24"
 
+[sub_resource type="Resource" id="Resource_lf731"]
+script = ExtResource("7_as5rl")
+metadata/_custom_type_script = "uid://b06l06gkgnqmh"
+
 [resource]
 script = ExtResource("5_lf731")
 icon = SubResource("AtlasTexture_nd3el")
 movement_profile = SubResource("Resource_y1odh")
 attack_profile = SubResource("Resource_c6t5x")
 defense_profile = SubResource("Resource_vgl3c")
+weapon = SubResource("Resource_lf731")
 metadata/_custom_type_script = "uid://c5bqt1boq7g83"
