@@ -8,10 +8,6 @@ func _ready() -> void:
 	visible = false
 
 
-func revert() -> void:
-	position.x *= (-1)
-
-
 func update(health: float) -> void:
 	if health >= Const.MAX_HP:
 		visible = false

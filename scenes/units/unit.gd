@@ -61,9 +61,6 @@ func set_team(p_team: Team) -> void:
 
 	animated_sprite.material.set_shader_parameter("replace_colors", replace_colors)
 
-	if team.team_face_direction == team.FaceDirection.LEFT:
-		hp_label_component.revert()
-
 
 func select() -> void:
 	fsm.change_state(selected_state)
@@ -80,6 +77,10 @@ func exhaust() -> void:
 func ready_to_move() -> void:
 	fsm.change_state(idle_state)
 	
+
+func idling() -> void:
+	animated_sprite.play("idle")
+	animated_sprite.flip_h = team.team_face_direction == Team.FaceDirection.RIGHT
 
 func move_following_path(p: Array[Vector2]) -> void:
 	if p.is_empty():

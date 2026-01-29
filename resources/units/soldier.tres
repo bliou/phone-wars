@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhqeb02d40my3" path="res://scripts/resources/units/attack_profile.gd" id="1_bowyl"]
 [ext_resource type="Script" uid="uid://c1aqkr7x3kn1d" path="res://scripts/resources/units/defense_profile.gd" id="2_7cwwr"]
-[ext_resource type="Texture2D" uid="uid://dw3sqhxufg8t7" path="res://assets/sprites/phone_wars_units.png" id="3_as5rl"]
+[ext_resource type="Texture2D" uid="uid://4s5acvi86j8q" path="res://assets/sprites/phone_wars_units.png" id="3_as5rl"]
 [ext_resource type="Script" uid="uid://ek5inq6a6e24" path="res://scripts/resources/units/movement_profile.gd" id="4_x725v"]
 [ext_resource type="Script" uid="uid://c5bqt1boq7g83" path="res://scripts/resources/units/unit_profile.gd" id="5_lf731"]
 
@@ -17,7 +17,7 @@ metadata/_custom_type_script = "uid://c1aqkr7x3kn1d"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nd3el"]
 atlas = ExtResource("3_as5rl")
-region = Rect2(7, 3, 17, 27)
+region = Rect2(16, 30, 28, 32)
 
 [sub_resource type="Resource" id="Resource_y1odh"]
 script = ExtResource("4_x725v")

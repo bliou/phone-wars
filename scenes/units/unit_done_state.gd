@@ -9,8 +9,7 @@ func _init(state_name: String, p_unit: Unit) -> void:
 
 
 func _enter(_params: Dictionary = {}) -> void:
-	unit.animated_sprite.play("idle")
-	unit.animated_sprite.flip_h = unit.team.team_face_direction == Team.FaceDirection.LEFT
+	unit.idling()
 	unit.animated_sprite.material.set_shader_parameter("disabled", 0.5)
 	unit.exhausted = true
 

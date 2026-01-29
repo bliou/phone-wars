@@ -8,14 +8,14 @@ enum Type {
 }
 
 enum FaceDirection {
-	RIGHT,
 	LEFT,
+	RIGHT,
 }
 
 @export var team_id: int = 1
 @export var team_color: Color = Color.BLACK
 @export var team_type: Type = Type.NEUTRAL
-@export var team_face_direction: FaceDirection = FaceDirection.RIGHT
+@export var team_face_direction: FaceDirection = FaceDirection.LEFT
 
 @onready var units_manager: UnitsManager = $UnitsManager
 @onready var buildings_manager: BuildingsManager = $BuildingsManager

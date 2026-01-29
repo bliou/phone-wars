@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_53ncc"]
 [ext_resource type="Resource" uid="uid://ci1bjji27j03c" path="res://resources/units/soldier.tres" id="2_rdxj4"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_e84y0"]
-[ext_resource type="Texture2D" uid="uid://dw3sqhxufg8t7" path="res://assets/sprites/phone_wars_units.png" id="3_rdxj4"]
+[ext_resource type="Texture2D" uid="uid://4s5acvi86j8q" path="res://assets/sprites/phone_wars_units.png" id="3_rdxj4"]
 [ext_resource type="PackedScene" uid="uid://cot0bb48uebej" path="res://scenes/component/hp_label_component.tscn" id="5_e84y0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y1odh"]
@@ -14,59 +14,59 @@ shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e84y0"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(0, 2, 32, 32)
+region = Rect2(14, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y1odh"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(32, 2, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rdxj4"]
-atlas = ExtResource("3_rdxj4")
-region = Rect2(0, 66, 32, 32)
+region = Rect2(46, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bfsu2"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(32, 66, 32, 32)
+region = Rect2(362, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vidan"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(66, 64, 32, 32)
+region = Rect2(394, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kwy5l"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(98, 64, 32, 32)
+region = Rect2(426, 30, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrs2i"]
+atlas = ExtResource("3_rdxj4")
+region = Rect2(458, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0fwtf"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(2, 33, 32, 32)
+region = Rect2(86, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2vmbf"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(34, 33, 32, 32)
+region = Rect2(118, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nfbd1"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(66, 32, 32, 32)
+region = Rect2(150, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7ffbf"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(98, 32, 32, 32)
+region = Rect2(182, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7b6jb"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(2, 103, 32, 32)
+region = Rect2(228, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s7tod"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(34, 103, 32, 32)
+region = Rect2(260, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_01q6a"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(66, 103, 32, 32)
+region = Rect2(292, 30, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v8d1b"]
 atlas = ExtResource("3_rdxj4")
-region = Rect2(98, 103, 32, 32)
+region = Rect2(324, 30, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_op21a"]
 animations = [{
@@ -83,9 +83,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rdxj4")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_bfsu2")
 }, {
 "duration": 1.0,
@@ -93,6 +90,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kwy5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrs2i")
 }],
 "loop": true,
 "name": &"move_down",
@@ -112,7 +112,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_7ffbf")
 }],
 "loop": true,
-"name": &"move_right",
+"name": &"move_left",
 "speed": 5.0
 }, {
 "frames": [{
@@ -130,7 +130,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"move_up",
-"speed": 3.0
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53ncc"]
@@ -148,7 +148,7 @@ material = SubResource("ShaderMaterial_y1odh")
 sprite_frames = SubResource("SpriteFrames_op21a")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.30663878
+frame_progress = 0.6857405
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

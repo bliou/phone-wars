@@ -57,6 +57,7 @@ tile_set = ExtResource("2_u82ts")
 [node name="RedTeam" parent="Teams" instance=ExtResource("4_r146u")]
 team_color = Color(0.5647059, 0.16078432, 0.08235294, 1)
 team_type = 0
+team_face_direction = 1
 
 [node name="Soldier" parent="Teams/RedTeam/UnitsManager" index="0" instance=ExtResource("5_u82ts")]
 position = Vector2(216, 224)
@@ -70,7 +71,6 @@ position = Vector2(176, 176)
 [node name="BlueTeam" parent="Teams" instance=ExtResource("4_r146u")]
 team_color = Color(0.25502887, 0.2628792, 0.75195503, 1)
 team_type = 0
-team_face_direction = 1
 
 [node name="Soldier3" parent="Teams/BlueTeam/UnitsManager" index="0" instance=ExtResource("5_u82ts")]
 position = Vector2(368, 208)

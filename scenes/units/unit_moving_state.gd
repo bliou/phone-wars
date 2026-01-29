@@ -12,7 +12,7 @@ func _init(state_name: String, p_unit: Unit) -> void:
 
 
 func _enter(params: Dictionary = {}) -> void:
-	unit.animated_sprite.play("move_right")
+	unit.animated_sprite.play("move_left")
 	currentPathIndex = 0
 	path = params.get("path", [])
 
@@ -42,11 +42,11 @@ func _physics_process(delta: float) -> void:
 	direction = direction.snappedf((0.1))
 
 	if direction == Vector2.RIGHT:
-		unit.animated_sprite.play("move_right")
-		unit.animated_sprite.flip_h = false
-	elif direction == Vector2.LEFT:
-		unit.animated_sprite.play("move_right")
+		unit.animated_sprite.play("move_left")
 		unit.animated_sprite.flip_h = true
+	elif direction == Vector2.LEFT:
+		unit.animated_sprite.play("move_left")
+		unit.animated_sprite.flip_h = false
 	elif direction == Vector2.UP:
 		unit.animated_sprite.play("move_up")
 	elif direction == Vector2.DOWN:
