@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://coewfg6qqq82j"]
 
 [ext_resource type="Script" uid="uid://c0ghc8sqosbe7" path="res://scenes/buildings/building.gd" id="1_fsm37"]
-[ext_resource type="Texture2D" uid="uid://dnhkm7sviseoy" path="res://assets/sprites/phone_wars_sprites.png" id="1_o2xkr"]
+[ext_resource type="Texture2D" uid="uid://dnhkm7sviseoy" path="res://assets/sprites/terrains/phone_wars_sprites.png" id="1_o2xkr"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="2_s8d14"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sctt1"]

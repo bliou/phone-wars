@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw2g8g0g4864r"
-path="res://.godot/imported/tilemap.png-97bf26cbe4098c4ccdc8ca24f9406864.ctex"
+uid="uid://3c6dwxahkhjk"
+path="res://.godot/imported/machinegun_flash.png-9c80ed280912f06cca87920812f6e2f1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/tilemap.png"
-dest_files=["res://.godot/imported/tilemap.png-97bf26cbe4098c4ccdc8ca24f9406864.ctex"]
+source_file="res://assets/sprites/vfx/machinegun_flash.png"
+dest_files=["res://.godot/imported/machinegun_flash.png-9c80ed280912f06cca87920812f6e2f1.ctex"]
 
 [params]
 

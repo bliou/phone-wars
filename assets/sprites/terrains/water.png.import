@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3c6dwxahkhjk"
-path="res://.godot/imported/machinegun_flash.png-6f0b6ec34e00d20e9ee289d3d7aa9b3b.ctex"
+uid="uid://lknijyqsdrms"
+path="res://.godot/imported/water.png-a326b57dbfbd4f7a268c0e903ba09dd2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/machinegun_flash.png"
-dest_files=["res://.godot/imported/machinegun_flash.png-6f0b6ec34e00d20e9ee289d3d7aa9b3b.ctex"]
+source_file="res://assets/sprites/terrains/water.png"
+dest_files=["res://.godot/imported/water.png-a326b57dbfbd4f7a268c0e903ba09dd2.ctex"]
 
 [params]
 

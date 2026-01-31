@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TerrainData" load_steps=4 format=3 uid="uid://dgi1ege5lgpb4"]
 
 [ext_resource type="Script" uid="uid://dnop8yi4lsey8" path="res://scripts/resources/terrains/terrain_data.gd" id="1_jxmmo"]
-[ext_resource type="Texture2D" uid="uid://dnhkm7sviseoy" path="res://assets/sprites/phone_wars_sprites.png" id="1_ok0c4"]
+[ext_resource type="Texture2D" uid="uid://dnhkm7sviseoy" path="res://assets/sprites/terrains/phone_wars_sprites.png" id="1_ok0c4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vvdpt"]
 atlas = ExtResource("1_ok0c4")

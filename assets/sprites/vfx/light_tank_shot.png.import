@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lknijyqsdrms"
-path="res://.godot/imported/water.png-817b08231a2ad4ae2410fb94c54aa35d.ctex"
+uid="uid://bvckdvin4kc2"
+path="res://.godot/imported/light_tank_shot.png-4125a7603fa274d797bbf0cc4554a269.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/water.png"
-dest_files=["res://.godot/imported/water.png-817b08231a2ad4ae2410fb94c54aa35d.ctex"]
+source_file="res://assets/sprites/vfx/light_tank_shot.png"
+dest_files=["res://.godot/imported/light_tank_shot.png-4125a7603fa274d797bbf0cc4554a269.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_53ncc"]
 [ext_resource type="Resource" uid="uid://ci1bjji27j03c" path="res://resources/units/soldier.tres" id="2_rdxj4"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_e84y0"]
-[ext_resource type="Texture2D" uid="uid://4s5acvi86j8q" path="res://assets/sprites/phone_wars_units.png" id="3_rdxj4"]
+[ext_resource type="Texture2D" uid="uid://4s5acvi86j8q" path="res://assets/sprites/units/phone_wars_units.png" id="3_rdxj4"]
 [ext_resource type="PackedScene" uid="uid://cot0bb48uebej" path="res://scenes/component/hp_label_component.tscn" id="5_e84y0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y1odh"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsk5ugqmdkd3a"
-path="res://.godot/imported/explosion.png-9cc5a79bdd01a0eeac6b161c8d594f1f.ctex"
+uid="uid://cw2g8g0g4864r"
+path="res://.godot/imported/tilemap.png-c25651aa1bc935529c5cb52fc28f6cb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/explosion.png"
-dest_files=["res://.godot/imported/explosion.png-9cc5a79bdd01a0eeac6b161c8d594f1f.ctex"]
+source_file="res://assets/sprites/terrains/tilemap.png"
+dest_files=["res://.godot/imported/tilemap.png-c25651aa1bc935529c5cb52fc28f6cb0.ctex"]
 
 [params]
 

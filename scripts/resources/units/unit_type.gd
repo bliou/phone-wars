@@ -2,7 +2,9 @@ class_name UnitType
 
 enum Values {
 	INFANTRY,
-	RECON
+	RECON,
+	LIGHT_TANK,
+	ARTILLERY,
 }
 
 
@@ -12,6 +14,10 @@ static func get_name_from_type(val: Values) -> String:
 			return "Infantry" 
 		Values.RECON:
 			return "Recon"
+		Values.LIGHT_TANK:
+			return "Light tank"
+		Values.ARTILLERY:
+			return "Artllery"
 	
 	push_error("Unknown terrain type: %d" % val)
 	return "NONE"  # default fallback

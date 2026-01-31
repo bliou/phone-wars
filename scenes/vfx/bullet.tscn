@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bro6ulb3ikndb"]
 
 [ext_resource type="Script" uid="uid://mgw2pc4mw6gv" path="res://scenes/vfx/bullet.gd" id="1_rkwrk"]
-[ext_resource type="Texture2D" uid="uid://3c6dwxahkhjk" path="res://assets/sprites/machinegun_flash.png" id="2_r8kyk"]
+[ext_resource type="Texture2D" uid="uid://3c6dwxahkhjk" path="res://assets/sprites/vfx/machinegun_flash.png" id="2_r8kyk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3sp13"]
 atlas = ExtResource("2_r8kyk")

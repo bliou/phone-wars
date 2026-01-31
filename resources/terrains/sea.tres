@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TerrainData" load_steps=4 format=3 uid="uid://dwxloe1ridhm3"]
 
 [ext_resource type="Script" uid="uid://dnop8yi4lsey8" path="res://scripts/resources/terrains/terrain_data.gd" id="1_fnj71"]
-[ext_resource type="Texture2D" uid="uid://lknijyqsdrms" path="res://assets/sprites/water.png" id="1_vbflt"]
+[ext_resource type="Texture2D" uid="uid://lknijyqsdrms" path="res://assets/sprites/terrains/water.png" id="1_vbflt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0blbu"]
 atlas = ExtResource("1_vbflt")

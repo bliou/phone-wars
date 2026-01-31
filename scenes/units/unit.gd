@@ -7,7 +7,6 @@ signal unit_killed()
 @export var speed: float = 100.0
 @export var unit_profile: UnitProfile = null
 @export var size: Vector2i = Vector2i(32, 32)
-@export var shake_strength := 2.0
 
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
