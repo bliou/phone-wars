@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2n7ysxwl4vma"
-path="res://.godot/imported/phone_wars_units.png-174a511c6b23dc251dd678d3d591444d.ctex"
+uid="uid://dk05odwxqvbar"
+path="res://.godot/imported/artillery_shot.png-a84c226a3e99eef5551abbf3d6ae3ea0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/units/phone_wars_units.png"
-dest_files=["res://.godot/imported/phone_wars_units.png-174a511c6b23dc251dd678d3d591444d.ctex"]
+source_file="res://assets/sprites/vfx/artillery_shot.png"
+dest_files=["res://.godot/imported/artillery_shot.png-a84c226a3e99eef5551abbf3d6ae3ea0.ctex"]
 
 [params]
 

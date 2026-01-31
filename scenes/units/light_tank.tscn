@@ -1,8 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://dsbo56tbuh626"]
+[gd_scene load_steps=26 format=3 uid="uid://dsbo56tbuh626"]
 
 [ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_apagf"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="1_maipi"]
-[ext_resource type="Texture2D" uid="uid://4s5acvi86j8q" path="res://assets/sprites/units/phone_wars_units.png" id="2_apagf"]
+[ext_resource type="Texture2D" uid="uid://2n7ysxwl4vma" path="res://assets/sprites/units/phone_wars_units.png" id="2_apagf"]
 [ext_resource type="Resource" uid="uid://b3us040i1wb4o" path="res://resources/units/light_tank.tres" id="2_y3s57"]
 [ext_resource type="PackedScene" uid="uid://cot0bb48uebej" path="res://scenes/component/hp_label_component.tscn" id="3_y3s57"]
 
@@ -14,46 +14,57 @@ shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y3s57"]
 atlas = ExtResource("2_apagf")
-region = Rect2(20, 128, 32, 32)
+region = Rect2(374, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8etk"]
+atlas = ExtResource("2_apagf")
+region = Rect2(406, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t03qi"]
+atlas = ExtResource("2_apagf")
+region = Rect2(438, 128, 32, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s4u0f"]
+load_path = "res://.godot/imported/phone_wars_units.png-174a511c6b23dc251dd678d3d591444d.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_maipi"]
-atlas = ExtResource("2_apagf")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(20, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_apagf"]
-atlas = ExtResource("2_apagf")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(52, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pghot"]
-atlas = ExtResource("2_apagf")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(274, 129, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r203j"]
-atlas = ExtResource("2_apagf")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(306, 129, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4cgcg"]
-atlas = ExtResource("2_apagf")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(338, 129, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5pdsc"]
-atlas = ExtResource("2_apagf")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(96, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fgnmo"]
-atlas = ExtResource("2_apagf")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(128, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xdb1t"]
-atlas = ExtResource("2_apagf")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(170, 129, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ckhpo"]
-atlas = ExtResource("2_apagf")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(202, 129, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ig84n"]
-atlas = ExtResource("2_apagf")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(234, 129, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7ydm3"]
@@ -61,8 +72,14 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y3s57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8etk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t03qi")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -125,22 +142,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -161,18 +166,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [&"attack", &"idle"]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0.5, 0), Vector2(-0.5, 0), Vector2(0.5, 0), Vector2(0, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y1odh"]
 _data = {
@@ -186,6 +179,7 @@ unit_profile = ExtResource("2_y3s57")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_5pdsc")
+position = Vector2(0.5, 0)
 sprite_frames = SubResource("SpriteFrames_7ydm3")
 animation = &"attack"
 autoplay = "idle"
@@ -202,3 +196,6 @@ position = Vector2(8, 8)
 libraries = {
 &"": SubResource("AnimationLibrary_y1odh")
 }
+
+[node name="WeaponMuzzle" type="Marker2D" parent="."]
+position = Vector2(-14, -4)

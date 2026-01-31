@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://f7hpnte1ike0"]
+
+[ext_resource type="Texture2D" uid="uid://dk05odwxqvbar" path="res://assets/sprites/vfx/artillery_shot.png" id="1_3ru1s"]
+[ext_resource type="Script" uid="uid://7g467qbgmllr" path="res://scenes/vfx/artillery_shell.gd" id="1_lijol"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lijol"]
+atlas = ExtResource("1_3ru1s")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yx481"]
+atlas = ExtResource("1_3ru1s")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7py6q"]
+atlas = ExtResource("1_3ru1s")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7etg3"]
+atlas = ExtResource("1_3ru1s")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_owmho"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lijol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yx481")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7py6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7etg3")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 10.0
+}]
+
+[node name="ArtilleryShell" type="Node2D"]
+script = ExtResource("1_lijol")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_owmho")
+animation = &"fire"
+frame = 3
+frame_progress = 1.0

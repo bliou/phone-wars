@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="UnitProfile" load_steps=13 format=3 uid="uid://hveb37yyjbfa"]
+
+[ext_resource type="Texture2D" uid="uid://2n7ysxwl4vma" path="res://assets/sprites/units/phone_wars_units.png" id="1_popoq"]
+[ext_resource type="Script" uid="uid://c5bqt1boq7g83" path="res://scripts/resources/units/unit_profile.gd" id="1_v1own"]
+[ext_resource type="Script" uid="uid://dhqeb02d40my3" path="res://scripts/resources/units/attack_profile.gd" id="1_vfaig"]
+[ext_resource type="Script" uid="uid://c1aqkr7x3kn1d" path="res://scripts/resources/units/defense_profile.gd" id="2_3s1md"]
+[ext_resource type="Script" uid="uid://ek5inq6a6e24" path="res://scripts/resources/units/movement_profile.gd" id="2_pm6xt"]
+[ext_resource type="Script" uid="uid://cvmuc2m44de5v" path="res://scripts/resources/weapons/canon.gd" id="5_8w3g1"]
+[ext_resource type="PackedScene" uid="uid://f7hpnte1ike0" path="res://scenes/vfx/artillery_shell.tscn" id="5_jvtwx"]
+
+[sub_resource type="Resource" id="Resource_8w3g1"]
+script = ExtResource("1_vfaig")
+min_range = 2
+max_range = 4
+dmg_vs_light = 7.0
+dmg_vs_reinforced = 6.0
+metadata/_custom_type_script = "uid://dhqeb02d40my3"
+
+[sub_resource type="Resource" id="Resource_bx86g"]
+script = ExtResource("2_3s1md")
+light_defense = 0.2
+reinforced_defense = 0.1
+metadata/_custom_type_script = "uid://c1aqkr7x3kn1d"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pm6xt"]
+atlas = ExtResource("1_popoq")
+region = Rect2(20, 78, 32, 32)
+
+[sub_resource type="Resource" id="Resource_vfaig"]
+script = ExtResource("2_pm6xt")
+road_cost = 1.5
+grass_cost = 2.0
+forest_cost = 3.0
+metadata/_custom_type_script = "uid://ek5inq6a6e24"
+
+[sub_resource type="Resource" id="Resource_jvtwx"]
+script = ExtResource("5_8w3g1")
+shell_scene = ExtResource("5_jvtwx")
+metadata/_custom_type_script = "uid://cvmuc2m44de5v"
+
+[resource]
+script = ExtResource("1_v1own")
+icon = SubResource("AtlasTexture_pm6xt")
+type = 3
+movement_points = 5
+movement_profile = SubResource("Resource_vfaig")
+capture_capacity = 0
+attack_profile = SubResource("Resource_8w3g1")
+defense_profile = SubResource("Resource_bx86g")
+weapon = SubResource("Resource_jvtwx")
+metadata/_custom_type_script = "uid://c5bqt1boq7g83"

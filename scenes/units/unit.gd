@@ -11,6 +11,7 @@ signal unit_killed()
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var weapon_muzzle: Marker2D = $WeaponMuzzle
 @onready var hp_label_component: HPLabelComponent = $HPLabelComponent
 @onready var explosion_scene: PackedScene = preload("res://scenes/vfx/explosion.tscn")
 

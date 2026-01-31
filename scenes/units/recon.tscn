@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_psyjl"]
 [ext_resource type="Resource" uid="uid://dhg03x03melnx" path="res://resources/units/recon.tres" id="2_lthcx"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_f2sao"]
-[ext_resource type="Texture2D" uid="uid://4s5acvi86j8q" path="res://assets/sprites/units/phone_wars_units.png" id="3_lthcx"]
 [ext_resource type="PackedScene" uid="uid://cot0bb48uebej" path="res://scenes/component/hp_label_component.tscn" id="5_f2sao"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j8exu"]
@@ -12,40 +11,43 @@ shader_parameter/disabled = 0.0
 shader_parameter/original_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s4u0f"]
+load_path = "res://.godot/imported/phone_wars_units.png-174a511c6b23dc251dd678d3d591444d.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_f2sao"]
-atlas = ExtResource("3_lthcx")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(18, 175, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oivvb"]
-atlas = ExtResource("3_lthcx")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(18, 175, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bgpt8"]
-atlas = ExtResource("3_lthcx")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(50, 175, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykl54"]
-atlas = ExtResource("3_lthcx")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(245, 175, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rq2q4"]
-atlas = ExtResource("3_lthcx")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(277, 175, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j8exu"]
-atlas = ExtResource("3_lthcx")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(98, 175, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bqi3d"]
-atlas = ExtResource("3_lthcx")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(130, 175, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6s1h7"]
-atlas = ExtResource("3_lthcx")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(171, 175, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_30pnp"]
-atlas = ExtResource("3_lthcx")
+atlas = SubResource("CompressedTexture2D_s4u0f")
 region = Rect2(203, 175, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_psyjl"]
@@ -190,3 +192,6 @@ position = Vector2(8, 8)
 libraries = {
 &"": SubResource("AnimationLibrary_y1odh")
 }
+
+[node name="WeaponMuzzle" type="Marker2D" parent="."]
+position = Vector2(-11, -7)
