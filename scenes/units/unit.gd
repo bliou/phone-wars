@@ -172,7 +172,7 @@ func set_attack_highlight(highlight: bool) -> void:
 	print("set hihglight: ", highlight)
 
 
-func attack(defender: Unit) -> void:
+func attack(defender: Unit, fx_service: FXService) -> void:
 	if defender.global_position.x < global_position.x:
 		facing = FaceDirection.Values.LEFT
 	elif defender.global_position.x < global_position.x:
@@ -180,22 +180,23 @@ func attack(defender: Unit) -> void:
 
 	animated_sprite.flip_h = facing == FaceDirection.Values.RIGHT
 	animation_player.play("attack")
-	unit_profile.weapon._play_attack(self, defender)
+	unit_profile.weapon._play_fire(self, defender, fx_service)
 
 	await animation_player.animation_finished
 
+
 func play_hit_reaction() -> void:
 	var tween: Tween = create_tween()
-	var pos: Vector2 = position
+	var pos: Vector2 = animated_sprite.position
 
 	# shake
-	tween.tween_property(self, "position:x", position.x + 4, 0.05).set_trans(Tween.TRANS_SINE)
-	tween.tween_property(self, "position:x", position.x - 4, 0.05)
+	tween.tween_property(animated_sprite, "position:x", animated_sprite.position.x + 4, 0.05).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(animated_sprite, "position:x", animated_sprite.position.x - 4, 0.05)
 
 	# blink
-	tween.parallel().tween_property(self, "modulate", Color(1,1,1,0.2), 0.05)
-	tween.parallel().tween_property(self, "modulate", Color.WHITE, 0.05)
+	tween.parallel().tween_property(animated_sprite, "modulate", Color(1,1,1,0.2), 0.05)
+	tween.parallel().tween_property(animated_sprite, "modulate", Color.WHITE, 0.05)
 
 	await tween.finished
 
-	position = pos
+	animated_sprite.position = pos

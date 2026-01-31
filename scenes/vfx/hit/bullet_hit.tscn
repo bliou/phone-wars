@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2excsidfcm7x"]
+
+[ext_resource type="Texture2D" uid="uid://dnn4s4ctbcb1s" path="res://assets/sprites/vfx/machinegun_hit.png" id="1_4v34g"]
+[ext_resource type="Script" uid="uid://c8fw6aomndbsv" path="res://scenes/vfx/hit/bullet_hit.gd" id="1_qyxa7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyxa7"]
+atlas = ExtResource("1_4v34g")
+
+[node name="BulletHit" type="Node2D"]
+script = ExtResource("1_qyxa7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_qyxa7")

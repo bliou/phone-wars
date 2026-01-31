@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://cpxh5sn6y7ihe"]
+
+[ext_resource type="Script" uid="uid://jvn1ejtm40ep" path="res://scenes/vfx/hit/tank_hit.gd" id="1_l7c51"]
+[ext_resource type="Texture2D" uid="uid://cuogw55wicn1a" path="res://assets/sprites/vfx/tank_hit.png" id="1_wau75"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7c51"]
+atlas = ExtResource("1_wau75")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8vxk"]
+atlas = ExtResource("1_wau75")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_un4m0"]
+atlas = ExtResource("1_wau75")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lksi"]
+atlas = ExtResource("1_wau75")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fyv2d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l7c51")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8vxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_un4m0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lksi")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 5.0
+}]
+
+[node name="TankHit" type="Node2D"]
+script = ExtResource("1_l7c51")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fyv2d")
+animation = &"hit"
+frame = 3
+frame_progress = 1.0

@@ -2,16 +2,18 @@ class_name CombatOrchestrator
 extends Node
 
 var damage_popup: DamagePopup
+var fx_service: FXService
 
-func set_damage_popup(dp: DamagePopup) -> void:
+func setup(dp: DamagePopup, fxs: FXService) -> void:
 	damage_popup = dp
+	fx_service = fxs
 
 
 func execute(attacker: Unit, defender: Unit, terrain: TerrainData) -> void:
 	var result = CombatManager.resolve_combat(attacker, defender, terrain)
 
 	await play_attack_animation(result)
-	play_defender_reaction(result)
+	await play_defender_reaction(result)
 	apply_damage(result)
 	show_damage_popup(result)
 
@@ -20,16 +22,19 @@ func execute(attacker: Unit, defender: Unit, terrain: TerrainData) -> void:
 
 
 func play_attack_animation(result: CombatManager.CombatResult) -> void:
-	await result.attacker.attack(result.defender)
+	await result.attacker.attack(result.defender, fx_service)
 
 	
 func play_defender_reaction(result: CombatManager.CombatResult) -> void:
-	result.defender.play_hit_reaction()
+	var weapon: Weapon = result.attacker.unit_profile.weapon
+	weapon._play_impact(result.attacker, result.defender, fx_service)
+	await result.defender.play_hit_reaction()
 
 
 func show_damage_popup(result: CombatManager.CombatResult) -> void:
 	damage_popup.update(result.damage)
 	damage_popup.play(result.defender.global_position)
+
 
 func apply_damage(result: CombatManager.CombatResult) -> void:
 	result.defender.take_dmg(result.damage)

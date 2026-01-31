@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://f7hpnte1ike0"]
 
 [ext_resource type="Texture2D" uid="uid://dk05odwxqvbar" path="res://assets/sprites/vfx/artillery_shot.png" id="1_3ru1s"]
-[ext_resource type="Script" uid="uid://7g467qbgmllr" path="res://scenes/vfx/artillery_shell.gd" id="1_lijol"]
+[ext_resource type="Script" uid="uid://7g467qbgmllr" path="res://scenes/vfx/fire/artillery_shell.gd" id="1_lijol"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lijol"]
 atlas = ExtResource("1_3ru1s")

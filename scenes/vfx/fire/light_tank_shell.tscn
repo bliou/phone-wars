@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b2aw0hvtvslvo"]
 
-[ext_resource type="Script" uid="uid://c5om3it0g3uy3" path="res://scenes/vfx/light_tank_shell.gd" id="1_gv4s5"]
+[ext_resource type="Script" uid="uid://c5om3it0g3uy3" path="res://scenes/vfx/fire/light_tank_shell.gd" id="1_gv4s5"]
 [ext_resource type="Texture2D" uid="uid://bvckdvin4kc2" path="res://assets/sprites/vfx/light_tank_shot.png" id="2_n0dte"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xydlv"]

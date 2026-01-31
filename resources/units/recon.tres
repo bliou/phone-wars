@@ -1,11 +1,12 @@
-[gd_resource type="Resource" script_class="UnitProfile" load_steps=13 format=3 uid="uid://dhg03x03melnx"]
+[gd_resource type="Resource" script_class="UnitProfile" load_steps=14 format=3 uid="uid://dhg03x03melnx"]
 
 [ext_resource type="Script" uid="uid://dhqeb02d40my3" path="res://scripts/resources/units/attack_profile.gd" id="1_f4t7r"]
 [ext_resource type="Script" uid="uid://ek5inq6a6e24" path="res://scripts/resources/units/movement_profile.gd" id="1_wcb6c"]
 [ext_resource type="Texture2D" uid="uid://2n7ysxwl4vma" path="res://assets/sprites/units/phone_wars_units.png" id="1_yl7ui"]
 [ext_resource type="Script" uid="uid://c1aqkr7x3kn1d" path="res://scripts/resources/units/defense_profile.gd" id="2_0ryw7"]
 [ext_resource type="Script" uid="uid://c5bqt1boq7g83" path="res://scripts/resources/units/unit_profile.gd" id="2_felq0"]
-[ext_resource type="PackedScene" uid="uid://bro6ulb3ikndb" path="res://scenes/vfx/bullet.tscn" id="6_kuyt2"]
+[ext_resource type="PackedScene" uid="uid://bro6ulb3ikndb" path="res://scenes/vfx/fire/bullet.tscn" id="6_kuyt2"]
+[ext_resource type="PackedScene" uid="uid://d2excsidfcm7x" path="res://scenes/vfx/hit/bullet_hit.tscn" id="7_kuyt2"]
 [ext_resource type="Script" uid="uid://b06l06gkgnqmh" path="res://scripts/resources/weapons/machine_gun_weapon.gd" id="7_l3nxq"]
 
 [sub_resource type="Resource" id="Resource_36elb"]

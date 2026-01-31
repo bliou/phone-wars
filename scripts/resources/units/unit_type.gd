@@ -17,7 +17,7 @@ static func get_name_from_type(val: Values) -> String:
 		Values.LIGHT_TANK:
 			return "Light tank"
 		Values.ARTILLERY:
-			return "Artllery"
+			return "Artillery"
 	
 	push_error("Unknown terrain type: %d" % val)
 	return "NONE"  # default fallback

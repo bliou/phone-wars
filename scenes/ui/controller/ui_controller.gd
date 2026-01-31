@@ -32,7 +32,7 @@ func setup(p_game_manager: GameManager) -> void:
 
 	attack_indicator.setup(grid)
 	movement_indicator.setup(grid)
-	combat_orchestrator.set_damage_popup(damage_popup)
+	combat_orchestrator.setup(damage_popup, game_manager.fx_service)
 
 	set_current_units_manager()
 

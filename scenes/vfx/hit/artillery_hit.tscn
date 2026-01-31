@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://beq2l8e6oxb7t"]
+
+[ext_resource type="Script" uid="uid://djugbpqcbvwip" path="res://scenes/vfx/hit/artillery_hit.gd" id="1_83m3p"]
+[ext_resource type="Texture2D" uid="uid://cspgm1a3ghkjs" path="res://assets/sprites/vfx/artillery_hit.png" id="1_daatf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83m3p"]
+atlas = ExtResource("1_daatf")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1xi5"]
+atlas = ExtResource("1_daatf")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcrxa"]
+atlas = ExtResource("1_daatf")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxy1j"]
+atlas = ExtResource("1_daatf")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hqh53"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83m3p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1xi5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcrxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxy1j")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 10.0
+}]
+
+[node name="ArtilleryHit" type="Node2D"]
+script = ExtResource("1_83m3p")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hqh53")
+animation = &"hit"
+frame = 3
+frame_progress = 1.0
