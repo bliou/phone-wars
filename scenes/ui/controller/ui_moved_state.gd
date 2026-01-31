@@ -43,8 +43,4 @@ func show_merge_button() -> bool:
 
 
 func show_attack_button() -> bool:
-	var combaAv = controller.current_units_manager.combat_available()
-
-	print("cambaAv: ", combaAv)
-
-	return combaAv
+	return controller.current_units_manager.combat_available()
