@@ -34,7 +34,7 @@ func init_units(team: Team) -> void:
 
 func remove_unit(unit: Unit) -> void:
 	print("removing unit %s at %s" % [unit.name, unit.grid_pos])
-	units.erase(unit)
+	units.erase(unit.grid_pos)
 	unit.queue_free()
 
 
@@ -164,6 +164,9 @@ func merge_units() -> void:
 
 
 func combat_available() -> bool:
+	if not selected_unit.unit_profile.attack_profile.can_attack_after_movement:
+		return false
+		
 	var unit_context: UnitContext = UnitContext.create_unit_context(selected_unit)
 	var targets: Array[Unit] = get_units_in_attack_range(unit_context)
 	return targets.size() > 0
@@ -212,6 +215,9 @@ func get_units_in_attack_range_with_movement(unit: Unit) -> Array[Unit]:
 	var targets: Array[Unit] = []
 	var reachable_cells: Dictionary = grid.get_reachable_cells(unit)
 	var unit_context: UnitContext = UnitContext.create_unit_context(unit)
+
+	if not unit.unit_profile.attack_profile.can_attack_after_movement:
+		return get_units_in_attack_range(unit_context)
 
 	for cell in reachable_cells.keys():
 		unit_context.grid_pos = cell

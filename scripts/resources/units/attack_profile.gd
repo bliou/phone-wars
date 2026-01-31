@@ -7,6 +7,7 @@ extends Resource
 @export var dmg_vs_light: float = 5
 @export var dmg_vs_reinforced: float = 3
 
+@export var can_attack_after_movement: bool = true
 
 func get_attack_dmg(unit_type: UnitType.Values) -> float:
     if UnitType.is_light_type(unit_type):
