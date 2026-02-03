@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://clc1f57hx78vl"]
+[gd_scene load_steps=9 format=3 uid="uid://clc1f57hx78vl"]
 
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_428ye"]
 [ext_resource type="Script" uid="uid://cn60na82taoyh" path="res://scenes/ui/preview/combat_preview.gd" id="1_up0es"]
 [ext_resource type="Shader" uid="uid://c4w6xe1duvxv7" path="res://resources/shaders/combat.gdshader" id="3_04e2q"]
+[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_ylojq"]
 [ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="4_rg8ou"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mmh2r"]
+shader = ExtResource("3_ylojq")
+shader_parameter/disabled = 0.0
+shader_parameter/original_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ylojq"]
 shader = ExtResource("3_04e2q")
@@ -60,6 +67,7 @@ text = "-49% HP "
 layout_mode = 2
 
 [node name="DefenderIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+material = SubResource("ShaderMaterial_mmh2r")
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 expand_mode = 2

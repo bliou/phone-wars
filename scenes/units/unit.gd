@@ -120,6 +120,7 @@ func capture_capacity() -> int:
 
 	return round(ratio*unit_profile.capture_capacity)
 
+
 func can_merge_with_unit(unit: Unit) -> bool:
 	# not on the same cell
 	if unit.grid_pos != grid_pos:

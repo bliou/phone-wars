@@ -1,10 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbvtob4kw1eil"]
+[gd_scene load_steps=11 format=3 uid="uid://dbvtob4kw1eil"]
 
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_5njt5"]
 [ext_resource type="Script" uid="uid://ccg03178bksgj" path="res://scenes/ui/preview/info_preview.gd" id="2_5njt5"]
 [ext_resource type="Shader" uid="uid://c0y57itsy5wlm" path="res://resources/shaders/info.gdshader" id="3_5njt5"]
 [ext_resource type="Texture2D" uid="uid://cw2g8g0g4864r" path="res://assets/sprites/terrains/tilemap.png" id="3_d5tcl"]
+[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_exf41"]
 [ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="4_y0crx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d5tcl"]
+shader = ExtResource("3_exf41")
+shader_parameter/disabled = 0.0
+shader_parameter/original_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_exf41"]
 atlas = ExtResource("3_d5tcl")
@@ -62,6 +69,7 @@ layout_mode = 2
 text = "Soldier"
 
 [node name="UnitIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+material = SubResource("ShaderMaterial_d5tcl")
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 expand_mode = 2
