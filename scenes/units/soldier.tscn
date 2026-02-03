@@ -8,7 +8,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y1odh"]
 shader = ExtResource("3_e84y0")
 shader_parameter/disabled = 0.0
-shader_parameter/original_colors = PackedColorArray(0.64705884, 0.64705884, 0.64705884, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/original_colors = PackedColorArray(0.69803923, 0.0627451, 0.1882353, 1, 1, 0.4745098, 0.1882353, 1, 0.1882353, 0.31764707, 0.50980395, 1, 1, 0.63529414, 0, 1, 0, 0, 0, 0)
 shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s4u0f"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dxril5owa1jv5"]
+[gd_scene load_steps=26 format=4 uid="uid://dxril5owa1jv5"]
 
 [ext_resource type="Script" uid="uid://cyj1lsu0epdxb" path="res://scripts/managers/game_manager.gd" id="1_t1o2k"]
 [ext_resource type="PackedScene" uid="uid://bqeqp2n1diaug" path="res://scenes/grids/grid.tscn" id="2_h65yf"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://c48h8xucyvg1n" path="res://resources/terrains/hill.tres" id="10_viv5u"]
 [ext_resource type="TileSet" uid="uid://45ako5jwxjpx" path="res://tilesets/game_tileset_tres.tres" id="11_rbirq"]
 [ext_resource type="PackedScene" uid="uid://ci7d8ddulm6b5" path="res://scenes/teams/team.tscn" id="12_n3opb"]
+[ext_resource type="Resource" uid="uid://118m3pansjhp" path="res://resources/teams/red_team.tres" id="13_3tgvs"]
 [ext_resource type="PackedScene" uid="uid://mu0vq50rfsva" path="res://scenes/units/soldier.tscn" id="13_v1tfe"]
 [ext_resource type="PackedScene" uid="uid://csvvf54hn6ta3" path="res://scenes/units/recon.tscn" id="14_h65yf"]
 [ext_resource type="PackedScene" uid="uid://cbb2legf80c0p" path="res://scenes/buildings/base.tscn" id="14_qrvgh"]
@@ -21,6 +22,7 @@
 [ext_resource type="Script" uid="uid://cky8p0fqqxnii" path="res://scripts/managers/input_manager.gd" id="16_xfvij"]
 [ext_resource type="PackedScene" uid="uid://baity5p4rgu1j" path="res://scenes/ui/controller/ui_controller.tscn" id="17_px0mx"]
 [ext_resource type="Script" uid="uid://cuc58c2au6p3i" path="res://scripts/orchestrator/combat_orchestrator.gd" id="18_xao8q"]
+[ext_resource type="Resource" uid="uid://bjb1hhcw53ena" path="res://resources/teams/blue_team.tres" id="19_k53m2"]
 [ext_resource type="Script" uid="uid://dnrk6k26be4ly" path="res://scripts/services/fx_service.gd" id="22_rqq3m"]
 
 [sub_resource type="Resource" id="Resource_5bptm"]
@@ -60,7 +62,7 @@ tile_set = ExtResource("11_rbirq")
 [node name="Teams" type="Node" parent="."]
 
 [node name="RedTeam" parent="Teams" instance=ExtResource("12_n3opb")]
-team_color = Color(0.5647059, 0.16078432, 0.08235294, 1)
+team_profile = ExtResource("13_3tgvs")
 team_type = 0
 face_direction = 1
 
@@ -83,7 +85,7 @@ position = Vector2(80, 144)
 position = Vector2(176, 176)
 
 [node name="BlueTeam" parent="Teams" instance=ExtResource("12_n3opb")]
-team_color = Color(0.25502887, 0.2628792, 0.75195503, 1)
+team_profile = ExtResource("19_k53m2")
 team_type = 0
 
 [node name="Soldier3" parent="Teams/BlueTeam/UnitsManager" index="0" instance=ExtResource("13_v1tfe")]
@@ -99,7 +101,6 @@ position = Vector2(152, 224)
 position = Vector2(144, 176)
 
 [node name="NeutralTeam" parent="Teams" instance=ExtResource("12_n3opb")]
-team_color = Color(0.64705884, 0.64705884, 0.64705884, 1)
 
 [node name="City" parent="Teams/NeutralTeam/BuildingsManager" index="0" instance=ExtResource("15_l50gb")]
 position = Vector2(240, 176)

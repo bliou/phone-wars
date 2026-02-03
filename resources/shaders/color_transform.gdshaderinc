@@ -1,4 +1,4 @@
-const float precision = 0.1;
+const float precision = 0.01;
 
 vec4 swap_color(vec4 color, vec4[5]original_colors, vec4[5]replace_colors) {
 	for (int i = 0; i < 5; i++) {

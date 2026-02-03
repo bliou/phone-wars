@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TeamProfile" load_steps=2 format=3 uid="uid://118m3pansjhp"]
+
+[ext_resource type="Script" uid="uid://ctrgdwokcfys3" path="res://scripts/resources/teams/team_profile.gd" id="1_kjgib"]
+
+[resource]
+script = ExtResource("1_kjgib")
+original_colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+replace_colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+metadata/_custom_type_script = "uid://ctrgdwokcfys3"
