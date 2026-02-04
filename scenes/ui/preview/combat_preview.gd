@@ -5,7 +5,7 @@ extends Control
 @onready var border_texture: TextureRect = $BorderAnimation
 @onready var damage_preview_label: Label = $PanelContainer/MarginContainer/VBoxContainer/DamagePreview
 @onready var defender_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/DefenderIcon
-@onready var defender_hp_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/DefenderHP
+@onready var defender_hp_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/DefenderHP
 @onready var terrain_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TerrainIcon
 @onready var terrain_def_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TerrainDef
 

@@ -78,18 +78,12 @@ layout_mode = 2
 expand_mode = 2
 stretch_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-theme_override_constants/margin_right = 10
-
-[node name="DefenderHP" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="DefenderHP" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "7"
 
-[node name="HPTexture" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="HPTexture" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_hnj8q")
 
