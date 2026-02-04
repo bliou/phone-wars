@@ -23,8 +23,6 @@ func init_terrain_cells() -> void:
 			var terrain_type: TerrainType.Values = tile_data.get_custom_data("terrain_type")
 			terrain_cells[cell] = terrain_type
 
-			print("terrain cell %s add at %s" %[terrain_type, cell])
-
  
 func get_terrain_type(cell: Vector2i) -> TerrainType.Values:
 	return terrain_cells.get(cell, TerrainType.Values.NONE)

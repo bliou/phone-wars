@@ -142,6 +142,7 @@ func capture_building() -> void:
 	var unit_pos: Vector2i = selected_unit.grid_pos
 	var building: Building = query_manager.get_building_at(unit_pos)
 	building.try_to_capture_by(selected_unit)
+	selected_unit.start_capture()
 	confirm_unit_movement()
 
 

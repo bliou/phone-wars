@@ -77,7 +77,7 @@ face_direction = 1
 position = Vector2(216, 224)
 
 [node name="Soldier2" parent="Teams/RedTeam/UnitsManager" index="1" instance=ExtResource("13_v1tfe")]
-position = Vector2(304, 208)
+position = Vector2(336, 80)
 
 [node name="Recon" parent="Teams/RedTeam/UnitsManager" index="2" instance=ExtResource("14_h65yf")]
 position = Vector2(328, 136)
@@ -96,7 +96,7 @@ team_profile = ExtResource("19_k53m2")
 team_type = 0
 
 [node name="Soldier3" parent="Teams/BlueTeam/UnitsManager" index="0" instance=ExtResource("13_v1tfe")]
-position = Vector2(264, 208)
+position = Vector2(432, 80)
 
 [node name="Recon" parent="Teams/BlueTeam/UnitsManager" index="1" instance=ExtResource("14_h65yf")]
 position = Vector2(240, 144)

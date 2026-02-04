@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://gihhii0uyx6p"]
+
+[ext_resource type="Texture2D" uid="uid://c0vl37poqyn5y" path="res://assets/ui/ui_icons.png" id="1_3ce36"]
+[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="1_vo10n"]
+[ext_resource type="Script" uid="uid://cf1s55o5c025o" path="res://scenes/component/capturing_component.gd" id="2_vn4lk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vo10n"]
+shader = ExtResource("1_vo10n")
+shader_parameter/disabled = 0.0
+shader_parameter/original_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vn4lk"]
+atlas = ExtResource("1_3ce36")
+region = Rect2(102, 36, 20, 24)
+
+[node name="CapturingComponent" type="Sprite2D"]
+material = SubResource("ShaderMaterial_vo10n")
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_vn4lk")
+script = ExtResource("2_vn4lk")

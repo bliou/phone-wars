@@ -14,13 +14,16 @@ signal unit_killed()
 @onready var weapon_muzzle: Marker2D = $WeaponMuzzle
 @onready var hp_label_component: HPLabelComponent = $HPLabelComponent
 
+@onready var capturing_component_scene: PackedScene = preload("res://scenes/component/capturing_component.tscn")
 @onready var death_scene: PackedScene = preload("res://scenes/vfx/explosion.tscn")
 @onready var death_sound: AudioStream = preload("res://assets/sounds/units/sfx_die3.wav")
 
 var grid_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost
 var exhausted: bool = false
+var capturing: bool = false
 var actual_health: float = 10.0
+var capturing_component: CapturingComponent
 
 var team: Team
 var facing: FaceDirection.Values
@@ -50,6 +53,9 @@ func setup(p_team: Team) -> void:
 	set_team(p_team)
 	actual_health = unit_profile.health
 	
+	if unit_profile.capture_capacity > 0:
+		set_capture_component()
+	
 	idle_state = UnitIdleState.new("unit_idle", self)
 	moving_state = UnitMovingState.new("unit_moving", self)
 	selected_state = UnitSelectedState.new("unit_selected", self)
@@ -64,6 +70,14 @@ func set_team(p_team: Team) -> void:
 
 	animated_sprite.material.set_shader_parameter("original_colors", team.team_profile.original_colors)
 	animated_sprite.material.set_shader_parameter("replace_colors", team.team_profile.replace_colors)
+
+
+func set_capture_component() -> void:
+	var offset: Vector2 = Vector2(-5, 10)
+	capturing_component = capturing_component_scene.instantiate()
+	capturing_component.position = offset
+	capturing_component.setup(team)
+	add_child(capturing_component)
 
 
 func select() -> void:
@@ -116,10 +130,15 @@ func can_capture_building(building: Building) -> bool:
 
 func capture_capacity() -> int:
 	var ratio: float = actual_health / unit_profile.health
-
-	print("ratio: ", ratio)
-
 	return round(ratio*unit_profile.capture_capacity)
+
+
+func start_capture() -> void:
+	capturing_component.show()
+
+
+func stop_capture() -> void:
+	capturing_component.hide()
 
 
 func can_merge_with_unit(unit: Unit) -> bool:
