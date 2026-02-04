@@ -2,6 +2,9 @@ class_name FXService
 extends Node2D
 
 
+func _ready() -> void:
+	z_index = Ordering.FX
+
 
 func spawn_combat_fx(scene: PackedScene, world_pos: Vector2, rot: float):
 	var fx: Node2D = scene.instantiate()

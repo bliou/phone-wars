@@ -4,19 +4,27 @@ extends Node
 signal short_tap(world_pos: Vector2)
 signal long_press(world_pos: Vector2)
 signal long_press_release(world_pos: Vector2)
+signal pan_requested(delta: Vector2)
 
 # Config
-@export var long_press_time := 0.5 # seconds
+@export var long_press_time: float = 0.5 # seconds
+@export var drag_threshold: float = 4.0
 
 # State
-var press_time := 0.0
-var pressed := false
-var long_pressed := false
-var pressed_position := Vector2.ZERO
+var press_time: float = 0.0
+var pressed: bool = false
+var long_pressed: bool = false
+var pressed_position: Vector2 = Vector2.ZERO
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch:
+	if event is InputEventScreenDrag:
+		if event.relative.length() < drag_threshold:
+			return
+
+		pan_requested.emit(event.relative)
+
+	elif event is InputEventScreenTouch:
 		if event.pressed:
 			on_touch_pressed(event.position)
 		else:
@@ -27,6 +35,7 @@ func _process(delta: float) -> void:
 	if pressed and not long_pressed:
 		press_time += delta
 		if press_time >= long_press_time:
+			pressed_position = to_world_pos(pressed_position)
 			long_press.emit(pressed_position)
 			long_pressed = true
 
@@ -41,6 +50,7 @@ func on_touch_pressed(pos: Vector2) -> void:
 
 # Called when finger/mouse released
 func on_touch_released(pos: Vector2) -> void:
+	pos = to_world_pos(pos)
 	if long_pressed:
 		long_press_release.emit(pos)
 	else:
@@ -49,3 +59,6 @@ func on_touch_released(pos: Vector2) -> void:
 	press_time = 0.0
 	long_pressed = false
 
+
+func to_world_pos(pos: Vector2) -> Vector2:
+	return get_viewport().get_canvas_transform().affine_inverse() * pos

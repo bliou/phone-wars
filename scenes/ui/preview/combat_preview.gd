@@ -41,7 +41,7 @@ class CombatPreviewData:
 		terrain_def = terrain_data.defense_bonus
 
 
-func update(cpd: CombatPreviewData, target_pos: Vector2) -> void:
+func update(cpd: CombatPreviewData, target: Node2D) -> void:
 	damage_preview_label.text = "-%s %%" % cpd.damage_preview
 	defender_hp_label.text = "%s" %int(cpd.defender_hp)
 	terrain_icon.texture = cpd.terrain_icon
@@ -49,7 +49,7 @@ func update(cpd: CombatPreviewData, target_pos: Vector2) -> void:
 
 	update_defender_icon(cpd)
 
-	position_dialog(target_pos)
+	position_dialog(target)
 
 
 func update_defender_icon(cpd: CombatPreviewData) -> void:
@@ -94,18 +94,19 @@ func animate_out():
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.2)
 
 
-func position_dialog(world_pos: Vector2):
-	var dialog_size := panel_container.size
-	var viewport_size := get_viewport_rect().size
+func position_dialog(target: Node2D):
+	var dialog_size: Vector2 = panel_container.size
+	var viewport_size: Vector2 = get_viewport_rect().size
+	var local_transform: Vector2 = target.get_screen_transform().origin
+	global_position = local_transform - Vector2(0, dialog_size.y)
 
+	var margin: float = 10.0
+	# if the dialog is too high on the viewport, displays it below the unit
+	if global_position.y - dialog_size.y / 2 - margin < 0:
+		global_position += Vector2(0, 2*dialog_size.y)
 
-	var pos := world_pos + Vector2(0, -dialog_size.y)
+	global_position.x = clamp(global_position.x, dialog_size.x / 2 + margin, viewport_size.x - dialog_size.x / 2 - margin)
 
-	# Clamp inside screen
-	pos.x = clamp(pos.x, 0, viewport_size.x - dialog_size.x)
-	pos.y = clamp(pos.y, 0, viewport_size.y - dialog_size.y)
-
-	global_position = pos
 	update_border()
 
 

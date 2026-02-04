@@ -34,17 +34,23 @@ class InfoPreviewData:
 	var terrain_icon: Texture2D
 	var terrain_def: int
 
-	func _init(unit: Unit, terrain_data: TerrainData) -> void:
+	func _init(unit: Unit) -> void:
 		unit_type = UnitType.get_name_from_type(unit.unit_profile.type)
 		unit_icon = unit.unit_profile.icon.duplicate()
 		unit_hp = unit.actual_health
 		unit_team = unit.team
+
+
+	func with_building(building: Building) -> void:
+		pass
+
+	func with_terrain_data(terrain_data: TerrainData) -> void:
 		terrain_type = TerrainType.get_name_from_type(terrain_data.terrain_type)
 		terrain_icon = terrain_data.icon.duplicate()
 		terrain_def = terrain_data.defense_bonus
 
 
-func update(ipd: InfoPreviewData, target_pos: Vector2) -> void:
+func update(ipd: InfoPreviewData, target: Node2D) -> void:
 	unit_type_label.text = ipd.unit_type
 	unit_hp_label.text = "%s" %int(ipd.unit_hp)
 	terrain_type_label.text = ipd.terrain_type
@@ -53,7 +59,7 @@ func update(ipd: InfoPreviewData, target_pos: Vector2) -> void:
 
 	update_unit_icon(ipd)
 
-	position_dialog(target_pos)
+	position_dialog(target)
 
 
 func update_unit_icon(ipd: InfoPreviewData) -> void:
@@ -98,18 +104,20 @@ func animate_out():
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.2)
 
 
-func position_dialog(world_pos: Vector2):
-	var dialog_size := panel_container.size
-	var viewport_size := get_viewport_rect().size
+func position_dialog(target: Node2D):
+	var dialog_size: Vector2 = panel_container.size
+	var viewport_size: Vector2 = get_viewport_rect().size
+	var local_transform: Vector2 = target.get_screen_transform().origin
+	
+	global_position = local_transform - Vector2(0, dialog_size.y)
 
+	var margin: float = 10.0
+	# if the dialog is too high on the viewport, displays it below the unit
+	if global_position.y - dialog_size.y / 2 - margin < 0:
+		global_position += Vector2(0, 2*dialog_size.y)
 
-	var pos := world_pos + Vector2(0, -dialog_size.y)
+	global_position.x = clamp(global_position.x, dialog_size.x / 2 + margin, viewport_size.x - dialog_size.x / 2 - margin)
 
-	# Clamp inside screen
-	pos.x = clamp(pos.x, 0, viewport_size.x - dialog_size.x)
-	pos.y = clamp(pos.y, 0, viewport_size.y - dialog_size.y)
-
-	global_position = pos
 	update_border()
 
 

@@ -6,7 +6,9 @@ signal turn_ended()
 
 @onready var grid: Grid = $Grid
 @onready var ui_controller: UIController = $UIController
+@onready var camera_controller: CameraController = $CameraController
 @onready var terrain_manager: TerrainManager = $Terrain
+@onready var indicators: Indicators = $Indicators
 @onready var input_manager: InputManager = $Managers/InputManager
 @onready var music_manager: MusicManager = $Managers/MusicManager
 @onready var combat_orchestrator: CombatOrchestrator = $Orchestrators/CombatOrchestrator
@@ -23,6 +25,8 @@ func _ready() -> void:
 	init_teams()
 
 	grid.setup(input_manager, query_manager, terrain_manager)
+	camera_controller.setup(ui_controller, input_manager)
+	indicators.setup(grid, ui_controller)
 	ui_controller.setup(self)
 	music_manager.setup(music_service)
 	

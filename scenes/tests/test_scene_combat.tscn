@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://dxril5owa1jv5"]
+[gd_scene load_steps=33 format=4 uid="uid://dxril5owa1jv5"]
 
 [ext_resource type="Script" uid="uid://cyj1lsu0epdxb" path="res://scripts/managers/game_manager.gd" id="1_t1o2k"]
 [ext_resource type="PackedScene" uid="uid://bqeqp2n1diaug" path="res://scenes/grids/grid.tscn" id="2_h65yf"]
@@ -29,6 +29,8 @@
 [ext_resource type="Script" uid="uid://datlrsmxx1ofs" path="res://scripts/managers/music_manager.gd" id="23_rbirq"]
 [ext_resource type="Script" uid="uid://bq66fyhh6afgc" path="res://scripts/services/audio_service.gd" id="25_r8exw"]
 [ext_resource type="PackedScene" uid="uid://bqqubrlum3m1c" path="res://scenes/services/music_service.tscn" id="27_viv5u"]
+[ext_resource type="Script" uid="uid://cat2b24w7wkt2" path="res://scripts/controllers/camera_controller.gd" id="30_v1tfe"]
+[ext_resource type="PackedScene" uid="uid://dgusrtqifvaos" path="res://scenes/component/indicators.tscn" id="31_qrvgh"]
 
 [sub_resource type="Resource" id="Resource_5bptm"]
 script = ExtResource("4_xdr7y")
@@ -134,13 +136,21 @@ script = ExtResource("18_xao8q")
 [node name="Services" type="Node2D" parent="."]
 
 [node name="CombatFX" type="Node2D" parent="Services"]
-z_index = 3
 script = ExtResource("22_rqq3m")
 
 [node name="AudioService" type="Node" parent="Services"]
 script = ExtResource("25_r8exw")
 
 [node name="MusicService" parent="Services" instance=ExtResource("27_viv5u")]
+
+[node name="CameraController" type="Node2D" parent="."]
+script = ExtResource("30_v1tfe")
+
+[node name="Camera2D" type="Camera2D" parent="CameraController"]
+position = Vector2(320, 184)
+limit_enabled = false
+
+[node name="Indicators" parent="." instance=ExtResource("31_qrvgh")]
 
 [editable path="Teams/RedTeam"]
 [editable path="Teams/BlueTeam"]

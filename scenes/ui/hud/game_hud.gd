@@ -57,6 +57,7 @@ func hide_idle_state() -> void:
 
 func show_moved_state(show_attack_button: bool, show_capture_button: bool, show_merge_button: bool) -> void:
 	action_panel.visible = true
+	cancel_button.visible = true
 	idle_button.visible = true
 	attack_button.visible = show_attack_button
 	capture_button.visible = show_capture_button
@@ -69,5 +70,9 @@ func show_moved_state(show_attack_button: bool, show_capture_button: bool, show_
 		merge_button.visible = true
 
 
-func show_selected_state():
+func show_selected_state() -> void:
 	action_panel.visible = false
+
+
+func hide_cancel_button() -> void:
+	cancel_button.hide()

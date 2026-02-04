@@ -7,8 +7,11 @@ var grid: Grid
 var cells: Array[Vector2i] = []
 
 
-func setup(p_grid: Grid):
-	grid = p_grid 
+func setup(p_grid: Grid, ui_controller: UIController):
+	grid = p_grid
+
+	ui_controller.show_movement_range.connect(show_cells)
+	ui_controller.clear_movement_range.connect(clear)
 
 
 func _draw() -> void:

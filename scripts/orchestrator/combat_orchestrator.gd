@@ -35,7 +35,7 @@ func play_defender_reaction(result: CombatManager.CombatResult) -> void:
 
 func show_damage_popup(result: CombatManager.CombatResult) -> void:
 	damage_popup.update(result.damage)
-	damage_popup.play(result.defender.global_position)
+	damage_popup.play(result.defender)
 
 
 func apply_damage(result: CombatManager.CombatResult) -> void:

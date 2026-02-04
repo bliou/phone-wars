@@ -35,7 +35,7 @@ var done_state: UnitDoneState
 func _ready() -> void:
 	# Make the material unique to this instance
 	animated_sprite.material = animated_sprite.material.duplicate()
-	z_index = 2 # To make sure the unit is always visible
+	z_index = Ordering.UNITS
 
 
 func _process(delta: float) -> void:
@@ -167,10 +167,6 @@ func die(audio_service: AudioService) -> void:
 	await explosion.finished
 
 	unit_killed.emit(self)
-
-
-func set_attack_highlight(highlight: bool) -> void:
-	print("set hihglight: ", highlight)
 
 
 func attack(defender: Unit, fx_service: FXService, audio_service: AudioService) -> void:

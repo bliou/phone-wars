@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgusrtqifvaos"]
+
+[ext_resource type="Script" uid="uid://bkdjbl6q7p7ek" path="res://scripts/indicators/attack_indicator.gd" id="1_bc6r7"]
+[ext_resource type="Script" uid="uid://cswx45saif5wp" path="res://scripts/indicators/movement_indicator.gd" id="1_ixlat"]
+[ext_resource type="Script" uid="uid://bilpohlvbhbk0" path="res://scenes/component/indicators.gd" id="1_p0dw3"]
+[ext_resource type="Shader" uid="uid://dunl5f4yxrpac" path="res://resources/shaders/indicators.gdshader" id="3_nxw1n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p0dw3"]
+shader = ExtResource("3_nxw1n")
+shader_parameter/base_color = Color(0.8666667, 0, 0, 0.5882353)
+shader_parameter/time = 0.0
+shader_parameter/intensity = 0.15
+
+[node name="Indicators" type="Node2D"]
+script = ExtResource("1_p0dw3")
+
+[node name="MovementIndicator" type="Node2D" parent="."]
+script = ExtResource("1_ixlat")
+
+[node name="AttackIndicator" type="Node2D" parent="."]
+material = SubResource("ShaderMaterial_p0dw3")
+script = ExtResource("1_bc6r7")

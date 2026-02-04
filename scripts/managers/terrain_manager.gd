@@ -39,3 +39,17 @@ func get_terrain_data(cell: Vector2i) -> TerrainData:
 			return terrain_data
 
 	return null
+
+
+func world_to_cell(world_pos: Vector2) -> Vector2i:
+	return terrain_layers[0].local_to_map(terrain_layers[0].to_local(world_pos))
+
+
+func cell_to_world(cell: Vector2i) -> Vector2:
+	return terrain_layers[0].to_global(terrain_layers[0].map_to_local(cell))
+
+
+func cell_to_world_center(cell: Vector2i) -> Vector2:
+	var local: Vector2 = terrain_layers[0].map_to_local(cell)
+	var half: Vector2 = terrain_layers[0].tile_set.tile_size * 0.5
+	return terrain_layers[0].to_global(local + half)

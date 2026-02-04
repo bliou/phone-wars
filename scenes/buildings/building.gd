@@ -21,6 +21,7 @@ var done_state: BuildingDoneState
 func _ready() -> void:
 	# Make the material unique to this instance
 	animated_sprite.material = animated_sprite.material.duplicate()
+	z_index = Ordering.BUILDINGS
 	
 
 func setup(p_team: Team) -> void:

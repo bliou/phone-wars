@@ -13,8 +13,9 @@ func update(damage: float) -> void:
 	damage_label.text = "-%s" %int(round(damage))
 
 
-func play(world_pos: Vector2):
-	global_position = world_pos + Vector2(0, -size.y)
+func play(target: Node2D):
+	var local_transform: Vector2 = target.get_screen_transform().origin
+	global_position = local_transform + Vector2(0, -size.y)
 	modulate.a = 1.0
 
 	var tween = create_tween()

@@ -1,15 +1,18 @@
 class_name UIController
 extends CanvasLayer
 
+signal camera_pan_enabled(enabled: bool)
+
+signal show_movement_range(reachable_cells: Array[Vector2i])
+signal clear_movement_range()
+
+signal show_attackable(cells: Array[Vector2i])
+signal clear_attackable()
 
 @onready var game_hud: GameHUD = $GameHUD
 
 @onready var combat_preview: CombatPreview = $Previews/CombatPreview
 @onready var info_preview: InfoPreview = $Previews/InfoPreview
-
-@onready var movement_indicator: MovementIndicator = $Indicators/MovementIndicator
-@onready var attack_indicator: AttackIndicator = $Indicators/AttackIndicator
-
 @onready var damage_popup: DamagePopup = $Popups/DamagePopup
 
 var game_manager: GameManager
@@ -29,9 +32,6 @@ func setup(p_game_manager: GameManager) -> void:
 	game_manager = p_game_manager
 	grid = p_game_manager.grid
 	combat_orchestrator = p_game_manager.combat_orchestrator
-
-	attack_indicator.setup(grid)
-	movement_indicator.setup(grid)
 	combat_orchestrator.setup(damage_popup, game_manager.fx_service, game_manager.audio_service)
 
 	set_current_units_manager()
@@ -139,12 +139,10 @@ func show_attack_indicator() -> void:
 	var unit_context: UnitContext = UnitContext.create_unit_context(current_units_manager.selected_unit)
 	var units: Array[Unit] = current_units_manager.get_units_in_attack_range(unit_context)
 	var cells: Array[Vector2i] = game_manager.query_manager.get_units_positions(units)
-	
-	attack_indicator.show_cells(cells)
-	attack_indicator.highlight_units(units)
+	show_attackable.emit(cells)
 
 
 func show_movement_indicator() -> void:
 	var cells: Array[Vector2i] =  []
 	cells.assign(current_units_manager.selected_unit.reachable_cells.keys())
-	movement_indicator.show_cells(cells)
+	show_movement_range.emit(cells)

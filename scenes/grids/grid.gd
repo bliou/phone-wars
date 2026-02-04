@@ -23,22 +23,22 @@ func setup(input_manager: InputManager, p_query_manager: QueryManager, p_terrain
 
 
 func on_short_tap(world_pos: Vector2) -> void:
-	var cell_pos: Vector2i = world_pos / cell_size
+	var cell_pos: Vector2i = terrain_manager.world_to_cell(world_pos)
 	cell_short_tap.emit(cell_pos)
 
 
 func on_long_press(world_pos: Vector2) -> void:
-	var cell_pos: Vector2i = world_pos / cell_size
+	var cell_pos: Vector2i = terrain_manager.world_to_cell(world_pos)
 	cell_long_press.emit(cell_pos)
 
 
 func on_long_press_release(world_pos: Vector2) -> void:
-	var cell_pos: Vector2i = world_pos / cell_size
+	var cell_pos: Vector2i = terrain_manager.world_to_cell(world_pos)
 	cell_long_press_release.emit(cell_pos)
 
 
 func get_world_position_from_cell(cell_position: Vector2i) -> Vector2:
-	return Vector2(cell_position) * cell_size + cell_size / 2
+	return terrain_manager.cell_to_world(cell_position)
 
 
 # Return a dictionary of all the reachable cells with:

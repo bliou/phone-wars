@@ -9,8 +9,11 @@ var cells: Array[Vector2i] = []
 var units: Array[Unit] = []
 
 
-func setup(p_grid: Grid):
+func setup(p_grid: Grid, ui_controller: UIController):
 	grid = p_grid 
+
+	ui_controller.show_attackable.connect(show_cells)
+	ui_controller.clear_attackable.connect(clear)
 
 
 func _draw() -> void:
@@ -29,18 +32,4 @@ func show_cells(new_cells: Array[Vector2i]):
 
 func clear():
 	cells.clear()
-	clear_highlight_units()
 	queue_redraw()
-
-
-func highlight_units(p_units: Array[Unit]):
-	units = p_units
-	for u: Unit in p_units:
-		u.set_attack_highlight(true)
-
-
-func clear_highlight_units():
-	for u: Unit in units:
-		u.set_attack_highlight(false)
-
-	units.clear()

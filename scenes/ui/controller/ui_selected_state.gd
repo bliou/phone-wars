@@ -10,8 +10,8 @@ func _enter(_params: Dictionary = {}) -> void:
 
 
 func _exit() -> void:
-	controller.attack_indicator.clear()
-	controller.movement_indicator.clear()
+	controller.clear_attackable.emit()
+	controller.clear_movement_range.emit()
 
 
 func _process(_delta: float) -> void:
@@ -31,9 +31,10 @@ func _on_cell_tap(cell: Vector2i) -> void:
 		return
 
 	if controller.current_units_manager.can_move_on_cell(cell):
+		controller.game_hud.hide_cancel_button()
 		controller.current_units_manager.move_unit_to_cell(cell)
-		controller.attack_indicator.clear()
-		controller.movement_indicator.clear()
+		controller.clear_attackable.emit()
+		controller.clear_movement_range.emit()
 		return
 
 
