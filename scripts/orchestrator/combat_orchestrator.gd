@@ -3,10 +3,12 @@ extends Node
 
 var damage_popup: DamagePopup
 var fx_service: FXService
+var audio_service: AudioService
 
-func setup(dp: DamagePopup, fxs: FXService) -> void:
+func setup(dp: DamagePopup, fxs: FXService, audio: AudioService) -> void:
 	damage_popup = dp
 	fx_service = fxs
+	audio_service = audio
 
 
 func execute(attacker: Unit, defender: Unit, terrain: TerrainData) -> void:
@@ -22,12 +24,12 @@ func execute(attacker: Unit, defender: Unit, terrain: TerrainData) -> void:
 
 
 func play_attack_animation(result: CombatManager.CombatResult) -> void:
-	await result.attacker.attack(result.defender, fx_service)
+	await result.attacker.attack(result.defender, fx_service, audio_service)
 
 	
 func play_defender_reaction(result: CombatManager.CombatResult) -> void:
 	var weapon: Weapon = result.attacker.unit_profile.weapon
-	weapon._play_impact(result.attacker, result.defender, fx_service)
+	weapon._play_impact(result.attacker, result.defender, fx_service, audio_service)
 	await result.defender.play_hit_reaction()
 
 
@@ -41,4 +43,4 @@ func apply_damage(result: CombatManager.CombatResult) -> void:
 
 
 func handle_unit_death(result: CombatManager.CombatResult) -> void:
-	result.defender.die()
+	result.defender.die(audio_service)

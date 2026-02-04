@@ -9,7 +9,8 @@ signal turn_ended()
 @onready var terrain_manager: TerrainManager = $Terrain
 @onready var input_manager: InputManager = $Managers/InputManager
 @onready var combat_orchestrator: CombatOrchestrator = $Orchestrators/CombatOrchestrator
-@onready var fx_service: FXService = $CombatFX
+@onready var fx_service: FXService = $Services/CombatFX
+@onready var audio_service: AudioService = $Services/AudioService
 
 
 var teams: Array[Team] = []

@@ -13,8 +13,9 @@ signal unit_killed()
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var weapon_muzzle: Marker2D = $WeaponMuzzle
 @onready var hp_label_component: HPLabelComponent = $HPLabelComponent
-@onready var explosion_scene: PackedScene = preload("res://scenes/vfx/explosion.tscn")
 
+@onready var death_scene: PackedScene = preload("res://scenes/vfx/explosion.tscn")
+@onready var death_sound: AudioStream = preload("res://assets/sounds/units/sfx_die3.wav")
 
 var grid_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost
@@ -155,12 +156,13 @@ func take_dmg(dmg: float) -> void:
 	hp_label_component.update(actual_health)
 
 
-func die() -> void:
+func die(audio_service: AudioService) -> void:
 	animated_sprite.visible = false
 
-	var explosion: Explosion = explosion_scene.instantiate()
+	var explosion: Explosion = death_scene.instantiate()
 	explosion.global_position = global_position
 	get_tree().root.add_child(explosion)
+	audio_service.play_sfx(death_sound, global_position)
 
 	await explosion.finished
 
@@ -171,7 +173,7 @@ func set_attack_highlight(highlight: bool) -> void:
 	print("set hihglight: ", highlight)
 
 
-func attack(defender: Unit, fx_service: FXService) -> void:
+func attack(defender: Unit, fx_service: FXService, audio_service: AudioService) -> void:
 	if defender.global_position.x < global_position.x:
 		facing = FaceDirection.Values.LEFT
 	elif defender.global_position.x < global_position.x:
@@ -179,7 +181,7 @@ func attack(defender: Unit, fx_service: FXService) -> void:
 
 	animated_sprite.flip_h = facing == FaceDirection.Values.RIGHT
 	animation_player.play("attack")
-	unit_profile.weapon._play_fire(self, defender, fx_service)
+	unit_profile.weapon._play_fire(self, defender, fx_service, audio_service)
 
 	await animation_player.animation_finished
 
