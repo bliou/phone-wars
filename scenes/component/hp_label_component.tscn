@@ -1,13 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://cot0bb48uebej"]
 
-[ext_resource type="Texture2D" uid="uid://cw2g8g0g4864r" path="res://assets/sprites/terrains/tilemap.png" id="1_pm4hl"]
+[ext_resource type="Texture2D" uid="uid://c0vl37poqyn5y" path="res://assets/ui/ui_icons.png" id="1_qpnkl"]
 [ext_resource type="Script" uid="uid://dm1w8b57njrw5" path="res://scenes/component/hp_label_component.gd" id="2_qpnkl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pm4hl"]
-atlas = ExtResource("1_pm4hl")
-region = Rect2(4, 173, 186, 16)
+atlas = ExtResource("1_qpnkl")
+region = Rect2(0, 0, 352, 32)
 
 [node name="HPLabelComponent" type="Sprite2D"]
+scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_pm4hl")
 hframes = 11
 region_rect = Rect2(2, 2, 12, 13)

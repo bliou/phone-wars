@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnhkm7sviseoy"
-path="res://.godot/imported/phone_wars_sprites.png-00d35c7ce6807971435c1144ab9ee795.ctex"
+uid="uid://c0vl37poqyn5y"
+path="res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/terrains/phone_wars_sprites.png"
-dest_files=["res://.godot/imported/phone_wars_sprites.png-00d35c7ce6807971435c1144ab9ee795.ctex"]
+source_file="res://assets/ui/ui_icons.png"
+dest_files=["res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"]
 
 [params]
 
