@@ -212,6 +212,9 @@ func get_enemy_unit_on_cell(cell: Vector2i) -> Unit:
 # get all the enemy units that a unit can attack withing it's attack range
 # with movement taken into account
 func get_units_in_attack_range_with_movement(unit: Unit) -> Array[Unit]:
+	if unit.exhausted:
+		return []
+
 	var targets: Array[Unit] = []
 	var reachable_cells: Dictionary = grid.get_reachable_cells(unit)
 	var unit_context: UnitContext = UnitContext.create_unit_context(unit)

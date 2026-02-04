@@ -55,6 +55,7 @@ region = Rect2(212, 420, 56, 44)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_04e2q"]
 texture = SubResource("AtlasTexture_428ye")
+modulate_color = Color(1, 1, 1, 0.78431374)
 
 [resource]
 Button/font_sizes/font_size = 12
