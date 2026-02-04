@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=4 uid="uid://dxril5owa1jv5"]
+[gd_scene load_steps=30 format=4 uid="uid://dxril5owa1jv5"]
 
 [ext_resource type="Script" uid="uid://cyj1lsu0epdxb" path="res://scripts/managers/game_manager.gd" id="1_t1o2k"]
 [ext_resource type="PackedScene" uid="uid://bqeqp2n1diaug" path="res://scenes/grids/grid.tscn" id="2_h65yf"]
+[ext_resource type="Resource" uid="uid://f6a5g6jtp5bi" path="res://resources/musics/battle_playlist.tres" id="2_viv5u"]
 [ext_resource type="Script" uid="uid://b4bglf1qv6woa" path="res://scripts/managers/terrain_manager.gd" id="3_8kiat"]
 [ext_resource type="Script" uid="uid://3ayikrqceb2l" path="res://scripts/resources/terrains/terrain_database.gd" id="4_xdr7y"]
 [ext_resource type="Script" uid="uid://dnop8yi4lsey8" path="res://scripts/resources/terrains/terrain_data.gd" id="5_rqq3m"]
@@ -24,7 +25,9 @@
 [ext_resource type="Script" uid="uid://cuc58c2au6p3i" path="res://scripts/orchestrator/combat_orchestrator.gd" id="18_xao8q"]
 [ext_resource type="Resource" uid="uid://bjb1hhcw53ena" path="res://resources/teams/blue_team.tres" id="19_k53m2"]
 [ext_resource type="Script" uid="uid://dnrk6k26be4ly" path="res://scripts/services/fx_service.gd" id="22_rqq3m"]
+[ext_resource type="Script" uid="uid://datlrsmxx1ofs" path="res://scripts/managers/music_manager.gd" id="23_rbirq"]
 [ext_resource type="Script" uid="uid://bq66fyhh6afgc" path="res://scripts/services/audio_service.gd" id="25_r8exw"]
+[ext_resource type="PackedScene" uid="uid://bqqubrlum3m1c" path="res://scenes/services/music_service.tscn" id="27_viv5u"]
 
 [sub_resource type="Resource" id="Resource_5bptm"]
 script = ExtResource("4_xdr7y")
@@ -111,6 +114,10 @@ position = Vector2(240, 176)
 [node name="InputManager" type="Node" parent="Managers"]
 script = ExtResource("16_xfvij")
 
+[node name="MusicManager" type="Node" parent="Managers"]
+script = ExtResource("23_rbirq")
+playlist = ExtResource("2_viv5u")
+
 [node name="UIController" parent="." instance=ExtResource("17_px0mx")]
 visible = false
 
@@ -127,6 +134,8 @@ script = ExtResource("22_rqq3m")
 
 [node name="AudioService" type="Node" parent="Services"]
 script = ExtResource("25_r8exw")
+
+[node name="MusicService" parent="Services" instance=ExtResource("27_viv5u")]
 
 [editable path="Teams/RedTeam"]
 [editable path="Teams/BlueTeam"]

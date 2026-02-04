@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MusicPlaylist" load_steps=6 format=3 uid="uid://f6a5g6jtp5bi"]
+
+[ext_resource type="Script" uid="uid://csbg3o4ta0t5p" path="res://scripts/resources/musics/music_playlist.gd" id="1_g6qvs"]
+[ext_resource type="AudioStream" uid="uid://841qhq6wkeq" path="res://assets/musics/01. Battle Theme I (full).wav" id="2_xes0q"]
+[ext_resource type="AudioStream" uid="uid://bsld4qtty25s" path="res://assets/musics/09. Battle Theme II (full).wav" id="3_1e7qd"]
+[ext_resource type="AudioStream" uid="uid://dfvk1oymtad30" path="res://assets/musics/16. Battle Theme III (full).wav" id="4_p21ec"]
+[ext_resource type="AudioStream" uid="uid://c634x4h2ew26u" path="res://assets/musics/24. Battle Theme IV (full).wav" id="5_k0sp5"]
+
+[resource]
+script = ExtResource("1_g6qvs")
+tracks = Array[AudioStream]([ExtResource("2_xes0q"), ExtResource("3_1e7qd"), ExtResource("4_p21ec"), ExtResource("5_k0sp5")])
+fade_in_time = 5.0
+fade_out_time = 3.0
+metadata/_custom_type_script = "uid://csbg3o4ta0t5p"
