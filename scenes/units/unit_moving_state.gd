@@ -16,6 +16,15 @@ func _enter(params: Dictionary = {}) -> void:
 	currentPathIndex = 0
 	path = params.get("path", [])
 
+	# means that the unit stick on the same cell
+	if path.size() <= 1:
+		unit.fsm.change_state(unit.idle_state)
+		unit.unit_moved.emit()
+		return
+
+	print("stop_capture")
+	unit.stop_capture()
+
 
 func _exit() -> void:
 	unit.animated_sprite.stop()

@@ -10,7 +10,6 @@ signal captured_by(unit: Unit)
 
 var grid_pos: Vector2i = Vector2i.ZERO
 var team: Team
-var actual_capture_point: int
 
 var fsm: StateMachine
 var idle_state: BuildingIdleState
@@ -26,7 +25,6 @@ func _ready() -> void:
 
 func setup(p_team: Team) -> void:
 	set_team(p_team)
-	actual_capture_point = capture_point
 
 	idle_state = BuildingIdleState.new("building_idle", self)
 	selected_state = BuildingSelectedState.new("building_selected", self)
@@ -41,26 +39,9 @@ func set_team(p_team: Team) -> void:
 	animated_sprite.material.set_shader_parameter("replace_colors", team.team_profile.replace_colors)
 
 
-func try_to_capture_by(unit: Unit) -> void:
-	if unit.team.is_same_team(team):
-		return
-
-	actual_capture_point -= unit.capture_capacity()
-	print("capture_capacity %s / actual_capture_point %s" %[unit.capture_capacity(), actual_capture_point])
-	if actual_capture_point > 0:
-		return
-
-	captured(unit)
-
-
-func captured(unit: Unit) -> void:
-	reset_capture_points()
+func captured(new_team: Team) -> void:
 	team.buildings_manager.remove_building(self)
-	set_team(unit.team)
-	team.buildings_manager.add_building(self)
+	set_team(new_team)
+	new_team.buildings_manager.add_building(self)
 
-	captured_by.emit(unit)
-
-
-func reset_capture_points() -> void:
-	actual_capture_point = capture_point
+	captured_by.emit(new_team)

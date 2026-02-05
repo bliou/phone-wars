@@ -21,8 +21,9 @@ signal unit_killed()
 var grid_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost
 var exhausted: bool = false
-var capturing: bool = false
+var capture_process: CaptureProcess
 var actual_health: float = 10.0
+
 var capturing_component: CapturingComponent
 
 var team: Team
@@ -133,12 +134,25 @@ func capture_capacity() -> int:
 	return round(ratio*unit_profile.capture_capacity)
 
 
-func start_capture() -> void:
-	capturing_component.show()
+func capture(building: Building) -> void:
+	if capture_process == null:
+		capture_process = CaptureProcess.new(building, self)
+
+	if not capture_process.capture_building():
+		return
+
+	print("stop capturing")
+	stop_capture()
 
 
 func stop_capture() -> void:
-	capturing_component.hide()
+	if capture_process == null:
+		print("capture_process: ", capture_process)
+		return
+
+	print("clear_capture")
+	capture_process.clear_capture()
+	capture_process = null
 
 
 func can_merge_with_unit(unit: Unit) -> bool:
@@ -176,6 +190,7 @@ func take_dmg(dmg: float) -> void:
 
 
 func die(audio_service: AudioService) -> void:
+	stop_capture()
 	animated_sprite.visible = false
 
 	var explosion: Explosion = death_scene.instantiate()
