@@ -11,7 +11,6 @@ signal turn_ended()
 @onready var indicators: Indicators = $Indicators
 @onready var input_manager: InputManager = $Managers/InputManager
 @onready var music_manager: MusicManager = $Managers/MusicManager
-@onready var combat_orchestrator: CombatOrchestrator = $Orchestrators/CombatOrchestrator
 @onready var fx_service: FXService = $Services/CombatFX
 @onready var audio_service: AudioService = $Services/AudioService
 @onready var music_service: MusicService = $Services/MusicService

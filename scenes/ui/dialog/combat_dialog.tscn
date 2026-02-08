@@ -1,24 +1,30 @@
-[gd_scene load_steps=11 format=3 uid="uid://clc1f57hx78vl"]
+[gd_scene load_steps=12 format=3 uid="uid://clc1f57hx78vl"]
 
-[ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_428ye"]
-[ext_resource type="Script" uid="uid://cn60na82taoyh" path="res://scenes/ui/preview/combat_preview.gd" id="1_up0es"]
-[ext_resource type="Shader" uid="uid://c4w6xe1duvxv7" path="res://resources/shaders/combat.gdshader" id="3_04e2q"]
-[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_ylojq"]
-[ext_resource type="Texture2D" uid="uid://c0vl37poqyn5y" path="res://assets/ui/ui_icons.png" id="4_mmh2r"]
-[ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="4_rg8ou"]
+[ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_keuxs"]
+[ext_resource type="Script" uid="uid://cn60na82taoyh" path="res://scenes/ui/dialog/combat_dialog.gd" id="2_hc2pw"]
+[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_lth0p"]
+[ext_resource type="Texture2D" uid="uid://c0vl37poqyn5y" path="res://assets/ui/ui_icons.png" id="4_yyxey"]
+[ext_resource type="Shader" uid="uid://c4w6xe1duvxv7" path="res://resources/shaders/combat.gdshader" id="5_ln4ny"]
+[ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="6_fc5yc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_keuxs"]
+shader = ExtResource("3_lth0p")
+shader_parameter/disabled = 0.0
+shader_parameter/original_colors = PackedColorArray(0.4745098, 0.6156863, 0.68235296, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/replace_colors = PackedColorArray(0.8117647, 0.43529412, 0.35686275, 0.5176471, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mmh2r"]
-shader = ExtResource("3_ylojq")
+shader = ExtResource("3_lth0p")
 shader_parameter/disabled = 0.0
 shader_parameter/original_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hnj8q"]
-atlas = ExtResource("4_mmh2r")
+atlas = ExtResource("4_yyxey")
 region = Rect2(132, 38, 24, 20)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ylojq"]
-shader = ExtResource("3_04e2q")
+shader = ExtResource("5_ln4ny")
 shader_parameter/original_colors = PackedColorArray(0.21568628, 0.29411766, 0.32941177, 1, 0.2901961, 0.3882353, 0.43529412, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/replace_colors = PackedColorArray(0.64601916, 0.15912214, 0.086115755, 1, 1, 0.3019608, 0.23529412, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/hidden_color = Color(0.4745098, 0.6156863, 0.68235296, 1)
@@ -27,7 +33,7 @@ shader_parameter/pulse_speed = 3.0
 shader_parameter/intensity = 0.8
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_428ye"]
-atlas = ExtResource("4_rg8ou")
+atlas = ExtResource("6_fc5yc")
 region = Rect2(212, 420, 56, 44)
 
 [node name="CombatPreview" type="Control"]
@@ -40,10 +46,11 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
-theme = ExtResource("1_428ye")
-script = ExtResource("1_up0es")
+theme = ExtResource("1_keuxs")
+script = ExtResource("2_hc2pw")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_keuxs")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,10 +60,6 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2

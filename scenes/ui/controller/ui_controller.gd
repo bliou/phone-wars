@@ -11,13 +11,15 @@ signal clear_attackable()
 
 @onready var game_hud: GameHUD = $GameHUD
 
-@onready var combat_preview: CombatPreview = $Previews/CombatPreview
-@onready var info_preview: InfoPreview = $Previews/InfoPreview
+@onready var capture_dialog: CaptureDialog = $Dialogs/CaptureDialog
+@onready var combat_dialog: CombatDialog = $Dialogs/CombatDialog
+@onready var info_dialog: InfoDialog = $Dialogs/InfoDialog
 @onready var damage_popup: DamagePopup = $Popups/DamagePopup
 
 var game_manager: GameManager
 var grid: Grid
 var combat_orchestrator: CombatOrchestrator
+var capture_orchestrator: CaptureOrchestrator
 
 var fsm: StateMachine
 var idle_state: UIIdleState
@@ -31,8 +33,8 @@ var current_units_manager: UnitsManager
 func setup(p_game_manager: GameManager) -> void:
 	game_manager = p_game_manager
 	grid = p_game_manager.grid
-	combat_orchestrator = p_game_manager.combat_orchestrator
-	combat_orchestrator.setup(damage_popup, game_manager.fx_service, game_manager.audio_service)
+	combat_orchestrator = CombatOrchestrator.new(damage_popup, game_manager.fx_service, game_manager.audio_service)
+	capture_orchestrator = CaptureOrchestrator.new(capture_dialog, game_manager.audio_service)
 
 	set_current_units_manager()
 
@@ -103,7 +105,11 @@ func on_idle_clicked() -> void:
 
 func on_capture_clicked() -> void:
 	current_units_manager.capture_building()
+	game_hud.hide()
+	await capture_orchestrator.execute(current_units_manager.selected_unit)
+	game_hud.show()
 	fsm.change_state(idle_state)
+	current_units_manager.confirm_unit_movement()
 
 
 func on_merge_clicked() -> void:

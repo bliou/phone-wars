@@ -4,7 +4,7 @@ extends Area2D
 signal captured_by(unit: Unit)
 
 @export var construction_profile: ConstructionProfile
-@export var capture_point: int = 20
+@export var capture_points: int = 20
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 

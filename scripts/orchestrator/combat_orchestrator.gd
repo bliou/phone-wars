@@ -1,11 +1,10 @@
 class_name CombatOrchestrator
-extends Node
 
 var damage_popup: DamagePopup
 var fx_service: FXService
 var audio_service: AudioService
 
-func setup(dp: DamagePopup, fxs: FXService, audio: AudioService) -> void:
+func _init(dp: DamagePopup, fxs: FXService, audio: AudioService) -> void:
 	damage_popup = dp
 	fx_service = fxs
 	audio_service = audio

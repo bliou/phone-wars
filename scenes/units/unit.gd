@@ -2,7 +2,7 @@ class_name Unit
 extends Area2D
 
 signal unit_moved()
-signal unit_killed()
+signal unit_killed(unit: Unit)
 
 @export var speed: float = 100.0
 @export var unit_profile: UnitProfile = null
@@ -134,23 +134,22 @@ func capture_capacity() -> int:
 	return round(ratio*unit_profile.capture_capacity)
 
 
-func capture(building: Building) -> void:
-	if capture_process == null:
-		capture_process = CaptureProcess.new(building, self)
-
-	if not capture_process.capture_building():
+func start_capture(building: Building) -> void:
+	if capture_process != null:
 		return
 
-	print("stop capturing")
-	stop_capture()
+	capture_process = CaptureProcess.new(building, self)
 
+
+func capture() -> void:
+	capture_process.capture()
+	
 
 func stop_capture() -> void:
 	if capture_process == null:
 		print("capture_process: ", capture_process)
 		return
 
-	print("clear_capture")
 	capture_process.clear_capture()
 	capture_process = null
 

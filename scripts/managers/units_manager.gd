@@ -104,7 +104,6 @@ func can_move_on_cell(target_cell: Vector2i) -> bool:
 	)
 
 
-
 func cancel_unit_movement() -> void:
 	move_unit_command.undo()
 	selected_unit.global_position = grid.get_world_position_from_cell(selected_unit.grid_pos)
@@ -141,8 +140,7 @@ func capture_available() -> bool:
 func capture_building() -> void:
 	var unit_pos: Vector2i = selected_unit.grid_pos
 	var building: Building = query_manager.get_building_at(unit_pos)
-	selected_unit.capture(building)
-	confirm_unit_movement()
+	selected_unit.start_capture(building)
 
 
 func merge_available() -> bool:
