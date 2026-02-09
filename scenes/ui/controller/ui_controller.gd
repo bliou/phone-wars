@@ -16,6 +16,8 @@ signal clear_attackable()
 @onready var info_dialog: InfoDialog = $Dialogs/InfoDialog
 @onready var damage_popup: DamagePopup = $Popups/DamagePopup
 
+@onready var ui_fx_layer: Node2D = $FXLayer
+
 var game_manager: GameManager
 var grid: Grid
 var combat_orchestrator: CombatOrchestrator
@@ -34,7 +36,7 @@ func setup(p_game_manager: GameManager) -> void:
 	game_manager = p_game_manager
 	grid = p_game_manager.grid
 	combat_orchestrator = CombatOrchestrator.new(damage_popup, game_manager.fx_service, game_manager.audio_service)
-	capture_orchestrator = CaptureOrchestrator.new(capture_dialog, game_manager.audio_service)
+	capture_orchestrator = CaptureOrchestrator.new(capture_dialog, game_manager.fx_service, game_manager.audio_service)
 
 	set_current_units_manager()
 

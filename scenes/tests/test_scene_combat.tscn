@@ -127,9 +127,9 @@ playlist = ExtResource("2_viv5u")
 [node name="UIController" parent="." instance=ExtResource("17_px0mx")]
 visible = false
 
-[node name="Services" type="Node2D" parent="."]
+[node name="Services" type="Node" parent="."]
 
-[node name="CombatFX" type="Node2D" parent="Services"]
+[node name="FXService" type="Node2D" parent="Services"]
 script = ExtResource("22_rqq3m")
 
 [node name="AudioService" type="Node" parent="Services"]

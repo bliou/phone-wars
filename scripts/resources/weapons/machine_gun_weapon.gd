@@ -7,19 +7,19 @@ extends Weapon
 @export var spread_radius := 2.0
 
 
-func _play_fire(attacker: Unit, _defender: Unit, fx_service: FXService, audio_service: AudioService) -> void:
+func _play_fire(attacker: Node2D, spawn_pos: Vector2, play_fx_func: Callable, audio_service: AudioService) -> void:
 	for i in burst_count:
-		spawn_bullet_flash(attacker, fx_service, audio_service)
+		spawn_bullet_flash(attacker, spawn_pos, play_fx_func, audio_service)
 		await attacker.get_tree().create_timer(burst_interval).timeout
 
 
-func spawn_bullet_flash(attacker: Unit, fx_service: FXService, audio_service: AudioService):
+func spawn_bullet_flash(attacker: Node2D, spawn_pos: Vector2, play_fx_func: Callable, audio_service: AudioService):
 	# Anchor around attacker, biased toward target
 	var dir: Vector2 = Vector2(-1, 0)
-	var base_pos: Vector2 = attacker.weapon_muzzle.global_position
+	var base_pos: Vector2 = spawn_pos
 
 	if attacker.facing == FaceDirection.Values.RIGHT:
-		base_pos.x += attacker.size.x
+		base_pos.x += Const.CELL_SIZE.x
 		dir = Vector2(1, 0)
 
 	var offset: Vector2 = Vector2(
@@ -28,25 +28,24 @@ func spawn_bullet_flash(attacker: Unit, fx_service: FXService, audio_service: Au
 	)
 	
 	var world_pos: Vector2 = base_pos+offset
-	fx_service.spawn_combat_fx(fire_scene, world_pos, dir.angle())
+	play_fx_func.call(fire_scene, world_pos, dir.angle())
 	audio_service.play_sfx(fire_sound, world_pos)
 
 
-func _play_impact(attacker: Unit, defender: Unit, fx_service: FXService, audio_service: AudioService) -> void:
-	var attacker_facing: FaceDirection.Values = attacker.facing
+func _play_impact(attacker_facing: FaceDirection.Values, defender: Node2D, play_fx_func: Callable, audio_service: AudioService) -> void:
 	for i in burst_count:
-		spawn_bullet_impact(attacker_facing, defender, fx_service, audio_service)
+		spawn_bullet_impact(attacker_facing, defender, play_fx_func, audio_service)
 		await defender.get_tree().create_timer(burst_interval).timeout
 
 
-func spawn_bullet_impact(attacker_facing: FaceDirection.Values, defender: Unit, fx_service: FXService, audio_service: AudioService):
+func spawn_bullet_impact(attacker_facing: FaceDirection.Values, defender: Node2D, play_fx_func: Callable, audio_service: AudioService):
 	# Anchor around attacker, biased toward target
 	var dir: Vector2 = Vector2(-1, 0)
 	var base_pos: Vector2 = defender.global_position
-	base_pos.x -= defender.size.x / 2.0 / 2.0
+	base_pos.x -= Const.CELL_SIZE.x / 2.0 / 2.0
 
 	if attacker_facing == FaceDirection.Values.LEFT:
-		base_pos.x += defender.size.x / 2.0
+		base_pos.x += Const.CELL_SIZE.x / 2.0
 		dir = Vector2(1, 0)
 
 	var offset: Vector2 = Vector2(
@@ -55,5 +54,5 @@ func spawn_bullet_impact(attacker_facing: FaceDirection.Values, defender: Unit, 
 	)
 	
 	var world_pos: Vector2 = base_pos+offset
-	fx_service.spawn_combat_fx(hit_scene, world_pos, dir.angle())
+	play_fx_func.call(hit_scene, world_pos, dir.angle())
 	audio_service.play_sfx(hit_sound, world_pos)

@@ -28,7 +28,7 @@ func play_attack_animation(result: CombatManager.CombatResult) -> void:
 	
 func play_defender_reaction(result: CombatManager.CombatResult) -> void:
 	var weapon: Weapon = result.attacker.unit_profile.weapon
-	weapon._play_impact(result.attacker, result.defender, fx_service, audio_service)
+	weapon._play_impact(result.attacker.facing, result.defender, fx_service.play_world_fx, audio_service)
 	await result.defender.play_hit_reaction()
 
 

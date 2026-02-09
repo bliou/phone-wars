@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cxdifupvx7yvu" path="res://scenes/ui/popups/damage_popup.tscn" id="7_5n6d6"]
 
 [node name="UIController" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_urrig")
 
 [node name="GameHUD" parent="." instance=ExtResource("2_fdbyg")]
@@ -44,3 +45,5 @@ offset_bottom = 40.0
 
 [node name="DamagePopup" parent="Popups" instance=ExtResource("7_5n6d6")]
 layout_mode = 0
+
+[node name="FXLayer" type="Node2D" parent="."]

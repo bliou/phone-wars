@@ -34,6 +34,7 @@ func animate_in():
 		0.0, 1.0, 0.15
 	)
 	await tween.finished
+	await get_tree().create_timer(0.5).timeout
 
 
 func animate_out():

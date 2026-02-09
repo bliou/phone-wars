@@ -6,6 +6,8 @@ extends BaseDialog
 @onready var max_capture_points_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MaxCapturePointsLabel
 @onready var capture_points_texture: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/CapturePoints
 
+@onready var unit_proxy: UnitProxy = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/UnitProxyWrapper/UnitProxy
+@onready var building_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/BuildingIcon
 
 class CaptureData:
     var capture_points: int
@@ -41,3 +43,11 @@ func update(cd: CaptureData) -> void:
         1.5)
 
     await tween.finished
+
+
+func load_unit_proxy(unit: Unit) -> void:
+    unit_proxy.load_from_unit(unit)
+
+
+func play_unit_attack(fx_service: FXService, audio_service: AudioService) -> void:
+    await unit_proxy.play_attack(fx_service, audio_service)

@@ -11,7 +11,7 @@ signal turn_ended()
 @onready var indicators: Indicators = $Indicators
 @onready var input_manager: InputManager = $Managers/InputManager
 @onready var music_manager: MusicManager = $Managers/MusicManager
-@onready var fx_service: FXService = $Services/CombatFX
+@onready var fx_service: FXService = $Services/FXService
 @onready var audio_service: AudioService = $Services/AudioService
 @onready var music_service: MusicService = $Services/MusicService
 
@@ -27,6 +27,7 @@ func _ready() -> void:
 	camera_controller.setup(ui_controller, input_manager)
 	indicators.setup(grid, ui_controller)
 	ui_controller.setup(self)
+	fx_service.setup_ui(ui_controller.ui_fx_layer)
 	music_manager.setup(music_service)
 	
 

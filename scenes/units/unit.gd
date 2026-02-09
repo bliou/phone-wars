@@ -6,8 +6,6 @@ signal unit_killed(unit: Unit)
 
 @export var speed: float = 100.0
 @export var unit_profile: UnitProfile = null
-@export var size: Vector2i = Vector2i(32, 32)
-
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -210,7 +208,7 @@ func attack(defender: Unit, fx_service: FXService, audio_service: AudioService) 
 
 	animated_sprite.flip_h = facing == FaceDirection.Values.RIGHT
 	animation_player.play("attack")
-	unit_profile.weapon._play_fire(self, defender, fx_service, audio_service)
+	unit_profile.weapon._play_fire(self, weapon_muzzle.global_position, fx_service.play_world_fx, audio_service)
 
 	await animation_player.animation_finished
 
