@@ -42,7 +42,6 @@ func spawn_bullet_impact(attacker_facing: FaceDirection.Values, defender: Node2D
 	# Anchor around attacker, biased toward target
 	var dir: Vector2 = Vector2(-1, 0)
 	var base_pos: Vector2 = defender.global_position
-	print("defender.global_position: ", defender.global_position)
 	base_pos.x -= Const.CELL_SIZE.x / 2.0 / 2.0
 
 	if attacker_facing == FaceDirection.Values.LEFT:

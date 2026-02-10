@@ -21,5 +21,6 @@ func execute():
 func undo():
 	unit.grid_pos = start_cell
 	unit.select()
-	unit.capture_process = CaptureProcess.load_from_capture_process(capture_process)
-	capture_process = null
+	if capture_process != null:
+		unit.capture_process = CaptureProcess.load_from_capture_process(capture_process)
+		capture_process = null

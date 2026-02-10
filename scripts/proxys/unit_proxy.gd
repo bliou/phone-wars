@@ -27,7 +27,6 @@ func load_from_unit(unit: Unit) -> void:
 func play_attack(fx_service: FXService, audio_service: AudioService) -> void:
 	animated_sprite.flip_h = facing == FaceDirection.Values.RIGHT
 	animation_player.play("attack")
-	print("weapon_muzzle.global_position: ", weapon_muzzle.global_position)
 	weapon._play_fire(self, weapon_muzzle.global_position, fx_service.play_ui_fx, audio_service)
 
 	await animation_player.animation_finished
