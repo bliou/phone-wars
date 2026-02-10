@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://coewfg6qqq82j"]
+[gd_scene load_steps=9 format=3 uid="uid://coewfg6qqq82j"]
 
 [ext_resource type="Script" uid="uid://c0ghc8sqosbe7" path="res://scenes/buildings/building.gd" id="1_fsm37"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="2_s8d14"]
+[ext_resource type="Resource" uid="uid://dnyyrdvdns1dc" path="res://resources/buildings/city.tres" id="2_sctt1"]
 [ext_resource type="Texture2D" uid="uid://p7s204aqq84r" path="res://assets/sprites/buildings/buildings.png" id="3_s8d14"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sctt1"]
@@ -30,6 +31,7 @@ size = Vector2(32, 32)
 
 [node name="City" type="Area2D"]
 script = ExtResource("1_fsm37")
+building_profile = ExtResource("2_sctt1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_sctt1")

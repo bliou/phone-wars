@@ -6,35 +6,44 @@ extends BaseDialog
 @onready var max_capture_points_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MaxCapturePointsLabel
 @onready var capture_points_texture: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/CapturePoints
 
+@onready var capture_animation: HBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2
 @onready var unit_proxy: UnitProxy = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/UnitProxyWrapper/UnitProxy
-@onready var building_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/BuildingIcon
-
-class CaptureData:
-    var capture_points: int
-    var max_capture_points: int
-    var target: Node2D
-    
-    func _init(capture_process: CaptureProcess) -> void:
-        capture_points = capture_process.progress
-        max_capture_points = capture_process.building.capture_points
-        target = capture_process.building
+@onready var building_icon: Sprite2D = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/BuildingIconWrapper/BuildingIcon
+@onready var building_icon_wrapper: Control = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/BuildingIconWrapper
 
 
-func update(cd: CaptureData) -> void:
+func load(result: CaptureProcess.CaptureResult) -> void:
+    capture_points_label.text = "%s" % result.previous_capture_points
+    max_capture_points_label.text = "%s" % result.max_capture_points
+
+    var ratio: float = result.previous_capture_points as float / result.max_capture_points
+    capture_points_texture.scale.x = ratio
+
+    unit_proxy.load_from_unit(result.unit)
+
+    building_icon.texture = result.building.icon().duplicate()
+    building_icon.position = Const.CELL_SIZE / 2
+
+    if unit_proxy.facing == FaceDirection.Values.LEFT:
+        capture_animation.move_child(building_icon_wrapper, 0)
+    else:
+        capture_animation.move_child(building_icon_wrapper, 1)
+
+    result.building.team.replace_colors(building_icon.material)
+
+
+func update(result: CaptureProcess.CaptureResult) -> void:
     var tween = create_tween()
     tween.set_parallel(true)
-
-    max_capture_points_label.text = "%s" % cd.max_capture_points
-
 
     tween.tween_method(
         func(value: float):
             capture_points_label.text = str(int(round(value))),
         float(capture_points_label.text),
-        cd.capture_points,
+        result.new_capture_points,
         1.5)
 
-    var ratio: float = cd.capture_points as float / cd.max_capture_points
+    var ratio: float = result.new_capture_points as float / result.max_capture_points
     print("ratio: ", ratio)
     tween.tween_property(
         capture_points_texture,
@@ -45,9 +54,11 @@ func update(cd: CaptureData) -> void:
     await tween.finished
 
 
-func load_unit_proxy(unit: Unit) -> void:
-    unit_proxy.load_from_unit(unit)
-
 
 func play_unit_attack(fx_service: FXService, audio_service: AudioService) -> void:
     await unit_proxy.play_attack(fx_service, audio_service)
+
+
+func play_building_impacts(fx_service: FXService, audio_service: AudioService) -> void:
+    var weapon: Weapon = unit_proxy.weapon
+    weapon._play_impact(unit_proxy.facing, building_icon, fx_service.play_ui_fx, audio_service)

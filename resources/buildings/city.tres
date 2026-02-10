@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildingProfile" load_steps=4 format=3 uid="uid://dnyyrdvdns1dc"]
+
+[ext_resource type="Script" uid="uid://bvkf6k11gv6m8" path="res://scripts/resources/buildings/building_profile.gd" id="1_tuknc"]
+[ext_resource type="Texture2D" uid="uid://p7s204aqq84r" path="res://assets/sprites/buildings/buildings.png" id="1_xxhvk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l0ca"]
+atlas = ExtResource("1_xxhvk")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_tuknc")
+type = 1
+building_icon = SubResource("AtlasTexture_2l0ca")
+metadata/_custom_type_script = "uid://bvkf6k11gv6m8"

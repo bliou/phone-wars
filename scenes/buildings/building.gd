@@ -3,8 +3,8 @@ extends Area2D
 
 signal captured_by(unit: Unit)
 
+@export var building_profile: BuildingProfile
 @export var construction_profile: ConstructionProfile
-@export var capture_points: int = 20
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -45,3 +45,20 @@ func captured(new_team: Team) -> void:
 	new_team.buildings_manager.add_building(self)
 
 	captured_by.emit(new_team)
+
+
+# Unit profile getters
+func defense() -> int:
+	return building_profile.building_defense
+
+
+func icon() -> Texture2D:
+	return building_profile.building_icon
+
+
+func type() -> BuildingType.Values:
+	return building_profile.type
+
+
+func max_capture_points() -> int:
+	return building_profile.capture_points

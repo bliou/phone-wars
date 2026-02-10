@@ -64,7 +64,7 @@ func get_reachable_cells(unit: Unit) -> Dictionary:
 
 			# not enough movement points left
 			var new_cost = cost + step_cost
-			if new_cost > unit.unit_profile.movement_points:
+			if new_cost > unit.movement_points():
 				continue
 
 			# cannot walk through enemy units

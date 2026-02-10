@@ -38,3 +38,10 @@ func neutral_team() -> bool:
 
 func is_same_team(team: Team) -> bool:
 	return self == team
+
+
+# Team profile getters
+func replace_colors(material: Material) -> void:
+	material.set_shader_parameter("original_colors", team_profile.original_colors)
+	material.set_shader_parameter("replace_colors", team_profile.replace_colors)
+	

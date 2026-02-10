@@ -9,7 +9,6 @@ var animation_player: AnimationPlayer
 var weapon_muzzle: Marker2D
 
 func _ready() -> void:
-	z_index = Ordering.OVER_UI
 	position = Const.CELL_SIZE / 2
 
 
@@ -18,7 +17,7 @@ func load_from_unit(unit: Unit) -> void:
 	animation_player = unit.animation_player.duplicate(true)
 	weapon_muzzle = unit.weapon_muzzle.duplicate(true)
 	facing = unit.facing
-	weapon = unit.unit_profile.weapon.duplicate(true)
+	weapon = unit.weapon().duplicate(true)
 	
 	add_child(animated_sprite)
 	add_child(animation_player)
@@ -28,6 +27,7 @@ func load_from_unit(unit: Unit) -> void:
 func play_attack(fx_service: FXService, audio_service: AudioService) -> void:
 	animated_sprite.flip_h = facing == FaceDirection.Values.RIGHT
 	animation_player.play("attack")
+	print("weapon_muzzle.global_position: ", weapon_muzzle.global_position)
 	weapon._play_fire(self, weapon_muzzle.global_position, fx_service.play_ui_fx, audio_service)
 
 	await animation_player.animation_finished

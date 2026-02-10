@@ -17,7 +17,7 @@ class CombatPreviewData:
 
 	func _init(unit: Unit, terrain_data: TerrainData, estimated_damage: float) -> void:
 		damage_preview = estimated_damage*10
-		defender_icon = unit.unit_profile.icon.duplicate()
+		defender_icon = unit.icon().duplicate()
 		defender_team = unit.team
 		defender_hp = unit.actual_health
 		terrain_icon = terrain_data.icon.duplicate()
@@ -41,6 +41,5 @@ func update_defender_icon(cpd: CombatPreviewData) -> void:
 		image.flip_x() 
 		cpd.defender_icon = ImageTexture.create_from_image(image)
 	
-	defender_icon.material.set_shader_parameter("original_colors", cpd.defender_team.team_profile.original_colors)
-	defender_icon.material.set_shader_parameter("replace_colors", cpd.defender_team.team_profile.replace_colors)
+	cpd.defender_team.replace_colors(defender_icon.material)
 	defender_icon.texture = cpd.defender_icon

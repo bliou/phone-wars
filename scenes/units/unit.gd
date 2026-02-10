@@ -66,9 +66,7 @@ func setup(p_team: Team) -> void:
 func set_team(p_team: Team) -> void:
 	team = p_team
 	facing = team.face_direction
-
-	animated_sprite.material.set_shader_parameter("original_colors", team.team_profile.original_colors)
-	animated_sprite.material.set_shader_parameter("replace_colors", team.team_profile.replace_colors)
+	team.replace_colors(animated_sprite.material)
 
 
 func set_capture_component() -> void:
@@ -139,8 +137,8 @@ func start_capture(building: Building) -> void:
 	capture_process = CaptureProcess.new(building, self)
 
 
-func capture() -> void:
-	capture_process.capture()
+func capture() -> CaptureProcess.CaptureResult:
+	return capture_process.resolve()
 	
 
 func stop_capture() -> void:
@@ -228,3 +226,41 @@ func play_hit_reaction() -> void:
 	await tween.finished
 
 	animated_sprite.position = pos
+
+
+
+# Unit profile getters
+func movement_points() -> int:
+	return unit_profile.movement_points
+
+
+func icon() -> Texture2D:
+	return unit_profile.icon
+
+
+func type() -> UnitType.Values:
+	return unit_profile.type
+
+
+func get_attack_dmg(defender_type: UnitType.Values) -> float:
+	return unit_profile.attack_profile.get_attack_dmg(defender_type)
+
+
+func get_defense_vs(attacker_type: UnitType.Values) -> float:
+	return unit_profile.defense_profile.get_defense_vs(attacker_type)
+
+
+func min_attack_range() -> int:
+	return unit_profile.attack_profile.min_range
+
+
+func max_attack_range() -> int:
+	return unit_profile.attack_profile.max_range
+
+
+func can_attack_after_movement() -> bool:
+	return unit_profile.attack_profile.can_attack_after_movement
+
+
+func weapon() -> Weapon:
+	return unit_profile.weapon

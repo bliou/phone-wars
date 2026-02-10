@@ -12,13 +12,16 @@ func _init(cd: CaptureDialog, fxs: FXService, audio: AudioService) -> void:
 
 
 func execute(unit: Unit) -> void:
-	unit.capture()
+	var result: CaptureProcess.CaptureResult = unit.capture()
 	
-	await play_capture_animation(unit.capture_process)
+	await load_capture_animation(result)
+	await play_attack_animation()
+	await play_building_reaction()
+	await play_capture_animation(result)
 	await capture_dialog.animate_out()
 	clear_dialog()
 
-	if not unit.capture_process.is_capture_done():
+	if not result.capture_done:
 		return
 
 	# play something as capture animation
@@ -26,13 +29,22 @@ func execute(unit: Unit) -> void:
 	unit.stop_capture()
 
 
-func play_capture_animation(capture_process: CaptureProcess) -> void:
-	var capture_data: CaptureDialog.CaptureData = CaptureDialog.CaptureData.new(capture_process)
-	await capture_dialog.position_dialog(capture_data.target)
-	capture_dialog.load_unit_proxy(capture_process.unit)
+func load_capture_animation(result: CaptureProcess.CaptureResult) -> void:
+	capture_dialog.load(result)
+	await capture_dialog.position_dialog(result.building)
 	await capture_dialog.animate_in()
+
+
+func play_attack_animation() -> void:
 	await capture_dialog.play_unit_attack(fx_service, audio_service)
-	await capture_dialog.update(capture_data)
+
+
+func play_building_reaction() -> void:
+	await capture_dialog.play_building_impacts(fx_service, audio_service)
+	
+
+func play_capture_animation(result: CaptureProcess.CaptureResult) -> void:
+	await capture_dialog.update(result)
 
 
 func clear_dialog() -> void:

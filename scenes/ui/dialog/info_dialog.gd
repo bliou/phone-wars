@@ -19,8 +19,8 @@ class InfoPreviewData:
 	var terrain_def: int
 
 	func _init(unit: Unit) -> void:
-		unit_type = UnitType.get_name_from_type(unit.unit_profile.type)
-		unit_icon = unit.unit_profile.icon.duplicate()
+		unit_type = UnitType.get_name_from_type(unit.type())
+		unit_icon = unit.icon().duplicate()
 		unit_hp = unit.actual_health
 		unit_team = unit.team
 
@@ -52,7 +52,6 @@ func update_unit_icon(ipd: InfoPreviewData) -> void:
 		image.flip_x() 
 		ipd.unit_icon = ImageTexture.create_from_image(image)
 	
-	unit_icon.material.set_shader_parameter("original_colors", ipd.unit_team.team_profile.original_colors)
-	unit_icon.material.set_shader_parameter("replace_colors", ipd.unit_team.team_profile.replace_colors)
+	ipd.unit_team.replace_colors(unit_icon.material)
 	unit_icon.texture = ipd.unit_icon
 

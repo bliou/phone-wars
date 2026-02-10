@@ -162,7 +162,7 @@ func merge_units() -> void:
 
 
 func combat_available() -> bool:
-	if not selected_unit.unit_profile.attack_profile.can_attack_after_movement:
+	if not selected_unit.can_attack_after_movement():
 		return false
 		
 	var unit_context: UnitContext = UnitContext.create_unit_context(selected_unit)
@@ -217,7 +217,7 @@ func get_units_in_attack_range_with_movement(unit: Unit) -> Array[Unit]:
 	var reachable_cells: Dictionary = grid.get_reachable_cells(unit)
 	var unit_context: UnitContext = UnitContext.create_unit_context(unit)
 
-	if not unit.unit_profile.attack_profile.can_attack_after_movement:
+	if not unit.can_attack_after_movement():
 		return get_units_in_attack_range(unit_context)
 
 	for cell in reachable_cells.keys():
