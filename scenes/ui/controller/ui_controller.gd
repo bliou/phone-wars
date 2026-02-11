@@ -164,7 +164,7 @@ func handle_unit_movement(cell: Vector2i) -> void:
 		return
 
 	if current_units_manager.can_move_on_cell(cell):
-		game_hud.hide_cancel_button()
+		game_hud.hide()
 		current_units_manager.move_unit_to_cell(cell)
 		clear_attackable.emit()
 		clear_movement_range.emit()
