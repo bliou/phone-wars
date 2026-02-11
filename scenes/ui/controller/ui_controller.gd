@@ -23,6 +23,7 @@ signal end_turn()
 var grid: Grid
 var combat_orchestrator: CombatOrchestrator
 var capture_orchestrator: CaptureOrchestrator
+var movement_orchestrator: MovementOrchestrator
 var query_manager: QueryManager
 
 var fsm: StateMachine
@@ -38,6 +39,7 @@ func setup(p_game_manager: GameManager) -> void:
 	grid = p_game_manager.grid
 	combat_orchestrator = CombatOrchestrator.new(damage_popup, p_game_manager.fx_service, p_game_manager.audio_service)
 	capture_orchestrator = CaptureOrchestrator.new(capture_dialog, p_game_manager.fx_service, p_game_manager.audio_service)
+	movement_orchestrator = MovementOrchestrator.new()
 	query_manager = p_game_manager.query_manager
 
 	switch_team(p_game_manager.active_team)
@@ -87,10 +89,6 @@ func on_unit_deselected(_unit: Unit) -> void:
 	fsm.change_state(idle_state)
 
 
-func on_unit_moved() -> void:
-	fsm.change_state(moved_state)
-
-
 func on_cancel_clicked() -> void:
 	var state: UIState = fsm.current_state as UIState
 	state._on_cancel_clicked()
@@ -133,20 +131,17 @@ func switch_team(new_team: Team) -> void:
 	if current_units_manager != null:
 		current_units_manager.unit_selected.disconnect(on_unit_selected)
 		current_units_manager.unit_deselected.disconnect(on_unit_deselected)
-		current_units_manager.unit_moved.disconnect(on_unit_moved)
 
 	current_units_manager = null
 	current_units_manager = new_team.units_manager
 	current_units_manager.unit_selected.connect(on_unit_selected)
 	current_units_manager.unit_deselected.connect(on_unit_deselected)
-	current_units_manager.unit_moved.connect(on_unit_moved)
 
 	is_playable = new_team.is_playable()
 
 
 func show_attack_indicator() -> void:
-	var unit_context: UnitContext = UnitContext.create_unit_context(current_units_manager.selected_unit)
-	var units: Array[Unit] = current_units_manager.get_units_in_attack_range(unit_context)
+	var units: Array[Unit] = current_units_manager.get_units_in_attack_range_with_movement(current_units_manager.selected_unit)
 	var cells: Array[Vector2i] = query_manager.get_units_positions(units)
 	show_attackable.emit(cells)
 
@@ -155,19 +150,40 @@ func show_movement_indicator() -> void:
 	show_movement_range.emit(current_units_manager.selected_unit.reachable_cells)
 
 
+func can_move_to_cell(cell: Vector2i) -> bool:
+	return current_units_manager.can_move_on_cell(cell)
+
+
+func can_attack_cell(cell: Vector2i) -> bool:
+	var unit: Unit = current_units_manager.selected_unit
+	var cells: Array[Vector2i] = query_manager.get_cells_in_attack_range(unit)
+	var enemy_unit: Unit = query_manager.get_unit_at(cell)
+	return cells.has(cell) and enemy_unit != null and not enemy_unit.team.is_same_team(unit.team) 
+
+
 func handle_unit_movement(cell: Vector2i) -> void:
-	if current_units_manager.can_attack_cell(cell):
+	game_hud.hide()
+	clear_attackable.emit()
+	clear_movement_range.emit()
+	await movement_orchestrator.execute(current_units_manager, cell)
+	fsm.change_state(moved_state)
+
+
+func handle_unit_attack(cell: Vector2i) -> void:
+	# Selected unit can attack without moving
+	if current_units_manager.can_selected_unit_attack_cell(cell):
+		current_units_manager.set_target_unit(query_manager.get_unit_at(cell))
 		fsm.change_state(attack_preview_state)
 		return
 
-	if not current_units_manager.selected_unit.reachable_cells.has(cell):
-		return
-
-	if current_units_manager.can_move_on_cell(cell):
-		game_hud.hide()
-		current_units_manager.move_unit_to_cell(cell)
-		clear_attackable.emit()
-		clear_movement_range.emit()
+	# Unit first need to move
+	game_hud.hide()
+	clear_attackable.emit()
+	clear_movement_range.emit()
+	var best_cell: Vector2i = current_units_manager.choose_best_attack_position(cell)
+	current_units_manager.set_target_unit(query_manager.get_unit_at(cell))
+	await movement_orchestrator.execute(current_units_manager, best_cell)
+	fsm.change_state(attack_preview_state)
 
 
 func handle_long_press(cell: Vector2i) -> void:

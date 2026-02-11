@@ -25,7 +25,12 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_cell_tap(cell: Vector2i) -> void:
-	controller.handle_unit_movement(cell)
+	if controller.can_move_to_cell(cell):
+		controller.handle_unit_movement(cell)
+		return
+
+	if controller.can_attack_cell(cell):
+		controller.handle_unit_attack(cell)
 
 
 func _on_cancel_clicked() -> void:

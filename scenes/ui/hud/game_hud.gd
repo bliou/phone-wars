@@ -29,6 +29,7 @@ func _ready() -> void:
 
 
 func show_attack_preview_state() -> void:
+	visible = true
 	action_panel.visible = true
 	idle_button.visible = false
 	capture_button.visible = false

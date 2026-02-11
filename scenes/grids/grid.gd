@@ -71,12 +71,20 @@ func get_reachable_cells(unit: Unit) -> Array[Vector2i]:
 			if enemy_unit != null and not enemy_unit.team.is_same_team(unit.team):
 				continue
 
+			# can only walk onto friendly unit if merging is possible
+			var friendly_unit: Unit = query_manager.get_unit_at(neighbor)
+			if (friendly_unit != null and
+				friendly_unit.team.is_same_team(unit.team) and
+				not unit.can_merge_with_unit(friendly_unit)):
+					continue
+
 			if not visited.has(neighbor) or new_cost < visited[neighbor]:
 				visited[neighbor] = new_cost
 				frontier.append({ "cell": neighbor, "cost": new_cost })
 
 	var results: Array[Vector2i]
 	results.assign(visited.keys())
+	# erase the current unit
 	results.erase(unit.cell_pos)
 
 	return results
