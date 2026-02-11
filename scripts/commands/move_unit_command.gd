@@ -14,9 +14,11 @@ func _init(p_unit: Unit, p_target_cell: Vector2i, p_path: Array[Vector2]):
 	target_cell = p_target_cell
 	path = p_path
 
+
 func execute():
 	unit.grid_pos = target_cell
 	unit.move_following_path(path)
+
 
 func undo():
 	unit.grid_pos = start_cell

@@ -44,7 +44,6 @@ func update(result: CaptureProcess.CaptureResult) -> void:
         1.5)
 
     var ratio: float = result.new_capture_points as float / result.max_capture_points
-    print("ratio: ", ratio)
     tween.tween_property(
         capture_points_texture,
         "scale:x",
