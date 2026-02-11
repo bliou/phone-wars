@@ -4,7 +4,6 @@ extends UIState
 func _enter(_params: Dictionary = {}) -> void:
 	controller.visible = true
 	controller.game_hud.show_moved_state(
-		show_attack_button(),
 		show_capture_button(),
 		show_merge_button())
 
@@ -34,10 +33,6 @@ func _on_cancel_clicked() -> void:
 	controller.fsm.switch_to_previous_state()
 
 
-func _on_attack_clicked() -> void:
-	controller.fsm.change_state(controller.combat_state)
-
-
 func _on_long_press(cell: Vector2i) -> void:
 	controller.handle_long_press(cell)
 
@@ -52,7 +47,3 @@ func show_capture_button() -> bool:
 
 func show_merge_button() -> bool:
 	return controller.current_units_manager.merge_available()
-
-
-func show_attack_button() -> bool:
-	return controller.current_units_manager.combat_available()

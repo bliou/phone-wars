@@ -28,12 +28,6 @@ func _ready() -> void:
 	merge_button.pressed.connect(func(): merge_button_clicked.emit())
 
 
-func show_combat_state() -> void:
-	action_panel.visible = false
-	cancel_button.visible = true
-	end_turn_button.visible = false
-
-
 func show_attack_preview_state() -> void:
 	action_panel.visible = true
 	idle_button.visible = false
@@ -55,11 +49,11 @@ func hide_idle_state() -> void:
 	end_turn_button.visible = false
 
 
-func show_moved_state(show_attack_button: bool, show_capture_button: bool, show_merge_button: bool) -> void:
+func show_moved_state(show_capture_button: bool, show_merge_button: bool) -> void:
 	action_panel.visible = true
 	cancel_button.visible = true
 	idle_button.visible = true
-	attack_button.visible = show_attack_button
+	attack_button.visible = false
 	capture_button.visible = show_capture_button
 	merge_button.visible = false
 

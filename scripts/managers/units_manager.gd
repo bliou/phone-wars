@@ -176,15 +176,6 @@ func merge_units() -> void:
 	exhaust_unit()
 
 
-func combat_available() -> bool:
-	if not selected_unit.can_attack_after_movement():
-		return false
-		
-	var unit_context: UnitContext = UnitContext.create_unit_context(selected_unit)
-	var targets: Array[Unit] = get_units_in_attack_range(unit_context)
-	return targets.size() > 0
-
-
 func unit_attack_done() -> void:
 	target_unit = null
 	exhaust_unit()

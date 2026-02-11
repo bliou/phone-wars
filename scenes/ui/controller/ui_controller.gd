@@ -29,7 +29,6 @@ var fsm: StateMachine
 var idle_state: UIIdleState
 var selected_state: UISelectedState
 var moved_state: UIMovedState
-var combat_state: UICombatState
 var attack_preview_state: UIAttackPreviewState
 
 var current_units_manager: UnitsManager
@@ -46,7 +45,6 @@ func setup(p_game_manager: GameManager) -> void:
 	idle_state = UIIdleState.new("ui_idle", self)
 	selected_state = UISelectedState.new("ui_selected", self)
 	moved_state = UIMovedState.new("ui_moved", self)
-	combat_state = UICombatState.new("ui_combat", self)
 	attack_preview_state = UIAttackPreviewState.new("ui_attack_preview", self)
 
 	fsm = StateMachine.new(name, idle_state)
