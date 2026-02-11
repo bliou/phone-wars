@@ -45,7 +45,7 @@ func get_world_position_from_cell(cell_position: Vector2i) -> Vector2:
 # key: cell position in grid space
 # value: cost to move into this cell
 func get_reachable_cells(unit: Unit) -> Dictionary:
-	var start: Vector2i = unit.grid_pos
+	var start: Vector2i = unit.cell_pos
 	var frontier := [{ "cell": start, "cost": 0.0 }]
 	var visited := { start: 0.0 }
 

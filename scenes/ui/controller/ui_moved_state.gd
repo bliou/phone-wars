@@ -34,6 +34,14 @@ func _on_attack_clicked() -> void:
 	controller.fsm.change_state(controller.combat_state)
 
 
+func _on_long_press(cell: Vector2i) -> void:
+	controller.handle_long_press(cell)
+
+
+func _on_long_press_release(_cell: Vector2i) -> void:
+	controller.handle_long_press_release()
+
+
 func show_capture_button() -> bool:
 	return controller.current_units_manager.capture_available()
 

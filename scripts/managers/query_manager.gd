@@ -32,9 +32,17 @@ func get_units_positions(units: Array[Unit]) -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
 
 	for unit in units:
-		cells.append(unit.grid_pos)
+		cells.append(unit.cell_pos)
 
 	return cells
+
+
+func get_cells_in_attack_range(unit: Unit) -> Array[Vector2i]:
+	for um in units_manager:
+		if um.has_unit(unit):
+			return um.get_cells_in_attack_range(unit)
+			
+	return []
 
 
 func get_building_at(cell_pos: Vector2i) -> Building:
@@ -44,3 +52,5 @@ func get_building_at(cell_pos: Vector2i) -> Building:
 			return building
 
 	return null
+
+

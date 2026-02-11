@@ -6,7 +6,7 @@ func _enter(_params: Dictionary = {}) -> void:
 	controller.game_hud.show_attack_preview_state()
 	var attacker: Unit = controller.current_units_manager.selected_unit
 	var target_unit: Unit = controller.current_units_manager.target_unit
-	var terrain_data: TerrainData = controller.grid.terrain_manager.get_terrain_data(target_unit.grid_pos)
+	var terrain_data: TerrainData = controller.grid.terrain_manager.get_terrain_data(target_unit.cell_pos)
 	var estimated_damage: float = CombatManager.compute_damage(attacker, target_unit, terrain_data)
 
 	controller.combat_dialog.update(CombatDialog.CombatPreviewData.new(target_unit, terrain_data, estimated_damage), target_unit)
@@ -31,7 +31,7 @@ func _on_cancel_clicked() -> void:
 func _on_attack_clicked() -> void:
 	var attacker: Unit = controller.current_units_manager.selected_unit
 	var defender: Unit = controller.current_units_manager.target_unit
-	var terrain_data: TerrainData = controller.grid.terrain_manager.get_terrain_data(defender.grid_pos)
+	var terrain_data: TerrainData = controller.grid.terrain_manager.get_terrain_data(defender.cell_pos)
 
 	controller.combat_dialog.animate_out()
 	controller.game_hud.hide()

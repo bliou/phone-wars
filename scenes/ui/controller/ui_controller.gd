@@ -9,6 +9,8 @@ signal clear_movement_range()
 signal show_attackable(cells: Array[Vector2i])
 signal clear_attackable()
 
+signal end_turn()
+
 @onready var game_hud: GameHUD = $GameHUD
 
 @onready var capture_dialog: CaptureDialog = $Dialogs/CaptureDialog
@@ -18,10 +20,10 @@ signal clear_attackable()
 
 @onready var ui_fx_layer: Node2D = $FXLayer
 
-var game_manager: GameManager
 var grid: Grid
 var combat_orchestrator: CombatOrchestrator
 var capture_orchestrator: CaptureOrchestrator
+var query_manager: QueryManager
 
 var fsm: StateMachine
 var idle_state: UIIdleState
@@ -31,14 +33,15 @@ var combat_state: UICombatState
 var attack_preview_state: UIAttackPreviewState
 
 var current_units_manager: UnitsManager
+var is_playable: bool
 
 func setup(p_game_manager: GameManager) -> void:
-	game_manager = p_game_manager
 	grid = p_game_manager.grid
-	combat_orchestrator = CombatOrchestrator.new(damage_popup, game_manager.fx_service, game_manager.audio_service)
-	capture_orchestrator = CaptureOrchestrator.new(capture_dialog, game_manager.fx_service, game_manager.audio_service)
+	combat_orchestrator = CombatOrchestrator.new(damage_popup, p_game_manager.fx_service, p_game_manager.audio_service)
+	capture_orchestrator = CaptureOrchestrator.new(capture_dialog, p_game_manager.fx_service, p_game_manager.audio_service)
+	query_manager = p_game_manager.query_manager
 
-	set_current_units_manager()
+	switch_team(p_game_manager.active_team)
 
 	idle_state = UIIdleState.new("ui_idle", self)
 	selected_state = UISelectedState.new("ui_selected", self)
@@ -48,7 +51,7 @@ func setup(p_game_manager: GameManager) -> void:
 
 	fsm = StateMachine.new(name, idle_state)
 
-	game_manager.turn_ended.connect(on_turn_ended)
+	p_game_manager.turn_ended.connect(on_turn_ended)
 
 	grid.cell_short_tap.connect(on_cell_tap)
 	grid.cell_long_press.connect(on_long_press)
@@ -97,11 +100,11 @@ func on_cancel_clicked() -> void:
 
 func on_end_turn_clicked() -> void:
 	fsm.change_state(idle_state)
-	game_manager.end_turn()
+	end_turn.emit()
 
 
 func on_idle_clicked() -> void:
-	current_units_manager.confirm_unit_movement()
+	current_units_manager.exhaust_unit()
 	fsm.change_state(idle_state)
 
 
@@ -111,7 +114,7 @@ func on_capture_clicked() -> void:
 	await capture_orchestrator.execute(current_units_manager.selected_unit)
 	game_hud.show()
 	fsm.change_state(idle_state)
-	current_units_manager.confirm_unit_movement()
+	current_units_manager.exhaust_unit()
 
 
 func on_merge_clicked() -> void:
@@ -124,29 +127,29 @@ func on_attack_clicked() -> void:
 	state._on_attack_clicked()
 	
 
-func on_turn_ended() -> void:
-	set_current_units_manager()
+func on_turn_ended(new_team: Team) -> void:
+	switch_team(new_team)
 
 
-func set_current_units_manager() -> void:
+func switch_team(new_team: Team) -> void:
 	if current_units_manager != null:
 		current_units_manager.unit_selected.disconnect(on_unit_selected)
 		current_units_manager.unit_deselected.disconnect(on_unit_deselected)
 		current_units_manager.unit_moved.disconnect(on_unit_moved)
 
 	current_units_manager = null
-
-	print("active team %s" % game_manager.active_team)
-	current_units_manager = game_manager.active_team.units_manager
+	current_units_manager = new_team.units_manager
 	current_units_manager.unit_selected.connect(on_unit_selected)
 	current_units_manager.unit_deselected.connect(on_unit_deselected)
 	current_units_manager.unit_moved.connect(on_unit_moved)
+
+	is_playable = new_team.is_playable()
 
 
 func show_attack_indicator() -> void:
 	var unit_context: UnitContext = UnitContext.create_unit_context(current_units_manager.selected_unit)
 	var units: Array[Unit] = current_units_manager.get_units_in_attack_range(unit_context)
-	var cells: Array[Vector2i] = game_manager.query_manager.get_units_positions(units)
+	var cells: Array[Vector2i] = query_manager.get_units_positions(units)
 	show_attackable.emit(cells)
 
 
@@ -154,3 +157,34 @@ func show_movement_indicator() -> void:
 	var cells: Array[Vector2i] =  []
 	cells.assign(current_units_manager.selected_unit.reachable_cells.keys())
 	show_movement_range.emit(cells)
+
+
+func handle_long_press(cell: Vector2i) -> void:
+	var unit: Unit = query_manager.get_unit_at(cell)
+	if unit == null:
+		return
+
+	game_hud.hide()
+	camera_pan_enabled.emit(false)
+
+	var ipd: InfoDialog.InfoPreviewData = InfoDialog.InfoPreviewData.new(unit)
+	var building: Building = query_manager.get_building_at(cell)
+	if building != null:
+		ipd.with_building(building)
+		info_dialog.update(ipd, unit)
+	else:
+		var terrain_data: TerrainData = grid.terrain_manager.get_terrain_data(unit.cell_pos)
+		ipd.with_terrain_data(terrain_data)
+
+	info_dialog.update(ipd, unit)
+	info_dialog.animate_in()
+
+	var cells: Array[Vector2i] = query_manager.get_cells_in_attack_range(unit)
+	show_attackable.emit(cells)
+
+
+func handle_long_press_release() -> void:
+	game_hud.show()
+	clear_attackable.emit()
+	info_dialog.animate_out()
+	camera_pan_enabled.emit(true)

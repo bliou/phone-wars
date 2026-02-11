@@ -2,7 +2,7 @@ class_name GameManager
 extends Node2D
 
 
-signal turn_ended()
+signal turn_ended(new_team: Team)
 
 @onready var grid: Grid = $Grid
 @onready var ui_controller: UIController = $UIController
@@ -29,6 +29,8 @@ func _ready() -> void:
 	ui_controller.setup(self)
 	fx_service.setup_ui(ui_controller.ui_fx_layer)
 	music_manager.setup(music_service)
+
+	ui_controller.end_turn.connect(on_end_turn)
 	
 
 func init_teams() -> void:
@@ -50,13 +52,13 @@ func init_teams() -> void:
 	active_team.start_turn()
 
 
-func end_turn() -> void:
+func on_end_turn() -> void:
 	active_team.end_turn()
 	active_team = next_team(active_team)
 	active_team.start_turn()
 
 	print("Turn ended. New team %s to play" % active_team.name)
-	turn_ended.emit()
+	turn_ended.emit(active_team)
 
 
 func next_team(current_team: Team) -> Team:

@@ -16,7 +16,7 @@ signal unit_killed(unit: Unit)
 @onready var death_scene: PackedScene = preload("res://scenes/vfx/explosion.tscn")
 @onready var death_sound: AudioStream = preload("res://assets/sounds/units/sfx_die3.wav")
 
-var grid_pos: Vector2i = Vector2i.ZERO
+var cell_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Dictionary = {}  # Vector2i → cost
 var exhausted: bool = false
 var capture_process: CaptureProcess
@@ -116,7 +116,7 @@ func is_max_health() -> bool:
 
 
 func can_capture_building(building: Building) -> bool:
-	if building.grid_pos != grid_pos:
+	if building.grid_pos != cell_pos:
 		return false
 
 	if team.is_same_team(building.team):
@@ -152,7 +152,7 @@ func stop_capture() -> void:
 
 func can_merge_with_unit(unit: Unit) -> bool:
 	# not on the same cell
-	if unit.grid_pos != grid_pos:
+	if unit.cell_pos != cell_pos:
 		return false
 
 	# not the same team

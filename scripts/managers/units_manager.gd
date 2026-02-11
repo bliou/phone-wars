@@ -25,7 +25,7 @@ func init_units(team: Team) -> void:
 		if unit is Unit:
 			var cell_pos: Vector2i = Vector2i(unit.position / grid.cell_size)
 			units[cell_pos] = unit
-			unit.grid_pos = cell_pos
+			unit.cell_pos = cell_pos
 			unit.position = Vector2(cell_pos) * grid.cell_size + grid.cell_size*0.5
 			unit.unit_moved.connect(on_unit_moved)
 			unit.unit_killed.connect(on_unit_killed)
@@ -33,8 +33,8 @@ func init_units(team: Team) -> void:
 
 
 func remove_unit(unit: Unit) -> void:
-	print("removing unit %s at %s" % [unit.name, unit.grid_pos])
-	units.erase(unit.grid_pos)
+	print("removing unit %s at %s" % [unit.name, unit.cell_pos])
+	units.erase(unit.cell_pos)
 	unit.queue_free()
 
 
@@ -79,6 +79,10 @@ func get_unit_at(cell_position: Vector2i) -> Unit:
 	return units.get(cell_position, null) as Unit
 
 
+func has_unit(unit: Unit) -> bool:
+	return units.get(unit.cell_pos, null) != null
+
+
 func on_unit_moved() -> void:
 	unit_moved.emit()
 
@@ -92,7 +96,7 @@ func move_unit_to_cell(target_cell: Vector2i) -> void:
 
 	var path = get_world_path(selected_unit, previous_cell, target_cell)
 	
-	move_unit_command = MoveUnitCommand.new(selected_unit, target_cell, path)
+	move_unit_command = MoveUnitCommand.new(self, selected_unit, target_cell, path)
 	move_unit_command.execute()
 
 
@@ -106,21 +110,24 @@ func can_move_on_cell(target_cell: Vector2i) -> bool:
 
 func cancel_unit_movement() -> void:
 	move_unit_command.undo()
-	selected_unit.global_position = grid.get_world_position_from_cell(selected_unit.grid_pos)
 	move_unit_command = null
 
 
 func confirm_unit_movement() -> void:
-	if move_unit_command != null:
-		units.erase(move_unit_command.start_cell)
-		units[move_unit_command.target_cell] = selected_unit
-		move_unit_command = null
-	exhaust_unit()
+	units.erase(move_unit_command.start_cell)
+	units[move_unit_command.target_cell] = selected_unit
 
+
+func revert_unit_movement() -> void:
+	selected_unit.global_position = grid.get_world_position_from_cell(selected_unit.cell_pos)
+	units.erase(move_unit_command.target_cell)
+	units[move_unit_command.start_cell] = selected_unit
+	
 
 func exhaust_unit() -> void:
 	selected_unit.exhaust()
 	selected_unit = null
+	move_unit_command = null
 
 
 func reset_units() -> void:
@@ -129,7 +136,7 @@ func reset_units() -> void:
 
 
 func capture_available() -> bool:
-	var unit_pos: Vector2i = selected_unit.grid_pos
+	var unit_pos: Vector2i = selected_unit.cell_pos
 	var building: Building = query_manager.get_building_at(unit_pos)
 	if building == null:
 		return false
@@ -138,13 +145,13 @@ func capture_available() -> bool:
 
 
 func capture_building() -> void:
-	var unit_pos: Vector2i = selected_unit.grid_pos
+	var unit_pos: Vector2i = selected_unit.cell_pos
 	var building: Building = query_manager.get_building_at(unit_pos)
 	selected_unit.start_capture(building)
 
 
 func merge_available() -> bool:
-	var unit_pos: Vector2i = selected_unit.grid_pos
+	var unit_pos: Vector2i = selected_unit.cell_pos
 	var unit: Unit = query_manager.get_unit_at(unit_pos)
 	if unit == null or unit == selected_unit:
 		return false
@@ -153,12 +160,12 @@ func merge_available() -> bool:
 
 
 func merge_units() -> void:
-	var unit_pos: Vector2i = selected_unit.grid_pos
+	var unit_pos: Vector2i = selected_unit.cell_pos
 	var unit: Unit = query_manager.get_unit_at(unit_pos)
 	selected_unit.merge_with_unit(unit)
 
 	remove_unit(unit)
-	confirm_unit_movement()
+	exhaust_unit()
 
 
 func combat_available() -> bool:
@@ -172,10 +179,10 @@ func combat_available() -> bool:
 
 func unit_attack_done() -> void:
 	target_unit = null
-	confirm_unit_movement()
+	exhaust_unit()
 
 
-func get_cells_in_range_of_attack(unit_context: UnitContext) -> Array[Vector2i]:
+func get_cells_in_direct_attack_range(unit_context: UnitContext) -> Array[Vector2i]:
 	return grid.get_cells_in_manhattan_range(
 		unit_context.grid_pos,
 		unit_context.min_range,
@@ -184,11 +191,11 @@ func get_cells_in_range_of_attack(unit_context: UnitContext) -> Array[Vector2i]:
 
 func get_units_in_attack_range(unit_context: UnitContext) -> Array[Unit]:
 	var attacked_units: Array[Unit] = []
-	var attack_positions: Array[Vector2i] = get_cells_in_range_of_attack(unit_context)
+	var attack_positions: Array[Vector2i] = get_cells_in_direct_attack_range(unit_context)
 	for ap in attack_positions:
 		var unit: Unit = query_manager.get_unit_at(ap)
 		if (unit != null and
-			unit.grid_pos != unit_context.grid_pos and
+			unit.cell_pos != unit_context.grid_pos and
 			not unit_context.team.is_same_team(unit.team)):
 				attacked_units.append(unit)
 
@@ -200,31 +207,28 @@ func get_enemy_unit_on_cell(cell: Vector2i) -> Unit:
 	var targets: Array[Unit] = get_units_in_attack_range(unit_context)
 
 	for unit in targets:
-		if unit.grid_pos == cell:
+		if unit.cell_pos == cell:
 			target_unit = unit
 			return unit
 
 	return null
 
 
-# get all the enemy units that a unit can attack withing it's attack range
+# get all the cells that a unit can attack withing it's attack range
 # with movement taken into account
-func get_units_in_attack_range_with_movement(unit: Unit) -> Array[Unit]:
-	if unit.exhausted:
-		return []
-
-	var targets: Array[Unit] = []
+func get_cells_in_attack_range(unit: Unit) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
 	var reachable_cells: Dictionary = grid.get_reachable_cells(unit)
 	var unit_context: UnitContext = UnitContext.create_unit_context(unit)
 
 	if not unit.can_attack_after_movement():
-		return get_units_in_attack_range(unit_context)
+		return get_cells_in_direct_attack_range(unit_context)
 
 	for cell in reachable_cells.keys():
 		unit_context.grid_pos = cell
-		targets.assign(merge_unique(targets, get_units_in_attack_range(unit_context)))
+		cells.assign(merge_unique(cells, get_cells_in_direct_attack_range(unit_context)))
 		
-	return targets
+	return cells
 
 
 func can_attack_cell(cell: Vector2i) -> bool:
