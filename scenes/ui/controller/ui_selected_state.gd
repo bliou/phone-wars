@@ -23,19 +23,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_cell_tap(cell: Vector2i) -> void:
-	if controller.current_units_manager.can_attack_cell(cell):
-		controller.fsm.change_state(controller.attack_preview_state)
-		return
-
-	if not controller.current_units_manager.selected_unit.reachable_cells.has(cell):
-		return
-
-	if controller.current_units_manager.can_move_on_cell(cell):
-		controller.game_hud.hide_cancel_button()
-		controller.current_units_manager.move_unit_to_cell(cell)
-		controller.clear_attackable.emit()
-		controller.clear_movement_range.emit()
-		return
+	controller.handle_unit_movement(cell)
 
 
 func _on_cancel_clicked() -> void:

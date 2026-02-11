@@ -24,7 +24,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_cancel_clicked() -> void:
-	controller.fsm.change_state(controller.fsm.previous_state)
+	controller.fsm.switch_to_previous_state()
 	controller.combat_dialog.animate_out()
 
 

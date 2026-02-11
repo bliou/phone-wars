@@ -11,6 +11,7 @@ func _init(state_name: String, p_unit: Unit) -> void:
 func _enter(_params: Dictionary = {}) -> void:
 	unit.exhausted = true
 	unit.facing = unit.team.face_direction
+	unit.reset_movement_points()
 	print("entering done state")
 	unit.idling()
 	unit.animated_sprite.material.set_shader_parameter("disabled", 0.5)

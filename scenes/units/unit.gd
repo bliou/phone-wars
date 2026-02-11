@@ -17,10 +17,11 @@ signal unit_killed(unit: Unit)
 @onready var death_sound: AudioStream = preload("res://assets/sounds/units/sfx_die3.wav")
 
 var cell_pos: Vector2i = Vector2i.ZERO
-var reachable_cells: Dictionary = {}  # Vector2i → cost
+var reachable_cells: Array[Vector2i]
 var exhausted: bool = false
 var capture_process: CaptureProcess
 var actual_health: float = 10.0
+var movement_points: int
 
 var capturing_component: CapturingComponent
 
@@ -51,6 +52,7 @@ func _physics_process(delta: float) -> void:
 func setup(p_team: Team) -> void:
 	set_team(p_team)
 	actual_health = unit_profile.health
+	reset_movement_points()
 	
 	if unit_profile.capture_capacity > 0:
 		set_capture_component()
@@ -105,6 +107,10 @@ func move_following_path(p: Array[Vector2]) -> void:
 	print("Unit moving along path: %s" % str(p))
 
 	fsm.change_state(moving_state, {"path": p})
+
+
+func reset_movement_points() -> void:
+	movement_points = max_movement_points()
 
 
 func get_terrain_cost(terrain: TerrainType.Values) -> float:
@@ -230,8 +236,9 @@ func play_hit_reaction() -> void:
 
 
 # Unit profile getters
-func movement_points() -> int:
+func max_movement_points() -> int:
 	return unit_profile.movement_points
+
 
 
 func icon() -> Texture2D:

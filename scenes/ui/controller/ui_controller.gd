@@ -154,9 +154,22 @@ func show_attack_indicator() -> void:
 
 
 func show_movement_indicator() -> void:
-	var cells: Array[Vector2i] =  []
-	cells.assign(current_units_manager.selected_unit.reachable_cells.keys())
-	show_movement_range.emit(cells)
+	show_movement_range.emit(current_units_manager.selected_unit.reachable_cells)
+
+
+func handle_unit_movement(cell: Vector2i) -> void:
+	if current_units_manager.can_attack_cell(cell):
+		fsm.change_state(attack_preview_state)
+		return
+
+	if not current_units_manager.selected_unit.reachable_cells.has(cell):
+		return
+
+	if current_units_manager.can_move_on_cell(cell):
+		game_hud.hide_cancel_button()
+		current_units_manager.move_unit_to_cell(cell)
+		clear_attackable.emit()
+		clear_movement_range.emit()
 
 
 func handle_long_press(cell: Vector2i) -> void:

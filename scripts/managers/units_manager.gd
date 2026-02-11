@@ -12,7 +12,7 @@ var selected_unit: Unit = null
 var target_unit: Unit = null # cache the unit that we want to attack
 var units: Dictionary = {} # Vector2i -> Unit
 
-var move_unit_command: MoveUnitCommand
+var move_unit_commands: Array[MoveUnitCommand]
 
 func setup(p_grid: Grid, p_query_manager: QueryManager, team: Team) -> void:
 	grid = p_grid
@@ -56,8 +56,12 @@ func select_unit(unit: Unit) -> void:
 
 	selected_unit = unit
 	selected_unit.select()
-	selected_unit.reachable_cells = grid.get_reachable_cells(selected_unit)
+	compute_reachable_cells()
 	unit_selected.emit(selected_unit)
+
+
+func compute_reachable_cells() -> void:
+	selected_unit.reachable_cells = grid.get_reachable_cells(selected_unit)
 
 
 func deselect_unit() -> void:
@@ -96,8 +100,9 @@ func move_unit_to_cell(target_cell: Vector2i) -> void:
 
 	var path = get_world_path(selected_unit, previous_cell, target_cell)
 	
-	move_unit_command = MoveUnitCommand.new(self, selected_unit, target_cell, path)
+	var move_unit_command: MoveUnitCommand = MoveUnitCommand.new(self, selected_unit, target_cell, path)
 	move_unit_command.execute()
+	move_unit_commands.append(move_unit_command)
 
 
 func can_move_on_cell(target_cell: Vector2i) -> bool:
@@ -109,25 +114,28 @@ func can_move_on_cell(target_cell: Vector2i) -> bool:
 
 
 func cancel_unit_movement() -> void:
+	var move_unit_command: MoveUnitCommand = move_unit_commands.pop_back()
 	move_unit_command.undo()
 	move_unit_command = null
 
 
-func confirm_unit_movement() -> void:
-	units.erase(move_unit_command.start_cell)
-	units[move_unit_command.target_cell] = selected_unit
+func confirm_unit_movement(start_cell: Vector2i, target_cell: Vector2i) -> void:
+	units.erase(start_cell)
+	units[target_cell] = selected_unit
+	compute_reachable_cells()
 
 
-func revert_unit_movement() -> void:
+func revert_unit_movement(start_cell: Vector2i, target_cell: Vector2i) -> void:
 	selected_unit.global_position = grid.get_world_position_from_cell(selected_unit.cell_pos)
-	units.erase(move_unit_command.target_cell)
-	units[move_unit_command.start_cell] = selected_unit
+	units.erase(target_cell)
+	units[start_cell] = selected_unit
+	compute_reachable_cells()
 	
 
 func exhaust_unit() -> void:
 	selected_unit.exhaust()
 	selected_unit = null
-	move_unit_command = null
+	move_unit_commands.clear()
 
 
 func reset_units() -> void:
@@ -218,13 +226,14 @@ func get_enemy_unit_on_cell(cell: Vector2i) -> Unit:
 # with movement taken into account
 func get_cells_in_attack_range(unit: Unit) -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
-	var reachable_cells: Dictionary = grid.get_reachable_cells(unit)
+	var reachable_cells: Array[Vector2i] = grid.get_reachable_cells(unit)
 	var unit_context: UnitContext = UnitContext.create_unit_context(unit)
 
 	if not unit.can_attack_after_movement():
 		return get_cells_in_direct_attack_range(unit_context)
 
-	for cell in reachable_cells.keys():
+	reachable_cells.append(unit.cell_pos)
+	for cell in reachable_cells:
 		unit_context.grid_pos = cell
 		cells.assign(merge_unique(cells, get_cells_in_direct_attack_range(unit_context)))
 		

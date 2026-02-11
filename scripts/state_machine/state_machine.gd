@@ -2,7 +2,7 @@ class_name StateMachine
 extends RefCounted
 
 var current_state: State = null
-var previous_state: State = null
+var previous_states: Array[State]
 var name: String
 
 func _init(p_name: String, initial_state: State) -> void:
@@ -19,7 +19,7 @@ func change_state(new_state: State, enter_params: Dictionary = {}) -> void:
 		new_state._enter(enter_params)
 
 	print("StateMachine [%s] - State changed from %s to: %s" % [name, str(current_state), str(new_state)])
-	previous_state = current_state
+	previous_states.append(current_state)
 	current_state = new_state
 
 
@@ -29,3 +29,15 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	current_state._physics_process(delta)
+
+
+func switch_to_previous_state(enter_params: Dictionary = {}) -> void:
+	var previous_state: State = previous_states.pop_back()
+
+	if current_state != null:
+		current_state._exit()
+	
+	if previous_state != null:
+		previous_state._enter(enter_params)
+
+	current_state = previous_state

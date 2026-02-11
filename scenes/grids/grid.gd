@@ -41,10 +41,9 @@ func get_world_position_from_cell(cell_position: Vector2i) -> Vector2:
 	return terrain_manager.cell_to_world(cell_position)
 
 
-# Return a dictionary of all the reachable cells with:
-# key: cell position in grid space
-# value: cost to move into this cell
-func get_reachable_cells(unit: Unit) -> Dictionary:
+# Return a dictionary of all the reachable cells
+# Exclude the current unit cell
+func get_reachable_cells(unit: Unit) -> Array[Vector2i]:
 	var start: Vector2i = unit.cell_pos
 	var frontier := [{ "cell": start, "cost": 0.0 }]
 	var visited := { start: 0.0 }
@@ -64,7 +63,7 @@ func get_reachable_cells(unit: Unit) -> Dictionary:
 
 			# not enough movement points left
 			var new_cost = cost + step_cost
-			if new_cost > unit.movement_points():
+			if new_cost > unit.movement_points:
 				continue
 
 			# cannot walk through enemy units
@@ -76,7 +75,11 @@ func get_reachable_cells(unit: Unit) -> Dictionary:
 				visited[neighbor] = new_cost
 				frontier.append({ "cell": neighbor, "cost": new_cost })
 
-	return visited  # cell → cost
+	var results: Array[Vector2i]
+	results.assign(visited.keys())
+	results.erase(unit.cell_pos)
+
+	return results
 
 
 # Helpers method to get all the neighbors of a cell even if disabled in AStar
