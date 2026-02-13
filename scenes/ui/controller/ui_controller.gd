@@ -147,6 +147,7 @@ func show_attack_indicator() -> void:
 
 
 func show_movement_indicator() -> void:
+	current_units_manager.compute_reachable_cells()
 	show_movement_range.emit(current_units_manager.selected_unit.reachable_cells)
 
 
@@ -183,6 +184,7 @@ func handle_unit_attack(cell: Vector2i) -> void:
 	var best_cell: Vector2i = current_units_manager.choose_best_attack_position(cell)
 	current_units_manager.set_target_unit(query_manager.get_unit_at(cell))
 	await movement_orchestrator.execute(current_units_manager, best_cell)
+	fsm.change_state(moved_state)
 	fsm.change_state(attack_preview_state)
 
 

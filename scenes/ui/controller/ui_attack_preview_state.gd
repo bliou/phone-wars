@@ -12,8 +12,10 @@ func _enter(_params: Dictionary = {}) -> void:
 	controller.combat_dialog.update(CombatDialog.CombatPreviewData.new(target_unit, terrain_data, estimated_damage), target_unit)
 	controller.combat_dialog.animate_in()
 
+
 func _exit() -> void:
 	pass
+
 
 func _process(_delta: float) -> void:
 	pass
@@ -24,8 +26,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_cancel_clicked() -> void:
-	controller.fsm.switch_to_previous_state()
 	controller.combat_dialog.animate_out()
+	controller.fsm.switch_to_previous_state()
 
 
 func _on_attack_clicked() -> void:

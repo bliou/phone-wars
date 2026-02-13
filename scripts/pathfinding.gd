@@ -1,10 +1,17 @@
 class_name Pathfinding
 
 
-static func find_path(grid: Grid, unit: Unit, start: Vector2i, target: Vector2i) -> Array[Vector2i]:
-	var open := [start]
-	var came_from := {}
-	var cost_so_far := { start: 0.0 }
+class Path:
+	var points: Array[Vector2i]
+	var cost: int
+	var world_points: Array[Vector2]
+
+
+
+static func find_path(grid: Grid, unit: Unit, start: Vector2i, target: Vector2i) -> Path:
+	var open: Array[Vector2i] = [start]
+	var came_from: Dictionary = {}
+	var cost_so_far: Dictionary = {start: 0.0}
 
 	while open.size() > 0:
 		open.sort_custom(func(a, b):
@@ -33,17 +40,22 @@ static func find_path(grid: Grid, unit: Unit, start: Vector2i, target: Vector2i)
 				came_from[next] = current
 				open.append(next)
 
-	return reconstruct_path(came_from, start, target)
+	return reconstruct_path(came_from, cost_so_far, start, target)
 
 
-static func reconstruct_path(came_from: Dictionary, start: Vector2i, goal: Vector2i) -> Array[Vector2i]:
-	var current = goal
-	var path: Array[Vector2i] = []
+static func reconstruct_path(came_from: Dictionary, cost_so_far: Dictionary, start: Vector2i, goal: Vector2i) -> Path:
+	var current: Vector2i = goal
+	var points: Array[Vector2i] = []
+	var path: Path = Path.new()
+
 	while current != start:
-		path.append(current)
+		points.append(current)
 		if not came_from.has(current):
-			return []  # no path found
+			return path
 		current = came_from[current]
-	path.append(start)
-	path.reverse()
+	points.append(start)
+	points.reverse()
+
+	path.points = points
+	path.cost = cost_so_far[goal]
 	return path

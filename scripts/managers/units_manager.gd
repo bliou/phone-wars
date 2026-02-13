@@ -38,16 +38,18 @@ func remove_unit(unit: Unit) -> void:
 	unit.queue_free()
 
 
-func get_grid_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Array[Vector2i]:
+func get_grid_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Pathfinding.Path:
 	return Pathfinding.find_path(grid, unit, start_cell, end_cell)
 
 
-func get_world_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Array[Vector2]:
-	var cell_path = get_grid_path(unit, start_cell, end_cell)
+func get_world_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Pathfinding.Path:
+	var path: Pathfinding.Path = get_grid_path(unit, start_cell, end_cell)
 	var world_path: Array[Vector2] = []
-	for cell in cell_path:
+	for cell in path.points:
 		world_path.append(grid.get_world_position_from_cell(cell))
-	return world_path
+	
+	path.world_points = world_path
+	return path
 
 
 func select_unit(unit: Unit) -> void:
@@ -98,7 +100,7 @@ func on_unit_killed(unit: Unit) -> void:
 func move_unit_to_cell(target_cell: Vector2i) -> void:
 	var previous_cell: Vector2i = Vector2i(selected_unit.global_position / grid.cell_size)
 
-	var path = get_world_path(selected_unit, previous_cell, target_cell)
+	var path: Pathfinding.Path = get_world_path(selected_unit, previous_cell, target_cell)
 	
 	var move_unit_command: MoveUnitCommand = MoveUnitCommand.new(self, selected_unit, target_cell, path)
 	move_unit_command.execute()
@@ -125,14 +127,12 @@ func cancel_unit_movement() -> void:
 func confirm_unit_movement(start_cell: Vector2i, target_cell: Vector2i) -> void:
 	units.erase(start_cell)
 	units[target_cell] = selected_unit
-	compute_reachable_cells()
 
 
 func revert_unit_movement(start_cell: Vector2i, target_cell: Vector2i) -> void:
 	selected_unit.global_position = grid.get_world_position_from_cell(selected_unit.cell_pos)
 	units.erase(target_cell)
 	units[start_cell] = selected_unit
-	compute_reachable_cells()
 	
 
 func exhaust_unit() -> void:
@@ -206,7 +206,6 @@ func get_units_in_attack_range(unit_context: UnitContext) -> Array[Unit]:
 
 func get_units_in_attack_range_with_movement(unit: Unit) -> Array[Unit]:
 	var targets: Array[Unit]
-	var reachable_cells: Array[Vector2i] = grid.get_reachable_cells(unit)
 	var unit_context: UnitContext = UnitContext.create_unit_context(unit)
 
 	if not unit.can_attack_after_movement():
@@ -214,6 +213,9 @@ func get_units_in_attack_range_with_movement(unit: Unit) -> Array[Unit]:
 			return targets
 		return get_units_in_attack_range(unit_context)
 		
+	var reachable_cells: Array[Vector2i] = grid.get_reachable_cells(unit)
+	reachable_cells.append(unit.cell_pos)
+
 	for cell in reachable_cells:
 		unit_context.grid_pos = cell
 		targets.assign(merge_unique(targets, get_units_in_attack_range(unit_context)))
@@ -239,6 +241,8 @@ func get_cells_in_attack_range(unit: Unit) -> Array[Vector2i]:
 	var unit_context: UnitContext = UnitContext.create_unit_context(unit)
 
 	if not unit.can_attack_after_movement():
+		if unit.movement_points != unit.max_movement_points():
+			return cells
 		return get_cells_in_direct_attack_range(unit_context)
 
 	reachable_cells.append(unit.cell_pos)

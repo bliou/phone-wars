@@ -10,7 +10,7 @@ func _init(state_name: String, p_unit: Unit) -> void:
 
 
 func _enter(_params: Dictionary = {}) -> void:
-	unit.animated_sprite.play("idle")
+	unit.idling()
 	unit.animated_sprite.modulate = Color(0, 1, 0)  # Change color to green when selected
 	
 

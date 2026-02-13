@@ -40,4 +40,5 @@ func switch_to_previous_state(enter_params: Dictionary = {}) -> void:
 	if previous_state != null:
 		previous_state._enter(enter_params)
 
+	print("StateMachine [%s] - State changed from %s to: %s" % [name, str(current_state), str(previous_state)])
 	current_state = previous_state
