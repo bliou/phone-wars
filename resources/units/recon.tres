@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitProfile" load_steps=16 format=3 uid="uid://dhg03x03melnx"]
+[gd_resource type="Resource" script_class="UnitProfile" format=3 uid="uid://dhg03x03melnx"]
 
 [ext_resource type="Script" uid="uid://dhqeb02d40my3" path="res://scripts/resources/units/attack_profile.gd" id="1_f4t7r"]
 [ext_resource type="Script" uid="uid://ek5inq6a6e24" path="res://scripts/resources/units/movement_profile.gd" id="1_wcb6c"]

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://45ako5jwxjpx"]
+[gd_resource type="TileSet" format=3 uid="uid://45ako5jwxjpx"]
 
 [ext_resource type="Shader" uid="uid://c8avs2eao0nam" path="res://resources/shaders/water.gdshader" id="2_1vugo"]
 [ext_resource type="Texture2D" uid="uid://juimei64uhdw" path="res://assets/sprites/terrains/water.png" id="2_eyoyv"]

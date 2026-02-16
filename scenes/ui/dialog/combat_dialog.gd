@@ -7,39 +7,37 @@ extends BaseDialog
 @onready var terrain_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TerrainIcon
 @onready var terrain_def_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/TerrainDef
 
-class CombatPreviewData:
-	var damage_preview: float
-	var defender_icon: Texture2D
-	var defender_hp: float = 0
-	var defender_team: Team
-	var terrain_icon: Texture2D
-	var terrain_def: int
 
-	func _init(unit: Unit, terrain_data: TerrainData, estimated_damage: float) -> void:
-		damage_preview = estimated_damage*10
-		defender_icon = unit.icon().duplicate()
-		defender_team = unit.team
-		defender_hp = unit.actual_health
-		terrain_icon = terrain_data.icon.duplicate()
-		terrain_def = terrain_data.defense_bonus
+func with_estimated_damage(estimated_damage: float) -> void:
+	damage_preview_label.text = "-%s %%" % (estimated_damage*10)
 
 
-func update(cpd: CombatPreviewData, target: Node2D) -> void:
-	damage_preview_label.text = "-%s %%" % cpd.damage_preview
-	defender_hp_label.text = "%s" %int(cpd.defender_hp)
-	terrain_icon.texture = cpd.terrain_icon
-	terrain_def_label.text = "+%s" %cpd.terrain_def
-
-	update_defender_icon(cpd)
-
-	position_dialog(target)
+func with_unit(unit: Unit) -> void:
+	defender_hp_label.text = "%s" %int(unit.actual_health)
+	update_defender_icon(unit)
 
 
-func update_defender_icon(cpd: CombatPreviewData) -> void:
-	if cpd.defender_team.face_direction == FaceDirection.Values.RIGHT:
-		var image: Image = cpd.defender_icon.get_image()
+func with_building(building: Building) -> void:
+	terrain_icon.texture = building.icon().duplicate()
+	terrain_def_label.text = "+%s" %building.defense()
+
+	var shader_material: ShaderMaterial = terrain_icon.material as ShaderMaterial
+	shader_material.shader = load("res://resources/shaders/team_tint.gdshader")
+	building.team.replace_colors(terrain_icon.material)
+
+
+func with_terrain(terrain_data: TerrainData) -> void:
+	terrain_icon.texture = terrain_data.icon.duplicate()
+	terrain_def_label.text = "+%s" %terrain_data.defense_bonus
+
+	var shader_material: ShaderMaterial = terrain_icon.material as ShaderMaterial
+	shader_material.shader = null
+
+
+func update_defender_icon(unit: Unit) -> void:
+	var image: Image = unit.icon().get_image()
+	if unit.team.face_direction == FaceDirection.Values.RIGHT:
 		image.flip_x() 
-		cpd.defender_icon = ImageTexture.create_from_image(image)
-	
-	cpd.defender_team.replace_colors(defender_icon.material)
-	defender_icon.texture = cpd.defender_icon
+		
+	unit.team.replace_colors(defender_icon.material)
+	defender_icon.texture = ImageTexture.create_from_image(image)

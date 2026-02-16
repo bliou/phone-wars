@@ -10,8 +10,8 @@ func _init(dp: DamagePopup, fxs: FXService, audio: AudioService) -> void:
 	audio_service = audio
 
 
-func execute(attacker: Unit, defender: Unit, terrain: TerrainData) -> void:
-	var result = CombatManager.resolve_combat(attacker, defender, terrain)
+func execute(attacker: Unit, defender: Unit, terrain_defense: float) -> void:
+	var result = CombatManager.resolve_combat(attacker, defender, terrain_defense)
 
 	await play_attack_animation(result)
 	await play_defender_reaction(result)

@@ -190,23 +190,31 @@ func handle_unit_attack(cell: Vector2i) -> void:
 
 func handle_long_press(cell: Vector2i) -> void:
 	var unit: Unit = query_manager.get_unit_at(cell)
-	if unit == null:
-		return
+	var building: Building = query_manager.get_building_at(cell)
 
+	if unit == null and building == null:
+		return
+		
 	game_hud.hide()
 	camera_pan_enabled.emit(false)
 
-	var ipd: InfoDialog.InfoPreviewData = InfoDialog.InfoPreviewData.new(unit)
-	var building: Building = query_manager.get_building_at(cell)
 	if building != null:
-		ipd.with_building(building)
-		info_dialog.update(ipd, unit)
+		info_dialog.with_building(building)
 	else:
 		var terrain_data: TerrainData = grid.terrain_manager.get_terrain_data(unit.cell_pos)
-		ipd.with_terrain_data(terrain_data)
+		info_dialog.with_terrain(terrain_data)
 
-	info_dialog.update(ipd, unit)
+	if unit != null:
+		await info_dialog.with_unit(unit)
+		info_dialog.position_dialog(unit)
+	else:
+		await info_dialog.clear_unit_data()
+		info_dialog.position_dialog(building)
+
 	info_dialog.animate_in()
+
+	if unit == null:
+		return
 
 	var cells: Array[Vector2i] = query_manager.get_cells_in_attack_range(unit)
 	show_attackable.emit(cells)
@@ -217,3 +225,24 @@ func handle_long_press_release() -> void:
 	clear_attackable.emit()
 	info_dialog.animate_out()
 	camera_pan_enabled.emit(true)
+
+
+func show_combat_dialog() -> void:
+	var attacker: Unit = current_units_manager.selected_unit
+	var target_unit: Unit = current_units_manager.target_unit
+	var building: Building = query_manager.get_building_at(target_unit.cell_pos)
+	var estimated_damage: float = 0.0
+	
+	if building == null:
+		var terrain_data: TerrainData = grid.terrain_manager.get_terrain_data(target_unit.cell_pos)
+		combat_dialog.with_terrain(terrain_data)
+		estimated_damage = CombatManager.compute_damage(attacker, target_unit, terrain_data.defense_bonus)
+	else:
+		combat_dialog.with_building(building)
+		estimated_damage = CombatManager.compute_damage(attacker, target_unit, building.defense())
+	
+	combat_dialog.with_estimated_damage(estimated_damage)
+	combat_dialog.with_unit(target_unit)
+
+	combat_dialog.position_dialog(target_unit)
+	combat_dialog.animate_in()

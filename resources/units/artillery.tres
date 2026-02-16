@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UnitProfile" load_steps=16 format=3 uid="uid://hveb37yyjbfa"]
+[gd_resource type="Resource" script_class="UnitProfile" format=3 uid="uid://hveb37yyjbfa"]
 
 [ext_resource type="Texture2D" uid="uid://2n7ysxwl4vma" path="res://assets/sprites/units/phone_wars_units.png" id="1_popoq"]
 [ext_resource type="Script" uid="uid://c5bqt1boq7g83" path="res://scripts/resources/units/unit_profile.gd" id="1_v1own"]

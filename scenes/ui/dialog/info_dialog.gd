@@ -1,6 +1,7 @@
 class_name InfoDialog
 extends BaseDialog
 
+@onready var unit_container: HBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer
 @onready var unit_type_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/UnitType
 @onready var unit_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/UnitIcon
 @onready var unit_hp_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/UnitHP
@@ -9,49 +10,47 @@ extends BaseDialog
 @onready var terrain_def_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/TerrainDef
 
 
-class InfoPreviewData:
-	var unit_type: String
-	var unit_icon: Texture2D
-	var unit_hp: float = 0
-	var unit_team: Team
-	var terrain_type: String
-	var terrain_icon: Texture2D
-	var terrain_def: int
+func clear_unit_data() -> void:
+	unit_container.hide()
 
-	func _init(unit: Unit) -> void:
-		unit_type = UnitType.get_name_from_type(unit.type())
-		unit_icon = unit.icon().duplicate()
-		unit_hp = unit.actual_health
-		unit_team = unit.team
+	# await main panel container resize calculation
+	await get_tree().process_frame
 
 
-	func with_building(building: Building) -> void:
-		pass
-
-	func with_terrain_data(terrain_data: TerrainData) -> void:
-		terrain_type = TerrainType.get_name_from_type(terrain_data.terrain_type)
-		terrain_icon = terrain_data.icon.duplicate()
-		terrain_def = terrain_data.defense_bonus
-
-
-func update(ipd: InfoPreviewData, target: Node2D) -> void:
-	unit_type_label.text = ipd.unit_type
-	unit_hp_label.text = "%s" %int(ipd.unit_hp)
-	terrain_type_label.text = ipd.terrain_type
-	terrain_icon.texture = ipd.terrain_icon
-	terrain_def_label.text = "+%s" %ipd.terrain_def
-
-	update_unit_icon(ipd)
-
-	position_dialog(target)
-
-
-func update_unit_icon(ipd: InfoPreviewData) -> void:
-	if ipd.unit_team.face_direction == FaceDirection.Values.RIGHT:
-		var image: Image = ipd.unit_icon.get_image()
-		image.flip_x() 
-		ipd.unit_icon = ImageTexture.create_from_image(image)
+func with_unit(unit: Unit) -> void:
+	unit_type_label.text = UnitType.get_name_from_type(unit.type())
+	unit_hp_label.text = "%s" %int(unit.actual_health)
+	update_unit_icon(unit)
+	unit_container.show()
 	
-	ipd.unit_team.replace_colors(unit_icon.material)
-	unit_icon.texture = ipd.unit_icon
+	# await main panel container resize calculation
+	await get_tree().process_frame
+
+
+func with_building(building: Building) -> void:
+	terrain_type_label.text = BuildingType.get_name_from_type(building.type())
+	terrain_icon.texture = building.icon().duplicate()
+	terrain_def_label.text = "+%s" %building.defense()
+	
+	var shader_material: ShaderMaterial = terrain_icon.material as ShaderMaterial
+	shader_material.shader = load("res://resources/shaders/team_tint.gdshader")
+	building.team.replace_colors(terrain_icon.material)
+
+
+func with_terrain(terrain_data: TerrainData) -> void:
+	terrain_type_label.text = TerrainType.get_name_from_type(terrain_data.terrain_type)
+	terrain_icon.texture = terrain_data.icon.duplicate()
+	terrain_def_label.text = "+%s" %terrain_data.defense_bonus
+	
+	var shader_material: ShaderMaterial = terrain_icon.material as ShaderMaterial
+	shader_material.shader = null
+
+
+func update_unit_icon(unit: Unit) -> void:
+	var image: Image = unit.icon().get_image()
+	if unit.team.face_direction == FaceDirection.Values.RIGHT:
+		image.flip_x() 
+		
+	unit.team.replace_colors(unit_icon.material)
+	unit_icon.texture = ImageTexture.create_from_image(image)
 

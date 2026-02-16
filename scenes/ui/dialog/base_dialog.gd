@@ -53,6 +53,7 @@ func animate_out():
 
 func position_dialog(target: Node2D):
 	var dialog_size: Vector2 = panel_container.size
+	print("dialog_size: ", dialog_size)
 	var viewport_size: Vector2 = get_viewport_rect().size
 	var local_transform: Vector2 = target.get_screen_transform().origin
 	global_position = local_transform - Vector2(0, dialog_size.y)

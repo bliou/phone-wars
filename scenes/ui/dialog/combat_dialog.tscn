@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://clc1f57hx78vl"]
+[gd_scene format=3 uid="uid://clc1f57hx78vl"]
 
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_keuxs"]
 [ext_resource type="Script" uid="uid://cn60na82taoyh" path="res://scenes/ui/dialog/combat_dialog.gd" id="2_hc2pw"]
@@ -23,6 +23,8 @@ shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 atlas = ExtResource("4_yyxey")
 region = Rect2(132, 38, 24, 20)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hc2pw"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ylojq"]
 shader = ExtResource("5_ln4ny")
 shader_parameter/original_colors = PackedColorArray(0.21568628, 0.29411766, 0.32941177, 1, 0.2901961, 0.3882353, 0.43529412, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -36,7 +38,7 @@ shader_parameter/intensity = 0.8
 atlas = ExtResource("6_fc5yc")
 region = Rect2(212, 420, 56, 44)
 
-[node name="CombatPreview" type="Control"]
+[node name="CombatPreview" type="Control" unique_id=1283190244]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,7 +51,7 @@ mouse_filter = 2
 theme = ExtResource("1_keuxs")
 script = ExtResource("2_hc2pw")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1805395932]
 material = SubResource("ShaderMaterial_keuxs")
 layout_mode = 1
 anchors_preset = 15
@@ -58,49 +60,50 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1697290045]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=810797875]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="DamagePreview" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="DamagePreview" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2047575891]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "-49% HP "
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1963249379]
 layout_mode = 2
 
-[node name="DefenderIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DefenderIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=285016145]
 material = SubResource("ShaderMaterial_mmh2r")
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 expand_mode = 2
 stretch_mode = 5
 
-[node name="DefenderHP" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DefenderHP" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=466674808]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "7"
 
-[node name="HPTexture" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HPTexture" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=103899027]
 layout_mode = 2
 texture = SubResource("AtlasTexture_hnj8q")
 
-[node name="TerrainIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TerrainIcon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=558129712]
+material = SubResource("ShaderMaterial_hc2pw")
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 expand_mode = 2
 stretch_mode = 5
 
-[node name="TerrainDef" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TerrainDef" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1230143126]
 layout_mode = 2
 text = "+2"
 
-[node name="BorderAnimation" type="TextureRect" parent="."]
+[node name="BorderAnimation" type="TextureRect" parent="." unique_id=1044185161]
 z_index = 1
 material = SubResource("ShaderMaterial_ylojq")
 layout_mode = 1

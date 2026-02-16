@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="TerrainData" load_steps=4 format=3 uid="uid://me5ftqrn14oh"]
+[gd_resource type="Resource" script_class="TerrainData" format=3 uid="uid://me5ftqrn14oh"]
 
 [ext_resource type="Script" uid="uid://dnop8yi4lsey8" path="res://scripts/resources/terrains/terrain_data.gd" id="1_ju8id"]
 [ext_resource type="Texture2D" uid="uid://c08k7ivf7jccs" path="res://assets/sprites/terrains/background_without_water.png" id="1_uley8"]
