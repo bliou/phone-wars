@@ -25,6 +25,7 @@ func _physics_process(_delta: float) -> void:
 func _on_cell_tap(cell: Vector2i) -> void:
 	if controller.query_manager.get_unit_at(cell):
 		controller.current_units_manager.select_unit_at_position(cell)
+		return
 
 	if controller.query_manager.get_building_at(cell):
 		controller.current_buildings_manager.select_building_at_position(cell)

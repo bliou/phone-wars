@@ -46,10 +46,3 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "Cancel"
-
-[node name="BuildButton" type="Button" parent="PanelContainer/MarginContainer" unique_id=250982207]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-disabled = true
-text = "Build"

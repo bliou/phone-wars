@@ -24,18 +24,29 @@ func init_units(team: Team) -> void:
 	for unit in get_children():
 		if unit is Unit:
 			var cell_pos: Vector2i = Vector2i(unit.position / grid.cell_size)
-			units[cell_pos] = unit
-			unit.cell_pos = cell_pos
-			unit.position = Vector2(cell_pos) * grid.cell_size + grid.cell_size*0.5
-			unit.unit_moved.connect(on_unit_moved)
-			unit.unit_killed.connect(on_unit_killed)
-			unit.setup(team)
+			init_unit(unit, cell_pos, team)
+
+
+func init_unit(unit: Unit, cell_pos: Vector2i, team: Team) -> void:
+	units[cell_pos] = unit
+	unit.cell_pos = cell_pos
+	unit.position = Vector2(cell_pos) * grid.cell_size + grid.cell_size*0.5
+	unit.unit_moved.connect(on_unit_moved)
+	unit.unit_killed.connect(on_unit_killed)
+	unit.setup(team)
 
 
 func remove_unit(unit: Unit) -> void:
 	print("removing unit %s at %s" % [unit.name, unit.cell_pos])
 	units.erase(unit.cell_pos)
 	unit.queue_free()
+
+
+func add_unit(entry: ProductionEntry, cell_pos: Vector2i, team: Team) -> void:
+	var unit: Unit = entry.unit_scene.instantiate() as Unit
+	add_child(unit)
+	init_unit(unit, cell_pos, team)
+	unit.exhaust()
 
 
 func get_grid_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Pathfinding.Path:

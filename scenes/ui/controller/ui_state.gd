@@ -40,7 +40,7 @@ func _on_cancel_clicked() -> void:
 	pass
 
 
-func _on_build_clicked() -> void:
+func _on_build_clicked(entry: ProductionEntry) -> void:
 	pass
 
 

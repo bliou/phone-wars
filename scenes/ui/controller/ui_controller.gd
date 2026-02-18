@@ -70,7 +70,7 @@ func setup(p_game_manager: GameManager) -> void:
 	game_hud.attack_button_clicked.connect(on_attack_clicked)
 
 	production_panel.cancel_button_clicked.connect(on_cancel_clicked)
-	production_panel.build_button_clicked.connect(on_build_clicked)
+	production_panel.build_clicked.connect(on_build_clicked)
 
 
 func on_cell_tap(cell: Vector2i) -> void:
@@ -109,9 +109,9 @@ func on_cancel_clicked() -> void:
 	state._on_cancel_clicked()
 
 
-func on_build_clicked() ->void:
+func on_build_clicked(entry: ProductionEntry) ->void:
 	var state: UIState = fsm.current_state as UIState
-	state._on_build_clicked()
+	state._on_build_clicked(entry)
 
 
 func on_end_turn_clicked() -> void:
