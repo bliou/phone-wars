@@ -1,0 +1,13 @@
+[gd_resource type="Theme" format=3 uid="uid://jqiiu5xphvlw"]
+
+[ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="1_bff7l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_asjlf"]
+atlas = ExtResource("1_bff7l")
+region = Rect2(3, 417, 88, 79)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bff7l"]
+texture = SubResource("AtlasTexture_asjlf")
+
+[resource]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_bff7l")

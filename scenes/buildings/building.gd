@@ -4,7 +4,7 @@ extends Area2D
 signal captured_by(unit: Unit)
 
 @export var building_profile: BuildingProfile
-@export var construction_profile: ConstructionProfile
+@export var production_list: ProductionList
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -62,3 +62,7 @@ func type() -> BuildingType.Values:
 
 func max_capture_points() -> int:
 	return building_profile.capture_points
+
+
+func can_be_selected() -> bool:
+	return production_list != null

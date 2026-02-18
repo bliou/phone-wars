@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://bijx1g55sal8q"]
+
+[ext_resource type="Script" uid="uid://dkmbkea0leox1" path="res://scenes/ui/buildings/production_panel.gd" id="1_7so7r"]
+[ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_ybmfi"]
+[ext_resource type="Theme" uid="uid://jqiiu5xphvlw" path="res://resources/themes/production_panel.tres" id="3_xjfp3"]
+
+[node name="ProductionPanel" type="Control" unique_id=1129333441]
+custom_minimum_size = Vector2(350, 300)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ybmfi")
+script = ExtResource("1_7so7r")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=740188908]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_xjfp3")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=387952571]
+layout_mode = 2
+theme_override_constants/margin_left = 55
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 45
+theme_override_constants/margin_bottom = 45
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer" unique_id=392126103]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 25
+
+[node name="ProductionList" type="VBoxContainer" parent="PanelContainer/MarginContainer/MarginContainer" unique_id=653801306]
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="PanelContainer/MarginContainer" unique_id=1137847363]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Cancel"
+
+[node name="BuildButton" type="Button" parent="PanelContainer/MarginContainer" unique_id=250982207]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+disabled = true
+text = "Build"

@@ -4,6 +4,7 @@ extends UIState
 
 func _enter(_params: Dictionary = {}) -> void:
 	controller.visible = controller.is_playable
+	controller.production_panel.hide()
 	controller.game_hud.show_idle_state()
 	controller.camera_pan_enabled.emit(true)
 
@@ -22,7 +23,11 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_cell_tap(cell: Vector2i) -> void:
-	controller.current_units_manager.select_unit_at_position(cell)
+	if controller.query_manager.get_unit_at(cell):
+		controller.current_units_manager.select_unit_at_position(cell)
+
+	if controller.query_manager.get_building_at(cell):
+		controller.current_buildings_manager.select_building_at_position(cell)
 
 
 func _on_long_press(cell: Vector2i) -> void:

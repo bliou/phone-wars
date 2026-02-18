@@ -40,5 +40,9 @@ func _on_cancel_clicked() -> void:
 	pass
 
 
+func _on_build_clicked() -> void:
+	pass
+
+
 func _on_attack_clicked() -> void:
 	pass

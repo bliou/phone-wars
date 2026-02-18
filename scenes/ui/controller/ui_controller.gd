@@ -12,6 +12,7 @@ signal clear_attackable()
 signal end_turn()
 
 @onready var game_hud: GameHUD = $GameHUD
+@onready var production_panel: ProductionPanel = $ProductionPanel
 
 @onready var capture_dialog: CaptureDialog = $Dialogs/CaptureDialog
 @onready var combat_dialog: CombatDialog = $Dialogs/CombatDialog
@@ -28,11 +29,13 @@ var query_manager: QueryManager
 
 var fsm: StateMachine
 var idle_state: UIIdleState
-var selected_state: UISelectedState
+var unit_selected_state: UIUnitSelectedState
+var building_selected_state: UIBuildingSelectedState
 var moved_state: UIMovedState
 var attack_preview_state: UIAttackPreviewState
 
 var current_units_manager: UnitsManager
+var current_buildings_manager: BuildingsManager
 var is_playable: bool
 
 func setup(p_game_manager: GameManager) -> void:
@@ -45,7 +48,8 @@ func setup(p_game_manager: GameManager) -> void:
 	switch_team(p_game_manager.active_team)
 
 	idle_state = UIIdleState.new("ui_idle", self)
-	selected_state = UISelectedState.new("ui_selected", self)
+	unit_selected_state = UIUnitSelectedState.new("ui_unit_selected", self)
+	building_selected_state = UIBuildingSelectedState.new("ui_building_selected", self)
 	moved_state = UIMovedState.new("ui_moved", self)
 	attack_preview_state = UIAttackPreviewState.new("ui_attack_preview", self)
 
@@ -65,6 +69,9 @@ func setup(p_game_manager: GameManager) -> void:
 	game_hud.merge_button_clicked.connect(on_merge_clicked)
 	game_hud.attack_button_clicked.connect(on_attack_clicked)
 
+	production_panel.cancel_button_clicked.connect(on_cancel_clicked)
+	production_panel.build_button_clicked.connect(on_build_clicked)
+
 
 func on_cell_tap(cell: Vector2i) -> void:
 	var state: UIState = fsm.current_state as UIState
@@ -82,16 +89,29 @@ func on_long_press_release(cell: Vector2i) -> void:
 
 
 func on_unit_selected(_unit: Unit) -> void:
-	fsm.change_state(selected_state)
+	fsm.change_state(unit_selected_state)
 
 
 func on_unit_deselected(_unit: Unit) -> void:
 	fsm.change_state(idle_state)
 
 
+func on_building_selected() -> void:
+	fsm.change_state(building_selected_state)
+
+
+func on_building_deselected() -> void:
+	fsm.change_state(idle_state)
+
+
 func on_cancel_clicked() -> void:
 	var state: UIState = fsm.current_state as UIState
 	state._on_cancel_clicked()
+
+
+func on_build_clicked() ->void:
+	var state: UIState = fsm.current_state as UIState
+	state._on_build_clicked()
 
 
 func on_end_turn_clicked() -> void:
@@ -136,6 +156,17 @@ func switch_team(new_team: Team) -> void:
 	current_units_manager = new_team.units_manager
 	current_units_manager.unit_selected.connect(on_unit_selected)
 	current_units_manager.unit_deselected.connect(on_unit_deselected)
+
+
+	if current_buildings_manager != null:
+		current_buildings_manager.building_selected.disconnect(on_building_selected)
+		current_buildings_manager.building_deselected.disconnect(on_building_deselected)
+
+	current_buildings_manager = null
+	current_buildings_manager = new_team.buildings_manager
+	current_buildings_manager.building_selected.connect(on_building_selected)
+	current_buildings_manager.building_deselected.connect(on_building_deselected)
+
 
 	is_playable = new_team.is_playable()
 

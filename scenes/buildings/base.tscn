@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbb2legf80c0p"]
+[gd_scene format=3 uid="uid://cbb2legf80c0p"]
 
 [ext_resource type="Script" uid="uid://c0ghc8sqosbe7" path="res://scenes/buildings/building.gd" id="1_rp2fc"]
 [ext_resource type="Resource" uid="uid://cwbhord7rf6lu" path="res://resources/buildings/base.tres" id="2_kv37l"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="2_qxjns"]
+[ext_resource type="Resource" uid="uid://ctvpo8h4vkosa" path="res://resources/buildings/base_production_list.tres" id="3_06d20"]
 [ext_resource type="Texture2D" uid="uid://p7s204aqq84r" path="res://assets/sprites/buildings/buildings.png" id="3_qxjns"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kv37l"]
@@ -29,14 +30,15 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rp2fc"]
 size = Vector2(32, 32)
 
-[node name="Base" type="Area2D"]
+[node name="Base" type="Area2D" unique_id=1229261634]
 script = ExtResource("1_rp2fc")
 building_profile = ExtResource("2_kv37l")
+production_list = ExtResource("3_06d20")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1230162355]
 material = SubResource("ShaderMaterial_kv37l")
 sprite_frames = SubResource("SpriteFrames_rp2fc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1018541487]
 visible = false
 shape = SubResource("RectangleShape2D_rp2fc")

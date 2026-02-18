@@ -1,6 +1,9 @@
 class_name BuildingsManager
 extends Node
 
+signal building_selected()
+signal building_deselected()
+
 
 var grid: Grid
 var query_manager: QueryManager
@@ -41,3 +44,26 @@ func add_building(building: Building) -> void:
 	add_child(building)
 	print("adding building %s at %s" % [building.name, building.grid_pos])
 			
+
+func select_building_at_position(cell: Vector2i) -> void:
+	var building: Building = buildings.get(cell, null)
+	if building == null or not building.can_be_selected():
+		return
+
+	select_building(building)
+
+
+func select_building(building: Building) -> void:
+	if selected_building:
+		return
+
+	selected_building = building
+	building_selected.emit()
+
+
+func deselect_building() -> void:
+	if selected_building == null:
+		return
+
+	selected_building = null
+	building_deselected.emit()

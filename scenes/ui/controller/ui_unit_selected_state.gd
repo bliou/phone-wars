@@ -1,4 +1,4 @@
-class_name UISelectedState
+class_name UIUnitSelectedState
 extends UIState
 
 func _enter(_params: Dictionary = {}) -> void:

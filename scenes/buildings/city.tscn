@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://coewfg6qqq82j"]
+[gd_scene format=3 uid="uid://coewfg6qqq82j"]
 
 [ext_resource type="Script" uid="uid://c0ghc8sqosbe7" path="res://scenes/buildings/building.gd" id="1_fsm37"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="2_s8d14"]
@@ -29,14 +29,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylkap"]
 size = Vector2(32, 32)
 
-[node name="City" type="Area2D"]
+[node name="City" type="Area2D" unique_id=2003710634]
 script = ExtResource("1_fsm37")
 building_profile = ExtResource("2_sctt1")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=489645863]
 material = SubResource("ShaderMaterial_sctt1")
 sprite_frames = SubResource("SpriteFrames_ylkap")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2067687268]
 visible = false
 shape = SubResource("RectangleShape2D_ylkap")
