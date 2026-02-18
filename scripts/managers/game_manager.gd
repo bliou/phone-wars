@@ -14,6 +14,7 @@ signal turn_ended(new_team: Team)
 @onready var fx_service: FXService = $Services/FXService
 @onready var audio_service: AudioService = $Services/AudioService
 @onready var music_service: MusicService = $Services/MusicService
+@onready var economy_service: EconomyService = $Services/EconomyService
 
 var teams: Array[Team] = []
 var active_team: Team
@@ -55,6 +56,9 @@ func init_teams() -> void:
 func on_end_turn() -> void:
 	active_team.end_turn()
 	active_team = next_team(active_team)
+
+	var new_income: int = economy_service.calculate_income(active_team)
+	active_team.funds += new_income
 	active_team.start_turn()
 
 	print("Turn ended. New team %s to play" % active_team.name)

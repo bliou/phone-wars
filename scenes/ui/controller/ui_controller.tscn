@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dbvtob4kw1eil" path="res://scenes/ui/dialog/info_dialog.tscn" id="4_c3s8q"]
 [ext_resource type="PackedScene" uid="uid://bijx1g55sal8q" path="res://scenes/ui/buildings/production_panel.tscn" id="7_2qvht"]
 [ext_resource type="PackedScene" uid="uid://cxdifupvx7yvu" path="res://scenes/ui/popups/damage_popup.tscn" id="7_5n6d6"]
+[ext_resource type="PackedScene" uid="uid://d2e0mr7ywlsfx" path="res://scenes/ui/hud/team_display.tscn" id="8_2qvht"]
 
 [node name="UIController" type="CanvasLayer" unique_id=464486681]
 process_mode = 3
@@ -55,3 +56,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -150.0
+offset_right = 175.0
+offset_bottom = 150.0
+
+[node name="TeamDisplay" parent="." unique_id=12301407 instance=ExtResource("8_2qvht")]

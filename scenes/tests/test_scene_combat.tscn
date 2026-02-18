@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://datlrsmxx1ofs" path="res://scripts/managers/music_manager.gd" id="23_rbirq"]
 [ext_resource type="Script" uid="uid://bq66fyhh6afgc" path="res://scripts/services/audio_service.gd" id="25_r8exw"]
 [ext_resource type="PackedScene" uid="uid://bqqubrlum3m1c" path="res://scenes/services/music_service.tscn" id="27_viv5u"]
+[ext_resource type="Script" uid="uid://d1wjv47jtbmh4" path="res://scripts/services/economy_service.gd" id="29_qrvgh"]
 [ext_resource type="Script" uid="uid://cat2b24w7wkt2" path="res://scripts/controllers/camera_controller.gd" id="30_v1tfe"]
 [ext_resource type="PackedScene" uid="uid://dgusrtqifvaos" path="res://scenes/component/indicators.tscn" id="31_qrvgh"]
 
@@ -139,6 +140,9 @@ script = ExtResource("22_rqq3m")
 script = ExtResource("25_r8exw")
 
 [node name="MusicService" parent="Services" unique_id=1899524217 instance=ExtResource("27_viv5u")]
+
+[node name="EconomyService" type="Node" parent="Services" unique_id=126323764]
+script = ExtResource("29_qrvgh")
 
 [node name="CameraController" type="Node2D" parent="." unique_id=1730501857]
 script = ExtResource("30_v1tfe")

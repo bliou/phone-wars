@@ -6,3 +6,5 @@ extends Resource
 @export var capture_points: int = 20
 @export var building_icon: Texture2D = null
 @export var building_defense: int = 3
+
+@export var building_income: int = 100

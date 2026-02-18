@@ -12,6 +12,7 @@ signal clear_attackable()
 signal end_turn()
 
 @onready var game_hud: GameHUD = $GameHUD
+@onready var team_display: TeamDisplay = $TeamDisplay
 @onready var production_panel: ProductionPanel = $ProductionPanel
 
 @onready var capture_dialog: CaptureDialog = $Dialogs/CaptureDialog
@@ -169,6 +170,7 @@ func switch_team(new_team: Team) -> void:
 
 
 	is_playable = new_team.is_playable()
+	team_display.update(new_team)
 
 
 func show_attack_indicator() -> void:

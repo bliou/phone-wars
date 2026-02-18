@@ -47,6 +47,10 @@ func captured(new_team: Team) -> void:
 	captured_by.emit(new_team)
 
 
+func can_be_selected() -> bool:
+	return production_list != null
+
+
 # Unit profile getters
 func defense() -> int:
 	return building_profile.building_defense
@@ -64,5 +68,5 @@ func max_capture_points() -> int:
 	return building_profile.capture_points
 
 
-func can_be_selected() -> bool:
-	return production_list != null
+func income() -> int:
+	return building_profile.building_income
