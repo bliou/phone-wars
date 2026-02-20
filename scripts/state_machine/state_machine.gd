@@ -2,7 +2,7 @@ class_name StateMachine
 extends RefCounted
 
 var current_state: State = null
-var previous_states: Array[State]
+var previous_states: Array[State] # TODO: use a ring buffer
 var name: String
 
 func _init(p_name: String, initial_state: State) -> void:

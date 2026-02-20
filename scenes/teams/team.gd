@@ -11,7 +11,7 @@ enum Type {
 @export var team_profile: TeamProfile
 @export var team_type: Type = Type.NEUTRAL
 @export var face_direction: FaceDirection.Values = FaceDirection.Values.LEFT
-@export var funds: int = 0
+@export var funds: int = 1500
 
 @onready var units_manager: UnitsManager = $UnitsManager
 @onready var buildings_manager: BuildingsManager = $BuildingsManager
@@ -22,8 +22,8 @@ func setup(grid: Grid, query_manager: QueryManager) -> void:
 	buildings_manager.setup(grid, query_manager, self)
 	
 
-func start_turn(new_income: int) -> void:
-	funds += new_income
+func start_turn() -> void:
+	pass
 
 
 func end_turn() -> void:
@@ -40,6 +40,16 @@ func neutral_team() -> bool:
 
 func is_same_team(team: Team) -> bool:
 	return self == team
+
+
+func can_buy(entry: ProductionEntry) -> bool:
+	return entry.cost <= funds
+
+
+func buy_unit(entry: ProductionEntry, cell_pos: Vector2i) -> void:
+	funds -= entry.cost
+	units_manager.add_unit(entry, cell_pos, self)
+	
 
 
 # Team profile getters

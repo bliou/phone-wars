@@ -18,7 +18,7 @@ func load_from_entry(entry: ProductionEntry, team: Team) -> void:
 	unit_icon.texture = entry.unit_profile.icon.duplicate()
 	team.replace_colors(unit_icon.material)
 	
-	build_button.disabled = entry.cost > team.funds
+	build_button.disabled = not team.can_buy(entry)
 
 	build_button.pressed.connect(func(): build_button_clicked.emit(entry))
 	

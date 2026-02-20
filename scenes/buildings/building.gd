@@ -8,7 +8,7 @@ signal captured_by(unit: Unit)
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-var grid_pos: Vector2i = Vector2i.ZERO
+var cell_pos: Vector2i = Vector2i.ZERO
 var team: Team
 
 var fsm: StateMachine

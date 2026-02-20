@@ -1,10 +1,6 @@
 class_name BuildingsManager
 extends Node
 
-signal building_selected()
-signal building_deselected()
-
-
 var grid: Grid
 var query_manager: QueryManager
 var selected_building: Building = null
@@ -21,9 +17,9 @@ func init_buildings(team: Team) -> void:
 		if building is Building:
 			var cell_pos: Vector2i = Vector2i(building.position / grid.cell_size)
 			buildings[cell_pos] = building
-			building.grid_pos = cell_pos
+			building.cell_pos = cell_pos
 			building.setup(team)
-			print("adding building %s at %s" % [building.name, building.grid_pos])
+			print("adding building %s at %s" % [building.name, building.cell_pos])
 			
 
 func get_building_at(cell_pos: Vector2i) -> Building:
@@ -31,7 +27,7 @@ func get_building_at(cell_pos: Vector2i) -> Building:
 
 
 func remove_building(building: Building) -> void:
-	print("removing building %s at %s" % [building.name, building.grid_pos])
+	print("removing building %s at %s" % [building.name, building.cell_pos])
 	buildings.erase(building)
 	remove_child(building)
 
@@ -39,10 +35,10 @@ func remove_building(building: Building) -> void:
 func add_building(building: Building) -> void:
 	var cell_pos: Vector2i = Vector2i(building.position / grid.cell_size)
 	buildings[cell_pos] = building
-	building.grid_pos = cell_pos
+	building.cell_pos = cell_pos
 
 	add_child(building)
-	print("adding building %s at %s" % [building.name, building.grid_pos])
+	print("adding building %s at %s" % [building.name, building.cell_pos])
 			
 
 func select_building_at_position(cell: Vector2i) -> void:
@@ -58,7 +54,6 @@ func select_building(building: Building) -> void:
 		return
 
 	selected_building = building
-	building_selected.emit()
 
 
 func deselect_building() -> void:
@@ -66,4 +61,3 @@ func deselect_building() -> void:
 		return
 
 	selected_building = null
-	building_deselected.emit()

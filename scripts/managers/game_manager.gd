@@ -51,7 +51,7 @@ func init_teams() -> void:
 
 	active_team = teams[0]
 	var new_income: int = economy_service.calculate_income(active_team)
-	active_team.start_turn(new_income)
+	active_team.start_turn()
 
 
 func on_end_turn() -> void:
@@ -59,7 +59,7 @@ func on_end_turn() -> void:
 	active_team = next_team(active_team)
 
 	var new_income: int = economy_service.calculate_income(active_team)
-	active_team.start_turn(new_income)
+	active_team.start_turn()
 
 	print("Turn ended. New team %s to play" % active_team.name)
 	turn_ended.emit(active_team)

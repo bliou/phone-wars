@@ -23,6 +23,7 @@ signal end_turn()
 @onready var ui_fx_layer: Node2D = $FXLayer
 
 var grid: Grid
+var buy_unit_orchestrator: BuyUnitOrchestrator
 var combat_orchestrator: CombatOrchestrator
 var capture_orchestrator: CaptureOrchestrator
 var movement_orchestrator: MovementOrchestrator
@@ -41,6 +42,7 @@ var is_playable: bool
 
 func setup(p_game_manager: GameManager) -> void:
 	grid = p_game_manager.grid
+	buy_unit_orchestrator = BuyUnitOrchestrator.new(team_display, p_game_manager.audio_service)
 	combat_orchestrator = CombatOrchestrator.new(damage_effect, p_game_manager.fx_service, p_game_manager.audio_service)
 	capture_orchestrator = CaptureOrchestrator.new(capture_popup, p_game_manager.fx_service, p_game_manager.audio_service)
 	movement_orchestrator = MovementOrchestrator.new()
@@ -99,14 +101,6 @@ func on_unit_deselected(_unit: Unit) -> void:
 	fsm.change_state(idle_state)
 
 
-func on_building_selected() -> void:
-	fsm.change_state(building_selected_state)
-
-
-func on_building_deselected() -> void:
-	fsm.change_state(idle_state)
-
-
 func on_cancel_clicked() -> void:
 	var state: UIState = fsm.current_state as UIState
 	state._on_cancel_clicked()
@@ -159,24 +153,14 @@ func switch_team(new_team: Team) -> void:
 		current_units_manager.unit_selected.disconnect(on_unit_selected)
 		current_units_manager.unit_deselected.disconnect(on_unit_deselected)
 
-	current_units_manager = null
 	current_units_manager = new_team.units_manager
 	current_units_manager.unit_selected.connect(on_unit_selected)
 	current_units_manager.unit_deselected.connect(on_unit_deselected)
 
-
-	if current_buildings_manager != null:
-		current_buildings_manager.building_selected.disconnect(on_building_selected)
-		current_buildings_manager.building_deselected.disconnect(on_building_deselected)
-
-	current_buildings_manager = null
 	current_buildings_manager = new_team.buildings_manager
-	current_buildings_manager.building_selected.connect(on_building_selected)
-	current_buildings_manager.building_deselected.connect(on_building_deselected)
-
 
 	is_playable = new_team.is_playable()
-	team_display.update(new_team)
+	team_display.set_new_team(new_team)
 
 
 func show_attack_indicator() -> void:

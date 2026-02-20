@@ -28,13 +28,21 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_cancel_clicked() -> void:
-	controller.current_buildings_manager.deselect_building()
+	deselect_building()
 
 
 func _on_build_clicked(entry: ProductionEntry) -> void:
 	var selected_building: Building = controller.current_buildings_manager.selected_building
-	if entry.cost > selected_building.team.funds:
+	var team: Team = selected_building.team
+	if not team.can_buy(entry):
 		return
 	
-	controller.current_units_manager.add_unit(entry, selected_building.grid_pos, selected_building.team)
+	controller.production_panel.hide()
+	await controller.team_display.animate_in()
+	await controller.buy_unit_orchestrator.execute(team, entry, selected_building.cell_pos)
+	deselect_building()
+
+
+func deselect_building() -> void:
 	controller.current_buildings_manager.deselect_building()
+	controller.fsm.change_state(controller.idle_state)

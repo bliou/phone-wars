@@ -122,7 +122,7 @@ func is_max_health() -> bool:
 
 
 func can_capture_building(building: Building) -> bool:
-	if building.grid_pos != cell_pos:
+	if building.cell_pos != cell_pos:
 		return false
 
 	if team.is_same_team(building.team):
