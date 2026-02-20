@@ -3,12 +3,21 @@
 [ext_resource type="Script" uid="uid://dg4jowk6cax8m" path="res://scenes/ui/buildings/production_entry_panel.gd" id="1_k0mrk"]
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_nyvlx"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_5kbff"]
+[ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="4_yslsw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yslsw"]
 shader = ExtResource("3_5kbff")
 shader_parameter/disabled = 0.0
 shader_parameter/original_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kbff"]
+atlas = ExtResource("4_yslsw")
+region = Rect2(25, 81, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yslsw"]
+atlas = ExtResource("4_yslsw")
+region = Rect2(498, 146, 27, 2)
 
 [node name="ProductionEntryPanel" type="Control" unique_id=1127310457]
 custom_minimum_size = Vector2(250, 50)
@@ -21,34 +30,48 @@ grow_vertical = 2
 theme = ExtResource("1_nyvlx")
 script = ExtResource("1_k0mrk")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=268170177]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=86012718]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"ProductionEntryPanel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1379261243]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=268170177]
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 15
 
-[node name="UnitIcon" type="TextureRect" parent="HBoxContainer" unique_id=904546294]
+[node name="UnitIcon" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=904546294]
 material = SubResource("ShaderMaterial_yslsw")
 layout_mode = 2
 
-[node name="UnitName" type="Label" parent="HBoxContainer" unique_id=1716080869]
+[node name="UnitName" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1716080869]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 
-[node name="UnitCost" type="Label" parent="HBoxContainer" unique_id=654533377]
-custom_minimum_size = Vector2(60, 0)
+[node name="UnitCost" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=654533377]
 layout_mode = 2
 
-[node name="BuildButton" type="Button" parent="HBoxContainer" unique_id=477208970]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=794007903]
+layout_mode = 2
+texture = SubResource("AtlasTexture_5kbff")
+expand_mode = 2
+
+[node name="BuildButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=477208970]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
 text = "Build"
+
+[node name="Separator" type="TextureRect" parent="PanelContainer/VBoxContainer" unique_id=628200138]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+texture = SubResource("AtlasTexture_yslsw")

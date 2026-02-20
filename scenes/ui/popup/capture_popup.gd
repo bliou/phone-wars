@@ -22,7 +22,7 @@ func load(result: CaptureProcess.CaptureResult) -> void:
     unit_proxy.load_from_unit(result.unit)
 
     building_icon.texture = result.building.icon().duplicate()
-    building_icon.position = Const.CELL_SIZE / 2
+    building_icon.position = Const.CELL_SIZE / 2.0
 
     if unit_proxy.facing == FaceDirection.Values.LEFT:
         capture_animation.move_child(building_icon_wrapper, 0)

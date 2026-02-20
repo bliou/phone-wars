@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bki0f0ay1pmv7" path="res://scenes/ui/hud/team_display.gd" id="1_lcp4i"]
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_my45x"]
 [ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="2_lcp4i"]
+[ext_resource type="FontFile" uid="uid://diubivdnudfuh" path="res://assets/fonts/Pixel Lofi.otf" id="3_my45x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5n6d6"]
 atlas = ExtResource("2_lcp4i")
@@ -43,6 +44,8 @@ layout_mode = 2
 
 [node name="MoneyLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=752957305]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_my45x")
+theme_override_font_sizes/font_size = 16
 text = "Money: "
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1026404885]

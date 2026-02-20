@@ -107,7 +107,6 @@ layout_mode = 2
 
 [node name="BuildingIcon" type="Sprite2D" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/BuildingIconWrapper" unique_id=706725079]
 material = SubResource("ShaderMaterial_3nh38")
-position = Vector2(-36, 0)
 
 [node name="BorderAnimation" type="TextureRect" parent="." unique_id=1769998986]
 z_index = 1

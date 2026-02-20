@@ -119,6 +119,9 @@ team_profile = ExtResource("20_n3opb")
 [node name="City" parent="Teams/NeutralTeam/BuildingsManager" index="0" unique_id=221388848 instance=ExtResource("15_l50gb")]
 position = Vector2(400, 80)
 
+[node name="City2" parent="Teams/NeutralTeam/BuildingsManager" index="1" unique_id=2003710634 instance=ExtResource("15_l50gb")]
+position = Vector2(304, 80)
+
 [node name="Managers" type="Node" parent="." unique_id=1967347818]
 
 [node name="InputManager" type="Node" parent="Managers" unique_id=1987885867]

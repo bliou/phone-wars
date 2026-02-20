@@ -9,7 +9,7 @@ var animation_player: AnimationPlayer
 var weapon_muzzle: Marker2D
 
 func _ready() -> void:
-	position = Const.CELL_SIZE / 2
+	position = Const.CELL_SIZE / 2.0
 
 
 func load_from_unit(unit: Unit) -> void:

@@ -1,12 +1,16 @@
 [gd_resource type="Theme" format=3 uid="uid://bsa4ociwyndea"]
 
 [ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="1_5t46v"]
+[ext_resource type="FontFile" uid="uid://diubivdnudfuh" path="res://assets/fonts/Pixel Lofi.otf" id="2_d5i2s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04e2q"]
 atlas = ExtResource("1_5t46v")
 region = Rect2(198, 65, 52, 13)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rg8ou"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
 texture = SubResource("AtlasTexture_04e2q")
 texture_margin_left = 1.0
 texture_margin_top = 2.0
@@ -21,6 +25,9 @@ atlas = SubResource("CompressedTexture2D_mmh2r")
 region = Rect2(134, 65, 52, 13)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1wcms"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
 texture = SubResource("AtlasTexture_hnj8q")
 texture_margin_left = 1.0
 texture_margin_top = 1.0
@@ -32,6 +39,9 @@ atlas = ExtResource("1_5t46v")
 region = Rect2(70, 65, 52, 13)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d7nxg"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
 texture = SubResource("AtlasTexture_1wcms")
 texture_margin_left = 1.0
 texture_margin_top = 1.0
@@ -43,6 +53,9 @@ atlas = ExtResource("1_5t46v")
 region = Rect2(272, 303, 48, 16)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8q6pv"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
 texture = SubResource("AtlasTexture_x63vt")
 texture_margin_left = 5.0
 texture_margin_top = 3.0
@@ -55,6 +68,13 @@ region = Rect2(212, 420, 56, 44)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d5i2s"]
 texture = SubResource("AtlasTexture_5t46v")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghwqw"]
+atlas = ExtResource("1_5t46v")
+region = Rect2(171, 42, 82, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ghwqw"]
+texture = SubResource("AtlasTexture_ghwqw")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d5i2s"]
 atlas = ExtResource("1_5t46v")
@@ -72,16 +92,20 @@ texture = SubResource("AtlasTexture_0vqx8")
 
 [resource]
 Button/font_sizes/font_size = 12
+Button/fonts/font = ExtResource("2_d5i2s")
 Button/styles/disabled = SubResource("StyleBoxTexture_rg8ou")
 Button/styles/hover = SubResource("StyleBoxTexture_1wcms")
 Button/styles/normal = SubResource("StyleBoxTexture_d7nxg")
 Button/styles/pressed = SubResource("StyleBoxTexture_8q6pv")
 GamePopupPanel/base_type = &"PanelContainer"
 GamePopupPanel/styles/panel = SubResource("StyleBoxTexture_d5i2s")
+Label/fonts/font = ExtResource("2_d5i2s")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
+ProductionEntryPanel/base_type = &"PanelContainer"
+ProductionEntryPanel/styles/panel = SubResource("StyleBoxTexture_ghwqw")
 ProductionPanel/base_type = &"PanelContainer"
 ProductionPanel/styles/panel = SubResource("StyleBoxTexture_0vqx8")
 TeamDisplayPanel/base_type = &"PanelContainer"
