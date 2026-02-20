@@ -22,12 +22,16 @@ func _physics_process(_delta: float) -> void:
 
 func _on_cell_tap(cell: Vector2i) -> void:
 	if controller.query_manager.get_unit_at(cell):
-		controller.current_units_manager.select_unit_at_position(cell)
+		if controller.current_units_manager.can_select_unit_at_position(cell):
+			controller.current_units_manager.select_unit_at_position(cell)
+			controller.fsm.change_state(controller.unit_selected_state)
 		return
 
 	if controller.query_manager.get_building_at(cell):
-		controller.current_buildings_manager.select_building_at_position(cell)
-		controller.fsm.change_state(controller.building_selected_state)
+		if controller.current_buildings_manager.can_select_building_at_position(cell):
+			controller.current_buildings_manager.select_building_at_position(cell)
+			controller.fsm.change_state(controller.building_selected_state)
+
 
 func _on_long_press(cell: Vector2i) -> void:
 	controller.handle_long_press(cell)

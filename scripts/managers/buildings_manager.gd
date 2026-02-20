@@ -43,17 +43,15 @@ func add_building(building: Building) -> void:
 
 func select_building_at_position(cell: Vector2i) -> void:
 	var building: Building = buildings.get(cell, null)
-	if building == null or not building.can_be_selected():
-		return
-
-	select_building(building)
-
-
-func select_building(building: Building) -> void:
-	if selected_building:
-		return
-
 	selected_building = building
+
+
+func can_select_building_at_position(cell: Vector2i) -> bool:
+	var building: Building = buildings.get(cell, null)
+	if building == null or not building.can_be_selected() or selected_building != null:
+		return false
+
+	return true
 
 
 func deselect_building() -> void:

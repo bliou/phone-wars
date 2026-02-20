@@ -93,14 +93,6 @@ func on_long_press_release(cell: Vector2i) -> void:
 	state._on_long_press_release(cell)
 
 
-func on_unit_selected(_unit: Unit) -> void:
-	fsm.change_state(unit_selected_state)
-
-
-func on_unit_deselected(_unit: Unit) -> void:
-	fsm.change_state(idle_state)
-
-
 func on_cancel_clicked() -> void:
 	var state: UIState = fsm.current_state as UIState
 	state._on_cancel_clicked()
@@ -149,14 +141,7 @@ func on_turn_ended(new_team: Team) -> void:
 
 
 func switch_team(new_team: Team) -> void:
-	if current_units_manager != null:
-		current_units_manager.unit_selected.disconnect(on_unit_selected)
-		current_units_manager.unit_deselected.disconnect(on_unit_deselected)
-
 	current_units_manager = new_team.units_manager
-	current_units_manager.unit_selected.connect(on_unit_selected)
-	current_units_manager.unit_deselected.connect(on_unit_deselected)
-
 	current_buildings_manager = new_team.buildings_manager
 
 	is_playable = new_team.is_playable()

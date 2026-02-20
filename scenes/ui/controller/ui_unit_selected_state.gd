@@ -35,6 +35,7 @@ func _on_cell_tap(cell: Vector2i) -> void:
 
 func _on_cancel_clicked() -> void:
 	controller.current_units_manager.deselect_unit()
+	controller.fsm.change_state(controller.idle_state)
 
 
 func _on_long_press(cell: Vector2i) -> void:

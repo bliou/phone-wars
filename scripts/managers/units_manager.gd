@@ -1,8 +1,6 @@
 class_name UnitsManager
 extends Node
 
-signal unit_selected(unit: Unit)
-signal unit_deselected(unit: Unit)
 signal unit_moved(unit: Unit)
 
 
@@ -63,16 +61,6 @@ func get_world_path(unit: Unit, start_cell: Vector2i, end_cell: Vector2i) -> Pat
 	return path
 
 
-func select_unit(unit: Unit) -> void:
-	if selected_unit:
-		return
-
-	selected_unit = unit
-	selected_unit.select()
-	compute_reachable_cells()
-	unit_selected.emit(selected_unit)
-
-
 func compute_reachable_cells() -> void:
 	selected_unit.reachable_cells = grid.get_reachable_cells(selected_unit)
 
@@ -80,16 +68,23 @@ func compute_reachable_cells() -> void:
 func deselect_unit() -> void:
 	if selected_unit:
 		selected_unit.deselect()
-	unit_deselected.emit(selected_unit)
 	selected_unit = null
 
 
 func select_unit_at_position(cell_position: Vector2i) -> void:
 	var unit: Unit = units.get(cell_position, null)
-	if (unit == null or unit.exhausted):
-		return
+	selected_unit = unit
+	selected_unit.select()
+	compute_reachable_cells()
 
-	select_unit(unit)
+
+func can_select_unit_at_position(cell_position: Vector2i) -> bool:
+	var unit: Unit = units.get(cell_position, null)
+	if (unit == null or unit.exhausted or selected_unit != null):
+		return false
+
+	return true
+
 
 
 func get_unit_at(cell_position: Vector2i) -> Unit:
