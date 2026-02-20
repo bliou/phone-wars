@@ -1,4 +1,4 @@
-class_name GameManager
+class_name LevelManager
 extends Node2D
 
 
@@ -32,6 +32,8 @@ func _ready() -> void:
 	music_manager.setup(music_service)
 
 	ui_controller.end_turn.connect(on_end_turn)
+
+	call_deferred("connect_buildings")
 	
 
 func init_teams() -> void:
@@ -76,3 +78,16 @@ func next_team(current_team: Team) -> Team:
 		return next_team(team)
 	
 	return team
+
+
+func connect_buildings() -> void:
+	var buildings: Array[Node] = get_tree().get_nodes_in_group("buildings")
+
+	for building: Building in buildings:
+		building.owner_changed.connect(building_owner_changed)
+
+
+func building_owner_changed() -> void:
+	for team: Team in teams:
+		if team.get_hq_count() == 0:
+			print("team eliminated")

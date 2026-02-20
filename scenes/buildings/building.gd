@@ -1,7 +1,7 @@
 class_name Building
 extends Area2D
 
-signal captured_by(unit: Unit)
+signal owner_changed()
 
 @export var building_profile: BuildingProfile
 @export var production_list: ProductionList
@@ -21,6 +21,7 @@ func _ready() -> void:
 	# Make the material unique to this instance
 	animated_sprite.material = animated_sprite.material.duplicate()
 	z_index = Ordering.BUILDINGS
+	add_to_group("buildings")
 	
 
 func setup(p_team: Team) -> void:
@@ -44,7 +45,7 @@ func captured(new_team: Team) -> void:
 	set_team(new_team)
 	new_team.buildings_manager.add_building(self)
 
-	captured_by.emit(new_team)
+	owner_changed.emit()
 
 
 func can_be_selected() -> bool:

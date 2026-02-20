@@ -40,15 +40,15 @@ var current_units_manager: UnitsManager
 var current_buildings_manager: BuildingsManager
 var is_playable: bool
 
-func setup(p_game_manager: GameManager) -> void:
-	grid = p_game_manager.grid
-	buy_unit_orchestrator = BuyUnitOrchestrator.new(team_display, p_game_manager.audio_service)
-	combat_orchestrator = CombatOrchestrator.new(damage_effect, p_game_manager.fx_service, p_game_manager.audio_service)
-	capture_orchestrator = CaptureOrchestrator.new(capture_popup, p_game_manager.fx_service, p_game_manager.audio_service)
+func setup(p_level_manager: LevelManager) -> void:
+	grid = p_level_manager.grid
+	buy_unit_orchestrator = BuyUnitOrchestrator.new(team_display, p_level_manager.audio_service)
+	combat_orchestrator = CombatOrchestrator.new(damage_effect, p_level_manager.fx_service, p_level_manager.audio_service)
+	capture_orchestrator = CaptureOrchestrator.new(capture_popup, p_level_manager.fx_service, p_level_manager.audio_service)
 	movement_orchestrator = MovementOrchestrator.new()
-	query_manager = p_game_manager.query_manager
+	query_manager = p_level_manager.query_manager
 
-	switch_team(p_game_manager.active_team)
+	switch_team(p_level_manager.active_team)
 
 	idle_state = UIIdleState.new("ui_idle", self)
 	unit_selected_state = UIUnitSelectedState.new("ui_unit_selected", self)
@@ -58,7 +58,7 @@ func setup(p_game_manager: GameManager) -> void:
 
 	fsm = StateMachine.new(name, idle_state)
 
-	p_game_manager.turn_ended.connect(on_turn_ended)
+	p_level_manager.turn_ended.connect(on_turn_ended)
 
 	grid.cell_short_tap.connect(on_cell_tap)
 	grid.cell_long_press.connect(on_long_press)

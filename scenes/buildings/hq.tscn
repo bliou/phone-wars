@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://qhm0o8ol2yhy"]
+
+[ext_resource type="Script" uid="uid://c0ghc8sqosbe7" path="res://scenes/buildings/building.gd" id="1_0el7l"]
+[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="1_gbbjg"]
+[ext_resource type="Texture2D" uid="uid://p7s204aqq84r" path="res://assets/sprites/buildings/buildings.png" id="2_0el7l"]
+[ext_resource type="Resource" uid="uid://domn1g2s12xy2" path="res://resources/buildings/hq.tres" id="2_6pjs7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pjs7"]
+shader = ExtResource("1_gbbjg")
+shader_parameter/disabled = 0.0
+shader_parameter/original_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbbjg"]
+atlas = ExtResource("2_0el7l")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ko47p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbbjg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0h7ln"]
+size = Vector2(32, 32)
+
+[node name="Hq" type="Area2D" unique_id=1276516715]
+script = ExtResource("1_0el7l")
+building_profile = ExtResource("2_6pjs7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=351534517]
+material = SubResource("ShaderMaterial_6pjs7")
+sprite_frames = SubResource("SpriteFrames_ko47p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=499510689]
+visible = false
+shape = SubResource("RectangleShape2D_0h7ln")

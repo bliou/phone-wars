@@ -103,6 +103,7 @@ layout_mode = 2
 script = ExtResource("4_txt7l")
 
 [node name="BuildingIconWrapper" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=304827120]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
 [node name="BuildingIcon" type="Sprite2D" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/BuildingIconWrapper" unique_id=706725079]

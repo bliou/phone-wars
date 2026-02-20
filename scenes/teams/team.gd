@@ -51,6 +51,14 @@ func buy_unit(entry: ProductionEntry, cell_pos: Vector2i) -> void:
 	units_manager.add_unit(entry, cell_pos, self)
 	
 
+func get_hq_count() -> int:
+	var count: int = 0
+	for building: Building in buildings_manager.buildings.values():
+		if building.type() == BuildingType.Values.HQ:
+			count +=1
+
+	return count
+
 
 # Team profile getters
 func replace_colors(material: Material) -> void:
