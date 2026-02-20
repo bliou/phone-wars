@@ -22,8 +22,8 @@ func setup(grid: Grid, query_manager: QueryManager) -> void:
 	buildings_manager.setup(grid, query_manager, self)
 	
 
-func start_turn() -> void:
-	pass
+func start_turn(new_income: int) -> void:
+	funds += new_income
 
 
 func end_turn() -> void:

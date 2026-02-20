@@ -2,8 +2,8 @@ class_name TeamDisplay
 extends Control
 
 
-@onready var money_label: Label = $MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/MoneyLabel
-@onready var team_label: Label = $MarginContainer/PanelContainer/VBoxContainer/Team
+@onready var money_label: Label = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MoneyLabel
+@onready var team_label: Label = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Team
 
 
 func update(team: Team) -> void:

@@ -50,7 +50,8 @@ func init_teams() -> void:
 	query_manager.setup(units_managers, buildings_managers)
 
 	active_team = teams[0]
-	active_team.start_turn()
+	var new_income: int = economy_service.calculate_income(active_team)
+	active_team.start_turn(new_income)
 
 
 func on_end_turn() -> void:
@@ -58,8 +59,7 @@ func on_end_turn() -> void:
 	active_team = next_team(active_team)
 
 	var new_income: int = economy_service.calculate_income(active_team)
-	active_team.funds += new_income
-	active_team.start_turn()
+	active_team.start_turn(new_income)
 
 	print("Turn ended. New team %s to play" % active_team.name)
 	turn_ended.emit(active_team)

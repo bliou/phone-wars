@@ -1,5 +1,5 @@
-class_name CombatDialog
-extends BaseDialog
+class_name CombatPopup
+extends BasePopup
 
 @onready var damage_preview_label: Label = $PanelContainer/MarginContainer/VBoxContainer/DamagePreview
 @onready var defender_icon: TextureRect = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/DefenderIcon

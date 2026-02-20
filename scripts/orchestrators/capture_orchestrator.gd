@@ -1,11 +1,11 @@
 class_name CaptureOrchestrator
 
-var capture_dialog: CaptureDialog
+var capture_dialog: CapturePopup
 var fx_service: FXService
 var audio_service: AudioService
 
 
-func _init(cd: CaptureDialog, fxs: FXService, audio: AudioService) -> void:
+func _init(cd: CapturePopup, fxs: FXService, audio: AudioService) -> void:
 	capture_dialog = cd
 	fx_service = fxs
 	audio_service = audio

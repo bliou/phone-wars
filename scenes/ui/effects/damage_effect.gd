@@ -1,4 +1,4 @@
-class_name DamagePopup
+class_name DamageEffect
 extends Control
 
 

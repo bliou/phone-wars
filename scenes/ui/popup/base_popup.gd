@@ -1,4 +1,4 @@
-class_name BaseDialog
+class_name BasePopup
 extends Control
 
 @onready var panel_container: PanelContainer = $PanelContainer

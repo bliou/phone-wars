@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://clc1f57hx78vl"]
 
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_keuxs"]
-[ext_resource type="Script" uid="uid://cn60na82taoyh" path="res://scenes/ui/dialog/combat_dialog.gd" id="2_hc2pw"]
+[ext_resource type="Script" uid="uid://cn60na82taoyh" path="res://scenes/ui/popup/combat_popup.gd" id="2_hc2pw"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_lth0p"]
 [ext_resource type="Texture2D" uid="uid://c0vl37poqyn5y" path="res://assets/ui/ui_icons.png" id="4_yyxey"]
 [ext_resource type="Shader" uid="uid://c4w6xe1duvxv7" path="res://resources/shaders/combat.gdshader" id="5_ln4ny"]
@@ -38,7 +38,7 @@ shader_parameter/intensity = 0.8
 atlas = ExtResource("6_fc5yc")
 region = Rect2(212, 420, 56, 44)
 
-[node name="CombatPreview" type="Control" unique_id=1283190244]
+[node name="CombatPopup" type="Control" unique_id=1283190244]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,6 +59,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"GamePopupPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1697290045]
 layout_mode = 2

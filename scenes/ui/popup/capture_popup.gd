@@ -1,5 +1,5 @@
-class_name CaptureDialog
-extends BaseDialog
+class_name CapturePopup
+extends BasePopup
 
 
 @onready var capture_points_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CapturePointsLabel

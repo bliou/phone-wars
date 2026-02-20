@@ -1,10 +1,10 @@
 class_name CombatOrchestrator
 
-var damage_popup: DamagePopup
+var damage_popup: DamageEffect
 var fx_service: FXService
 var audio_service: AudioService
 
-func _init(dp: DamagePopup, fxs: FXService, audio: AudioService) -> void:
+func _init(dp: DamageEffect, fxs: FXService, audio: AudioService) -> void:
 	damage_popup = dp
 	fx_service = fxs
 	audio_service = audio

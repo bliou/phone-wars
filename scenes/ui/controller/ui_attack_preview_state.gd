@@ -20,7 +20,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_cancel_clicked() -> void:
-	controller.combat_dialog.animate_out()
+	controller.combat_popup.animate_out()
 	controller.fsm.switch_to_previous_state()
 
 
@@ -34,7 +34,7 @@ func _on_attack_clicked() -> void:
 	if building != null:
 		terrain_defense = building.defense()
 
-	controller.combat_dialog.animate_out()
+	controller.combat_popup.animate_out()
 	controller.game_hud.hide()
 	await controller.combat_orchestrator.execute(attacker, defender, terrain_defense)
 	controller.game_hud.show()

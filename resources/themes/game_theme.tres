@@ -49,13 +49,26 @@ texture_margin_top = 3.0
 texture_margin_right = 5.0
 texture_margin_bottom = 3.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_428ye"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5t46v"]
 atlas = ExtResource("1_5t46v")
 region = Rect2(212, 420, 56, 44)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_04e2q"]
-texture = SubResource("AtlasTexture_428ye")
-modulate_color = Color(1, 1, 1, 0.78431374)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d5i2s"]
+texture = SubResource("AtlasTexture_5t46v")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5i2s"]
+atlas = ExtResource("1_5t46v")
+region = Rect2(4, 416, 87, 80)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0vqx8"]
+texture = SubResource("AtlasTexture_d5i2s")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vqx8"]
+atlas = ExtResource("1_5t46v")
+region = Rect2(1, 5, 62, 21)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5t46v"]
+texture = SubResource("AtlasTexture_0vqx8")
 
 [resource]
 Button/font_sizes/font_size = 12
@@ -63,8 +76,13 @@ Button/styles/disabled = SubResource("StyleBoxTexture_rg8ou")
 Button/styles/hover = SubResource("StyleBoxTexture_1wcms")
 Button/styles/normal = SubResource("StyleBoxTexture_d7nxg")
 Button/styles/pressed = SubResource("StyleBoxTexture_8q6pv")
+GamePopupPanel/base_type = &"PanelContainer"
+GamePopupPanel/styles/panel = SubResource("StyleBoxTexture_d5i2s")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
-PanelContainer/styles/panel = SubResource("StyleBoxTexture_04e2q")
+ProductionPanel/base_type = &"PanelContainer"
+ProductionPanel/styles/panel = SubResource("StyleBoxTexture_0vqx8")
+TeamDisplayPanel/base_type = &"PanelContainer"
+TeamDisplayPanel/styles/panel = SubResource("StyleBoxTexture_5t46v")

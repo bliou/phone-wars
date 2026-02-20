@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dbvtob4kw1eil"]
 
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_5njt5"]
-[ext_resource type="Script" uid="uid://ccg03178bksgj" path="res://scenes/ui/dialog/info_dialog.gd" id="2_5njt5"]
+[ext_resource type="Script" uid="uid://ccg03178bksgj" path="res://scenes/ui/popup/info_popup.gd" id="2_5njt5"]
 [ext_resource type="Shader" uid="uid://c0y57itsy5wlm" path="res://resources/shaders/info.gdshader" id="3_5njt5"]
 [ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_exf41"]
 [ext_resource type="Texture2D" uid="uid://c0vl37poqyn5y" path="res://assets/ui/ui_icons.png" id="4_exf41"]
@@ -34,7 +34,7 @@ shader_parameter/intensity = 0.8
 atlas = ExtResource("4_y0crx")
 region = Rect2(212, 420, 56, 44)
 
-[node name="InfoPreview" type="Control" unique_id=2131652940]
+[node name="InfoPopup" type="Control" unique_id=2131652940]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,6 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"GamePopupPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1330542959]
 layout_mode = 2

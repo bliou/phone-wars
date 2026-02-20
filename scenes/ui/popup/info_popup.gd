@@ -1,5 +1,5 @@
-class_name InfoDialog
-extends BaseDialog
+class_name InfoPopup
+extends BasePopup
 
 @onready var unit_container: HBoxContainer = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer
 @onready var unit_type_label: Label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/UnitType

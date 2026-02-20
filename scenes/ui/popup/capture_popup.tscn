@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://38wuld0rty81"]
+[gd_scene format=3 uid="uid://38wuld0rty81"]
 
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_ji86y"]
-[ext_resource type="Script" uid="uid://clk5vt2yprtbc" path="res://scenes/ui/dialog/capture_dialog.gd" id="2_riojk"]
+[ext_resource type="Script" uid="uid://clk5vt2yprtbc" path="res://scenes/ui/popup/capture_popup.gd" id="2_riojk"]
 [ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="3_riojk"]
 [ext_resource type="Shader" uid="uid://c0y57itsy5wlm" path="res://resources/shaders/info.gdshader" id="4_01w3r"]
 [ext_resource type="Script" uid="uid://b7w8uy4s361xv" path="res://scripts/proxys/unit_proxy.gd" id="4_txt7l"]
@@ -32,7 +32,7 @@ shader_parameter/intensity = 0.8
 atlas = ExtResource("3_riojk")
 region = Rect2(212, 420, 56, 44)
 
-[node name="CaptureDialog" type="Control"]
+[node name="CapturePopup" type="Control" unique_id=785131415]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -43,72 +43,73 @@ grow_vertical = 2
 theme = ExtResource("1_ji86y")
 script = ExtResource("2_riojk")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2098098636]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"GamePopupPanel"
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1411374322]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1996762136]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=504475804]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="CapturePointsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CapturePointsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1482464060]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 text = "20"
 horizontal_alignment = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1669590136]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="MaxCapturePoints" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+[node name="MaxCapturePoints" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=744491134]
 layout_mode = 2
 texture = SubResource("AtlasTexture_riojk")
 expand_mode = 2
 
-[node name="CapturePoints" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+[node name="CapturePoints" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer" unique_id=591676166]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = SubResource("AtlasTexture_ji86y")
 expand_mode = 2
 
-[node name="MaxCapturePointsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="MaxCapturePointsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1661702129]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "20"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1727320021]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 48
 
-[node name="UnitProxyWrapper" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="UnitProxyWrapper" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=132017928]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="UnitProxy" type="Node2D" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/UnitProxyWrapper"]
+[node name="UnitProxy" type="Node2D" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/UnitProxyWrapper" unique_id=1074470367]
 script = ExtResource("4_txt7l")
 
-[node name="BuildingIconWrapper" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="BuildingIconWrapper" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=304827120]
 layout_mode = 2
 
-[node name="BuildingIcon" type="Sprite2D" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/BuildingIconWrapper"]
+[node name="BuildingIcon" type="Sprite2D" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/BuildingIconWrapper" unique_id=706725079]
 material = SubResource("ShaderMaterial_3nh38")
 position = Vector2(-36, 0)
 
-[node name="BorderAnimation" type="TextureRect" parent="."]
+[node name="BorderAnimation" type="TextureRect" parent="." unique_id=1769998986]
 z_index = 1
 material = SubResource("ShaderMaterial_txt7l")
 layout_mode = 1

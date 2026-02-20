@@ -15,10 +15,10 @@ signal end_turn()
 @onready var team_display: TeamDisplay = $TeamDisplay
 @onready var production_panel: ProductionPanel = $ProductionPanel
 
-@onready var capture_dialog: CaptureDialog = $Dialogs/CaptureDialog
-@onready var combat_dialog: CombatDialog = $Dialogs/CombatDialog
-@onready var info_dialog: InfoDialog = $Dialogs/InfoDialog
-@onready var damage_popup: DamagePopup = $Popups/DamagePopup
+@onready var capture_popup: CapturePopup = $Popups/CapturePopup
+@onready var combat_popup: CombatPopup = $Popups/CombatPopup
+@onready var info_popup: InfoPopup = $Popups/InfoPopup
+@onready var damage_effect: DamageEffect = $Effects/DamageEffect
 
 @onready var ui_fx_layer: Node2D = $FXLayer
 
@@ -41,8 +41,8 @@ var is_playable: bool
 
 func setup(p_game_manager: GameManager) -> void:
 	grid = p_game_manager.grid
-	combat_orchestrator = CombatOrchestrator.new(damage_popup, p_game_manager.fx_service, p_game_manager.audio_service)
-	capture_orchestrator = CaptureOrchestrator.new(capture_dialog, p_game_manager.fx_service, p_game_manager.audio_service)
+	combat_orchestrator = CombatOrchestrator.new(damage_effect, p_game_manager.fx_service, p_game_manager.audio_service)
+	capture_orchestrator = CaptureOrchestrator.new(capture_popup, p_game_manager.fx_service, p_game_manager.audio_service)
 	movement_orchestrator = MovementOrchestrator.new()
 	query_manager = p_game_manager.query_manager
 
@@ -232,19 +232,19 @@ func handle_long_press(cell: Vector2i) -> void:
 	camera_pan_enabled.emit(false)
 
 	if building != null:
-		info_dialog.with_building(building)
+		info_popup.with_building(building)
 	else:
 		var terrain_data: TerrainData = grid.terrain_manager.get_terrain_data(unit.cell_pos)
-		info_dialog.with_terrain(terrain_data)
+		info_popup.with_terrain(terrain_data)
 
 	if unit != null:
-		await info_dialog.with_unit(unit)
-		info_dialog.position_dialog(unit)
+		await info_popup.with_unit(unit)
+		info_popup.position_dialog(unit)
 	else:
-		await info_dialog.clear_unit_data()
-		info_dialog.position_dialog(building)
+		await info_popup.clear_unit_data()
+		info_popup.position_dialog(building)
 
-	info_dialog.animate_in()
+	info_popup.animate_in()
 
 	if unit == null:
 		return
@@ -256,7 +256,7 @@ func handle_long_press(cell: Vector2i) -> void:
 func handle_long_press_release() -> void:
 	game_hud.show()
 	clear_attackable.emit()
-	info_dialog.animate_out()
+	info_popup.animate_out()
 	camera_pan_enabled.emit(true)
 
 
@@ -268,14 +268,14 @@ func show_combat_dialog() -> void:
 	
 	if building == null:
 		var terrain_data: TerrainData = grid.terrain_manager.get_terrain_data(target_unit.cell_pos)
-		combat_dialog.with_terrain(terrain_data)
+		combat_popup.with_terrain(terrain_data)
 		estimated_damage = CombatManager.compute_damage(attacker, target_unit, terrain_data.defense_bonus)
 	else:
-		combat_dialog.with_building(building)
+		combat_popup.with_building(building)
 		estimated_damage = CombatManager.compute_damage(attacker, target_unit, building.defense())
 	
-	combat_dialog.with_estimated_damage(estimated_damage)
-	combat_dialog.with_unit(target_unit)
+	combat_popup.with_estimated_damage(estimated_damage)
+	combat_popup.with_unit(target_unit)
 
-	combat_dialog.position_dialog(target_unit)
-	combat_dialog.animate_in()
+	combat_popup.position_dialog(target_unit)
+	combat_popup.animate_in()
