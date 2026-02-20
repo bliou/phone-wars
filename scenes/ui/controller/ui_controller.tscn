@@ -15,6 +15,8 @@ script = ExtResource("1_urrig")
 
 [node name="GameHUD" parent="." unique_id=1744353391 instance=ExtResource("2_fdbyg")]
 
+[node name="TeamDisplay" parent="." unique_id=12301407 instance=ExtResource("8_2qvht")]
+
 [node name="Popups" type="Control" parent="." unique_id=1656446880]
 layout_mode = 3
 anchors_preset = 0
@@ -60,5 +62,3 @@ offset_left = -175.0
 offset_top = -150.0
 offset_right = 175.0
 offset_bottom = 150.0
-
-[node name="TeamDisplay" parent="." unique_id=12301407 instance=ExtResource("8_2qvht")]

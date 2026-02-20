@@ -128,8 +128,10 @@ func on_idle_clicked() -> void:
 func on_capture_clicked() -> void:
 	current_units_manager.capture_building()
 	game_hud.hide()
+	team_display.animate_out()
 	await capture_orchestrator.execute(current_units_manager.selected_unit)
 	game_hud.show()
+	team_display.animate_in()
 	fsm.change_state(idle_state)
 	current_units_manager.exhaust_unit()
 
@@ -230,6 +232,7 @@ func handle_long_press(cell: Vector2i) -> void:
 		
 	game_hud.hide()
 	camera_pan_enabled.emit(false)
+	team_display.animate_out()
 
 	if building != null:
 		info_popup.with_building(building)
@@ -258,6 +261,7 @@ func handle_long_press_release() -> void:
 	clear_attackable.emit()
 	info_popup.animate_out()
 	camera_pan_enabled.emit(true)
+	team_display.animate_in()
 
 
 func show_combat_dialog() -> void:
@@ -273,7 +277,9 @@ func show_combat_dialog() -> void:
 	else:
 		combat_popup.with_building(building)
 		estimated_damage = CombatManager.compute_damage(attacker, target_unit, building.defense())
-	
+
+	team_display.animate_out()
+
 	combat_popup.with_estimated_damage(estimated_damage)
 	combat_popup.with_unit(target_unit)
 
