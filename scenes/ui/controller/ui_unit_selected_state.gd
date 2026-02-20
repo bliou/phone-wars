@@ -43,9 +43,7 @@ func _on_long_press(cell: Vector2i) -> void:
 
 func _on_long_press_release(_cell: Vector2i) -> void:
 	controller.handle_long_press_release()
-
 	controller.show_attack_indicator()
-	controller.camera_pan_enabled.emit(false)
 
 
 func show_capture_button() -> bool:

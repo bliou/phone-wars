@@ -22,6 +22,7 @@ func _physics_process(_delta: float) -> void:
 func _on_cancel_clicked() -> void:
 	controller.combat_popup.animate_out()
 	controller.team_display.animate_in()
+	controller.camera_pan_enabled.emit(false)
 	controller.fsm.switch_to_previous_state()
 
 
@@ -40,5 +41,6 @@ func _on_attack_clicked() -> void:
 	await controller.combat_orchestrator.execute(attacker, defender, terrain_defense)
 	controller.game_hud.show()
 	controller.team_display.animate_in()
+	controller.camera_pan_enabled.emit(true)
 	controller.fsm.change_state(controller.idle_state)
 	controller.current_units_manager.unit_attack_done()

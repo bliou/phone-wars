@@ -73,6 +73,8 @@ func setup(p_game_manager: GameManager) -> void:
 	production_panel.cancel_button_clicked.connect(on_cancel_clicked)
 	production_panel.build_clicked.connect(on_build_clicked)
 
+	camera_pan_enabled.emit(true)
+
 
 func on_cell_tap(cell: Vector2i) -> void:
 	var state: UIState = fsm.current_state as UIState
@@ -129,9 +131,11 @@ func on_capture_clicked() -> void:
 	current_units_manager.capture_building()
 	game_hud.hide()
 	team_display.animate_out()
+	camera_pan_enabled.emit(false)
 	await capture_orchestrator.execute(current_units_manager.selected_unit)
 	game_hud.show()
 	team_display.animate_in()
+	camera_pan_enabled.emit(true)
 	fsm.change_state(idle_state)
 	current_units_manager.exhaust_unit()
 
@@ -279,6 +283,7 @@ func show_combat_dialog() -> void:
 		estimated_damage = CombatManager.compute_damage(attacker, target_unit, building.defense())
 
 	team_display.animate_out()
+	camera_pan_enabled.emit(false)
 
 	combat_popup.with_estimated_damage(estimated_damage)
 	combat_popup.with_unit(target_unit)

@@ -6,12 +6,10 @@ func _enter(_params: Dictionary = {}) -> void:
 	controller.visible = controller.is_playable
 	controller.production_panel.hide()
 	controller.game_hud.show_idle_state()
-	controller.camera_pan_enabled.emit(true)
 
 
 func _exit() -> void:
 	controller.game_hud.hide_idle_state()
-	controller.camera_pan_enabled.emit(false)
 
 
 func _process(_delta: float) -> void:

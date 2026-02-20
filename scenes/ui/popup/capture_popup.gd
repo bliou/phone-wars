@@ -51,6 +51,7 @@ func update(result: CaptureProcess.CaptureResult) -> void:
         1.5)
 
     await tween.finished
+    await get_tree().create_timer(0.5).timeout
 
 
 

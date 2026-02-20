@@ -23,6 +23,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		pan_requested.emit(event.relative)
+		pressed = false
 
 	elif event is InputEventScreenTouch:
 		if event.pressed:
@@ -50,6 +51,12 @@ func on_touch_pressed(pos: Vector2) -> void:
 
 # Called when finger/mouse released
 func on_touch_released(pos: Vector2) -> void:
+	# In the event we did a drag
+	if not pressed:
+		press_time = 0.0
+		long_pressed = false
+		return
+
 	pos = to_world_pos(pos)
 	if long_pressed:
 		long_press_release.emit(pos)
