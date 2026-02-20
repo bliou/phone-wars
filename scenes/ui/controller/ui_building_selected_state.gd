@@ -5,6 +5,7 @@ func _enter(_params: Dictionary = {}) -> void:
 	controller.visible = true
 	controller.game_hud.hide()
 	controller.production_panel.show()
+	controller.team_display.animate_out()
 
 	var selected_building: Building = controller.current_buildings_manager.selected_building
 	controller.production_panel.load_production_list(
@@ -15,6 +16,7 @@ func _enter(_params: Dictionary = {}) -> void:
 func _exit() -> void:
 	controller.game_hud.show()
 	controller.production_panel.hide()
+	controller.team_display.animate_in()
 
 
 func _process(_delta: float) -> void:
@@ -31,5 +33,8 @@ func _on_cancel_clicked() -> void:
 
 func _on_build_clicked(entry: ProductionEntry) -> void:
 	var selected_building: Building = controller.current_buildings_manager.selected_building
+	if entry.cost > selected_building.team.funds:
+		return
+	
 	controller.current_units_manager.add_unit(entry, selected_building.grid_pos, selected_building.team)
 	controller.current_buildings_manager.deselect_building()

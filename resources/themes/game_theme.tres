@@ -9,9 +9,9 @@ region = Rect2(198, 65, 52, 13)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rg8ou"]
 texture = SubResource("AtlasTexture_04e2q")
 texture_margin_left = 1.0
-texture_margin_top = 1.0
+texture_margin_top = 2.0
+texture_margin_right = 1.0
 texture_margin_bottom = 1.0
-region_rect = Rect2(0, 0, 51, 13)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mmh2r"]
 load_path = "res://.godot/imported/FreshandModern.png-321dac05a756314ceb0362cc1d1f5d43.ctex"
