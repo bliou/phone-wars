@@ -50,7 +50,7 @@ func setup(p_level_manager: LevelManager) -> void:
 	combat_orchestrator = CombatOrchestrator.new(damage_effect, p_level_manager.fx_service, p_level_manager.audio_service)
 	capture_orchestrator = CaptureOrchestrator.new(capture_popup, p_level_manager.fx_service, p_level_manager.audio_service)
 	movement_orchestrator = MovementOrchestrator.new()
-	start_turn_orchestrator = StartTurnOrchestrator.new(start_turn_animation, team_display, game_hud, p_level_manager.audio_service)
+	start_turn_orchestrator = StartTurnOrchestrator.new(start_turn_animation, team_display, p_level_manager.audio_service)
 	query_manager = p_level_manager.query_manager
 
 	idle_state = UIIdleState.new("ui_idle", self)
@@ -75,8 +75,6 @@ func setup(p_level_manager: LevelManager) -> void:
 
 	production_panel.cancel_button_clicked.connect(on_cancel_clicked)
 	production_panel.build_clicked.connect(on_build_clicked)
-
-	camera_pan_enabled.emit(true)
 
 
 func on_cell_tap(cell: Vector2i) -> void:
@@ -145,7 +143,12 @@ func switch_team(new_team: Team) -> void:
 
 
 func show_start_turn_intro(team: Team, new_funds: int) -> void:
+	camera_pan_enabled.emit(false)
+	game_hud.hide()
 	await start_turn_orchestrator.execute(team, new_funds)
+	game_hud.show()
+	camera_pan_enabled.emit(true)
+	
 
 
 func show_attack_indicator() -> void:

@@ -68,9 +68,6 @@ func on_end_turn() -> void:
 	active_team.end_turn()
 	active_team = next_team(active_team)
 
-	var new_income: int = economy_service.calculate_income(active_team)
-	active_team.earn_money(new_income)
-
 	print("Turn ended. New team %s to play" % active_team.name)
 	start_turn()
 
