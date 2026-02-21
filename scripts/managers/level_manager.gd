@@ -25,6 +25,7 @@ func _ready() -> void:
 	camera_controller.setup(ui_controller, input_manager)
 	indicators.setup(grid, ui_controller)
 	fx_service.setup_ui(ui_controller.ui_fx_layer)
+	print("yolo")
 	music_manager.setup(music_service)
 	
 	init_teams()

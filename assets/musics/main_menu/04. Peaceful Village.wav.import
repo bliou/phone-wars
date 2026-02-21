@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cn3mbqqwlso8c"
+path="res://.godot/imported/04. Peaceful Village.wav-3a652e32f323d179f8743d8cb8079bca.sample"
+
+[deps]
+
+source_file="res://assets/musics/main_menu/04. Peaceful Village.wav"
+dest_files=["res://.godot/imported/04. Peaceful Village.wav-3a652e32f323d179f8743d8cb8079bca.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

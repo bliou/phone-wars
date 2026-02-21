@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MusicPlaylist" format=3 uid="uid://dvdpn73hi36qn"]
+
+[ext_resource type="Script" uid="uid://csbg3o4ta0t5p" path="res://scripts/resources/musics/music_playlist.gd" id="1_1r4x3"]
+[ext_resource type="AudioStream" uid="uid://bfwqk4rs3wq6n" path="res://assets/musics/main_menu/02. Lively City.wav" id="2_7q663"]
+[ext_resource type="AudioStream" uid="uid://cn3mbqqwlso8c" path="res://assets/musics/main_menu/04. Peaceful Village.wav" id="3_wsxu3"]
+[ext_resource type="AudioStream" uid="uid://bil326gkyco70" path="res://assets/musics/main_menu/05. Long Journey.wav" id="4_k8nij"]
+
+[resource]
+script = ExtResource("1_1r4x3")
+tracks = Array[AudioStream]([ExtResource("2_7q663"), ExtResource("3_wsxu3"), ExtResource("4_k8nij")])
+fade_in_time = 10.0
+fade_out_time = 5.0
+metadata/_custom_type_script = "uid://csbg3o4ta0t5p"
