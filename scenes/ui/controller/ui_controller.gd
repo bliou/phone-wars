@@ -15,9 +15,12 @@ signal end_turn()
 @onready var team_display: TeamDisplay = $TeamDisplay
 @onready var production_panel: ProductionPanel = $ProductionPanel
 
+@onready var start_turn_animation: StartTurnAnimation = $Animations/StartTurnAnimation
+
 @onready var capture_popup: CapturePopup = $Popups/CapturePopup
 @onready var combat_popup: CombatPopup = $Popups/CombatPopup
 @onready var info_popup: InfoPopup = $Popups/InfoPopup
+
 @onready var damage_effect: DamageEffect = $Effects/DamageEffect
 
 @onready var ui_fx_layer: Node2D = $FXLayer
@@ -27,6 +30,7 @@ var buy_unit_orchestrator: BuyUnitOrchestrator
 var combat_orchestrator: CombatOrchestrator
 var capture_orchestrator: CaptureOrchestrator
 var movement_orchestrator: MovementOrchestrator
+var start_turn_orchestrator: StartTurnOrchestrator
 var query_manager: QueryManager
 
 var fsm: StateMachine
@@ -46,9 +50,8 @@ func setup(p_level_manager: LevelManager) -> void:
 	combat_orchestrator = CombatOrchestrator.new(damage_effect, p_level_manager.fx_service, p_level_manager.audio_service)
 	capture_orchestrator = CaptureOrchestrator.new(capture_popup, p_level_manager.fx_service, p_level_manager.audio_service)
 	movement_orchestrator = MovementOrchestrator.new()
+	start_turn_orchestrator = StartTurnOrchestrator.new(start_turn_animation, team_display, game_hud, p_level_manager.audio_service)
 	query_manager = p_level_manager.query_manager
-
-	switch_team(p_level_manager.active_team)
 
 	idle_state = UIIdleState.new("ui_idle", self)
 	unit_selected_state = UIUnitSelectedState.new("ui_unit_selected", self)
@@ -57,8 +60,6 @@ func setup(p_level_manager: LevelManager) -> void:
 	attack_preview_state = UIAttackPreviewState.new("ui_attack_preview", self)
 
 	fsm = StateMachine.new(name, idle_state)
-
-	p_level_manager.turn_ended.connect(on_turn_ended)
 
 	grid.cell_short_tap.connect(on_cell_tap)
 	grid.cell_long_press.connect(on_long_press)
@@ -104,7 +105,6 @@ func on_build_clicked(entry: ProductionEntry) ->void:
 
 
 func on_end_turn_clicked() -> void:
-	fsm.change_state(idle_state)
 	end_turn.emit()
 
 
@@ -136,16 +136,16 @@ func on_attack_clicked() -> void:
 	state._on_attack_clicked()
 	
 
-func on_turn_ended(new_team: Team) -> void:
-	switch_team(new_team)
-
-
 func switch_team(new_team: Team) -> void:
 	current_units_manager = new_team.units_manager
 	current_buildings_manager = new_team.buildings_manager
 
 	is_playable = new_team.is_playable()
-	team_display.set_new_team(new_team)
+	fsm.change_state(idle_state)
+
+
+func show_start_turn_intro(team: Team, new_funds: int) -> void:
+	await start_turn_orchestrator.execute(team, new_funds)
 
 
 func show_attack_indicator() -> void:

@@ -83,6 +83,13 @@ region = Rect2(4, 416, 87, 80)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0vqx8"]
 texture = SubResource("AtlasTexture_d5i2s")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rc1m"]
+atlas = ExtResource("1_5t46v")
+region = Rect2(135, 65, 50, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fadfs"]
+texture = SubResource("AtlasTexture_7rc1m")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_0vqx8"]
 atlas = ExtResource("1_5t46v")
 region = Rect2(1, 5, 62, 21)
@@ -108,5 +115,12 @@ ProductionEntryPanel/base_type = &"PanelContainer"
 ProductionEntryPanel/styles/panel = SubResource("StyleBoxTexture_ghwqw")
 ProductionPanel/base_type = &"PanelContainer"
 ProductionPanel/styles/panel = SubResource("StyleBoxTexture_0vqx8")
+StartTurnLabel/base_type = &"RichTextLabel"
+StartTurnLabel/colors/default_color = Color(1, 1, 1, 1)
+StartTurnLabel/colors/font_shadow_color = Color(0.24763647, 0.20268348, 0.44182155, 1)
+StartTurnLabel/font_sizes/normal_font_size = 24
+StartTurnLabel/fonts/normal_font = ExtResource("2_d5i2s")
+StartTurnPanel/base_type = &"PanelContainer"
+StartTurnPanel/styles/panel = SubResource("StyleBoxTexture_fadfs")
 TeamDisplayPanel/base_type = &"PanelContainer"
 TeamDisplayPanel/styles/panel = SubResource("StyleBoxTexture_5t46v")

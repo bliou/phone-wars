@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bijx1g55sal8q" path="res://scenes/ui/buildings/production_panel.tscn" id="7_2qvht"]
 [ext_resource type="PackedScene" uid="uid://cxdifupvx7yvu" path="res://scenes/ui/effects/damage_effect.tscn" id="7_5n6d6"]
 [ext_resource type="PackedScene" uid="uid://d2e0mr7ywlsfx" path="res://scenes/ui/hud/team_display.tscn" id="8_2qvht"]
+[ext_resource type="PackedScene" uid="uid://lw0tr0fagg0d" path="res://scenes/ui/animations/start_turn_animation.tscn" id="9_gb25j"]
 
 [node name="UIController" type="CanvasLayer" unique_id=464486681]
 process_mode = 3
@@ -62,3 +63,12 @@ offset_left = -175.0
 offset_top = -150.0
 offset_right = 175.0
 offset_bottom = 150.0
+
+[node name="Animations" type="Control" parent="." unique_id=2059357776]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StartTurnAnimation" parent="Animations" unique_id=1913770978 instance=ExtResource("9_gb25j")]
+layout_mode = 1

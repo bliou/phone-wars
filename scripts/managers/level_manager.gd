@@ -2,8 +2,6 @@ class_name LevelManager
 extends Node2D
 
 
-signal turn_ended(new_team: Team)
-
 @onready var grid: Grid = $Grid
 @onready var ui_controller: UIController = $UIController
 @onready var camera_controller: CameraController = $CameraController
@@ -22,14 +20,14 @@ var query_manager: QueryManager = QueryManager.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	init_teams()
-
+	ui_controller.setup(self)
 	grid.setup(input_manager, query_manager, terrain_manager)
 	camera_controller.setup(ui_controller, input_manager)
 	indicators.setup(grid, ui_controller)
-	ui_controller.setup(self)
 	fx_service.setup_ui(ui_controller.ui_fx_layer)
 	music_manager.setup(music_service)
+	
+	init_teams()
 
 	ui_controller.end_turn.connect(on_end_turn)
 
@@ -52,8 +50,18 @@ func init_teams() -> void:
 	query_manager.setup(units_managers, buildings_managers)
 
 	active_team = teams[0]
+	start_turn()
+	
+
+func start_turn() -> void:
+	ui_controller.switch_team(active_team)
 	var new_income: int = economy_service.calculate_income(active_team)
-	active_team.start_turn()
+
+	input_manager.lock()
+	await ui_controller.show_start_turn_intro(active_team, active_team.funds+new_income)
+	input_manager.unlock()
+
+	active_team.earn_money(new_income)
 
 
 func on_end_turn() -> void:
@@ -61,10 +69,10 @@ func on_end_turn() -> void:
 	active_team = next_team(active_team)
 
 	var new_income: int = economy_service.calculate_income(active_team)
-	active_team.start_turn()
+	active_team.earn_money(new_income)
 
 	print("Turn ended. New team %s to play" % active_team.name)
-	turn_ended.emit(active_team)
+	start_turn()
 
 
 func next_team(current_team: Team) -> Team:

@@ -31,6 +31,7 @@ func update_funds(new_funds: int) -> void:
 	current_funds = new_funds
 	money_label.modulate = Color.WHITE
 
+
 func animate_funds_decrease(new_funds: int) -> void:
 	var tween = create_tween()
 	tween.set_parallel(true)
@@ -90,7 +91,6 @@ func animate_out() -> void:
 	tween.set_parallel(true)
 	
 	tween.tween_property(self, "position:x", -200.0, 0.2)
-
 	tween.tween_property(self, "modulate:a", 0.0, 0.2)
 
 	await tween.finished
@@ -101,7 +101,6 @@ func animate_in() -> void:
 	tween.set_parallel(true)
 
 	tween.tween_property(self, "position:x", init_pos.x, 0.2)
-
 	tween.tween_property(self, "modulate:a", 1.0, 0.2)
 
 	await tween.finished

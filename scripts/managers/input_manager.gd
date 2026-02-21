@@ -15,9 +15,12 @@ var press_time: float = 0.0
 var pressed: bool = false
 var long_pressed: bool = false
 var pressed_position: Vector2 = Vector2.ZERO
-
+var locked: bool
 
 func _unhandled_input(event: InputEvent) -> void:
+	if locked:
+		return
+
 	if event is InputEventScreenDrag:
 		if event.relative.length() < drag_threshold:
 			return
@@ -69,3 +72,11 @@ func on_touch_released(pos: Vector2) -> void:
 
 func to_world_pos(pos: Vector2) -> Vector2:
 	return get_viewport().get_canvas_transform().affine_inverse() * pos
+
+
+func lock() -> void:
+	locked = true
+
+
+func unlock() -> void:
+	locked = false
