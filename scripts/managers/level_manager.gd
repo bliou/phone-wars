@@ -25,7 +25,7 @@ var query_manager: QueryManager = QueryManager.new()
 func _ready() -> void:
 	ui_controller.setup(self)
 	grid.setup(input_manager, query_manager, terrain_manager)
-	camera_controller.setup(ui_controller, input_manager)
+	camera_controller.setup(ui_controller, input_manager, terrain_manager)
 	indicators.setup(grid, ui_controller)
 	fx_service.setup_ui(ui_controller.ui_fx_layer)
 	music_manager.setup(music_service)
