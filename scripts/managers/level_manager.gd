@@ -2,6 +2,9 @@ class_name LevelManager
 extends Node2D
 
 
+@onready var main_menu_scene: PackedScene = preload("res://scenes/main_menu/main_menu.tscn")
+
+
 @onready var grid: Grid = $Grid
 @onready var ui_controller: UIController = $UIController
 @onready var camera_controller: CameraController = $CameraController
@@ -25,11 +28,13 @@ func _ready() -> void:
 	camera_controller.setup(ui_controller, input_manager)
 	indicators.setup(grid, ui_controller)
 	fx_service.setup_ui(ui_controller.ui_fx_layer)
-	print("yolo")
 	music_manager.setup(music_service)
 	
 	init_teams()
 
+	ui_controller.game_paused.connect(on_game_paused)
+	ui_controller.game_resumed.connect(on_game_resumed)
+	ui_controller.exit_level.connect(on_exit_level)
 	ui_controller.end_turn.connect(on_end_turn)
 
 	call_deferred("connect_buildings")
@@ -71,6 +76,19 @@ func on_end_turn() -> void:
 
 	print("Turn ended. New team %s to play" % active_team.name)
 	start_turn()
+
+
+func on_game_paused() -> void:
+	input_manager.lock()
+
+
+func on_game_resumed() -> void:
+	input_manager.unlock()
+
+
+func on_exit_level() -> void:
+	print("main_menu_scene: ", main_menu_scene)
+	get_tree().change_scene_to_packed(main_menu_scene)
 
 
 func next_team(current_team: Team) -> Team:

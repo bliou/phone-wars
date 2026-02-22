@@ -4,6 +4,8 @@ extends Control
 signal cancel_button_clicked()
 signal end_turn_button_clicked()
 
+signal settings_button_clicked()
+
 signal idle_button_clicked()
 signal attack_button_clicked()
 signal capture_button_clicked()
@@ -11,6 +13,8 @@ signal merge_button_clicked()
 
 @onready var cancel_button: Button = $MarginContainer/HBoxContainer/MainPanel/CancelButton
 @onready var end_turn_button: Button = $MarginContainer/HBoxContainer/MainPanel/EndTurnButton
+
+@onready var settings_button: Button = $MarginContainer/SettingsButton
 
 @onready var action_panel: HBoxContainer = $MarginContainer/HBoxContainer/ActionPanel 
 @onready var idle_button: Button = $MarginContainer/HBoxContainer/ActionPanel/IdleButton
@@ -22,6 +26,7 @@ signal merge_button_clicked()
 func _ready() -> void:
 	cancel_button.pressed.connect(func(): cancel_button_clicked.emit())
 	end_turn_button.pressed.connect(func(): end_turn_button_clicked.emit())
+	settings_button.pressed.connect(func(): settings_button_clicked.emit())
 	idle_button.pressed.connect(func(): idle_button_clicked.emit())
 	attack_button.pressed.connect(func(): attack_button_clicked.emit())
 	capture_button.pressed.connect(func(): capture_button_clicked.emit())

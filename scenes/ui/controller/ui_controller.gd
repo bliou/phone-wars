@@ -9,9 +9,14 @@ signal clear_movement_range()
 signal show_attackable(cells: Array[Vector2i])
 signal clear_attackable()
 
+signal game_paused()
+signal game_resumed()
+
 signal end_turn()
+signal exit_level()
 
 @onready var game_hud: GameHUD = $GameHUD
+@onready var settings_hud: SettingsHUD = $SettingsHud
 @onready var team_display: TeamDisplay = $TeamDisplay
 @onready var production_panel: ProductionPanel = $ProductionPanel
 
@@ -66,12 +71,17 @@ func setup(p_level_manager: LevelManager) -> void:
 	grid.cell_long_press_release.connect(on_long_press_release)
 
 	game_hud.cancel_button_clicked.connect(on_cancel_clicked)
-	game_hud.end_turn_button_clicked.connect(on_end_turn_clicked)
+	game_hud.end_turn_button_clicked.connect(func(): end_turn.emit())
+	game_hud.settings_button_clicked.connect(on_settings_clicked)
 
 	game_hud.idle_button_clicked.connect(on_idle_clicked)
 	game_hud.capture_button_clicked.connect(on_capture_clicked)
 	game_hud.merge_button_clicked.connect(on_merge_clicked)
 	game_hud.attack_button_clicked.connect(on_attack_clicked)
+
+
+	settings_hud.resume_button_clicked.connect(on_resume_clicked)
+	settings_hud.exit_button_clicked.connect(func(): exit_level.emit())
 
 	production_panel.cancel_button_clicked.connect(on_cancel_clicked)
 	production_panel.build_clicked.connect(on_build_clicked)
@@ -102,8 +112,19 @@ func on_build_clicked(entry: ProductionEntry) ->void:
 	state._on_build_clicked(entry)
 
 
-func on_end_turn_clicked() -> void:
-	end_turn.emit()
+func on_settings_clicked() -> void:
+	game_hud.hide()
+	team_display.animate_out()
+	settings_hud.show()
+	game_paused.emit()
+
+
+func on_resume_clicked() -> void:
+	settings_hud.hide()
+	team_display.animate_in()
+	game_hud.show()
+	game_resumed.emit()
+
 
 
 func on_idle_clicked() -> void:

@@ -9,6 +9,9 @@ extends Control
 @onready var music_manager: MusicManager = $Musics/MusicManager
 @onready var music_service: MusicService = $Musics/MusicService
 
+# Use load to prevent circular references in preloading scenes
+@onready var level1_scene: PackedScene = load("res://scenes/levels/level1.tscn")
+
 
 func _ready() -> void:
 	music_manager.setup(music_service)
@@ -19,7 +22,7 @@ func _ready() -> void:
 
 
 func on_play_button_pressed() -> void:
-	pass
+	get_tree().change_scene_to_packed(level1_scene)
 
 
 func on_credits_button_pressed() -> void:

@@ -16,7 +16,7 @@ func execute(unit: Unit) -> void:
 	
 	await load_capture_animation(result)
 	await play_attack_animation()
-	await play_building_reaction()
+	play_building_reaction()
 	await play_capture_animation(result)
 	await capture_dialog.animate_out()
 	clear_dialog()
@@ -40,7 +40,7 @@ func play_attack_animation() -> void:
 
 
 func play_building_reaction() -> void:
-	await capture_dialog.play_building_impacts(fx_service, audio_service)
+	capture_dialog.play_building_impacts(fx_service, audio_service)
 	
 
 func play_capture_animation(result: CaptureProcess.CaptureResult) -> void:

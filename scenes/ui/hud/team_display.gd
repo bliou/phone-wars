@@ -6,11 +6,11 @@ extends Control
 @onready var team_label: Label = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Team
 
 
-var init_pos: Vector2
 var current_funds: int
 
 func _ready() -> void:
-	init_pos = position
+	modulate.a = 0.0
+	position.x = -size.x
 
 
 func set_new_team(team: Team) -> void:
@@ -90,7 +90,7 @@ func animate_out() -> void:
 	var tween = create_tween()
 	tween.set_parallel(true)
 	
-	tween.tween_property(self, "position:x", -200.0, 0.2)
+	tween.tween_property(self, "position:x", -size.x, 0.2)
 	tween.tween_property(self, "modulate:a", 0.0, 0.2)
 
 	await tween.finished
@@ -100,7 +100,7 @@ func animate_in() -> void:
 	var tween = create_tween()
 	tween.set_parallel(true)
 
-	tween.tween_property(self, "position:x", init_pos.x, 0.2)
+	tween.tween_property(self, "position:x", 0.0, 0.2)
 	tween.tween_property(self, "modulate:a", 1.0, 0.2)
 
 	await tween.finished

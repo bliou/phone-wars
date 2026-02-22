@@ -1,74 +1,86 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxnwvpw6ma8gv"]
+[gd_scene format=3 uid="uid://cxnwvpw6ma8gv"]
 
 [ext_resource type="Script" uid="uid://cqbiol1b575xu" path="res://scenes/ui/hud/game_hud.gd" id="1_6l4od"]
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_q2qrq"]
+[ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="3_b1c7m"]
 
-[node name="GameHUD" type="Control"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov0n4"]
+atlas = ExtResource("3_b1c7m")
+region = Rect2(81, 352, 14, 14)
+margin = Rect2(2, 2, 4, 7)
+
+[node name="GameHUD" type="Control" unique_id=1759408918]
 layout_mode = 3
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_q2qrq")
 script = ExtResource("1_6l4od")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1138886578]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -41.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=142799352]
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_constants/separation = 4
 
-[node name="ActionPanel" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="ActionPanel" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=601832607]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="IdleButton" type="Button" parent="MarginContainer/HBoxContainer/ActionPanel"]
+[node name="IdleButton" type="Button" parent="MarginContainer/HBoxContainer/ActionPanel" unique_id=825605673]
 layout_mode = 2
 focus_mode = 0
 text = "Idle"
 
-[node name="AttackButton" type="Button" parent="MarginContainer/HBoxContainer/ActionPanel"]
+[node name="AttackButton" type="Button" parent="MarginContainer/HBoxContainer/ActionPanel" unique_id=1845292589]
 layout_mode = 2
 focus_mode = 0
 text = "Attack"
 
-[node name="CaptureButton" type="Button" parent="MarginContainer/HBoxContainer/ActionPanel"]
+[node name="CaptureButton" type="Button" parent="MarginContainer/HBoxContainer/ActionPanel" unique_id=1041861301]
 layout_mode = 2
 focus_mode = 0
 text = "Capture"
 
-[node name="MergeButton" type="Button" parent="MarginContainer/HBoxContainer/ActionPanel"]
+[node name="MergeButton" type="Button" parent="MarginContainer/HBoxContainer/ActionPanel" unique_id=1344511427]
 layout_mode = 2
 focus_mode = 0
 text = "Merge"
 
-[node name="MainPanel" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="MainPanel" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1208566851]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_constants/separation = 30
 
-[node name="CancelButton" type="Button" parent="MarginContainer/HBoxContainer/MainPanel"]
+[node name="CancelButton" type="Button" parent="MarginContainer/HBoxContainer/MainPanel" unique_id=1161067218]
 layout_mode = 2
 size_flags_horizontal = 0
 focus_mode = 0
 text = "Cancel"
 
-[node name="EndTurnButton" type="Button" parent="MarginContainer/HBoxContainer/MainPanel"]
+[node name="EndTurnButton" type="Button" parent="MarginContainer/HBoxContainer/MainPanel" unique_id=1549962602]
 layout_mode = 2
 focus_mode = 0
 text = "End turn"
+
+[node name="SettingsButton" type="Button" parent="MarginContainer" unique_id=735151280]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = SubResource("AtlasTexture_ov0n4")
