@@ -34,7 +34,7 @@ func _ready() -> void:
 
 	ui_controller.game_paused.connect(on_game_paused)
 	ui_controller.game_resumed.connect(on_game_resumed)
-	ui_controller.exit_level.connect(on_exit_level)
+	ui_controller.exit_level.connect(exit_level)
 	ui_controller.end_turn.connect(on_end_turn)
 
 	call_deferred("connect_buildings")
@@ -86,11 +86,6 @@ func on_game_resumed() -> void:
 	input_manager.unlock()
 
 
-func on_exit_level() -> void:
-	print("main_menu_scene: ", main_menu_scene)
-	get_tree().change_scene_to_packed(main_menu_scene)
-
-
 func next_team(current_team: Team) -> Team:
 	var active_team_idx :int = teams.find(current_team, 0)
 	active_team_idx +=1
@@ -114,4 +109,8 @@ func connect_buildings() -> void:
 func building_owner_changed() -> void:
 	for team: Team in teams:
 		if team.get_hq_count() == 0:
-			print("team eliminated")
+			exit_level()
+
+
+func exit_level() -> void:
+	get_tree().change_scene_to_packed(main_menu_scene)

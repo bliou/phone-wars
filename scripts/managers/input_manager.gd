@@ -17,6 +17,7 @@ var long_pressed: bool = false
 var pressed_position: Vector2 = Vector2.ZERO
 var locked: bool
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if locked:
 		return
