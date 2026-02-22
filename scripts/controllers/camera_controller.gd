@@ -34,3 +34,10 @@ func on_pan_requested(delta: Vector2) -> void:
 func move_by(delta: Vector2) -> void:
 	camera.position -= delta
 
+
+func focus_on(pos: Vector2) -> void:
+	var tween: Tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(camera, "position", pos, 1.0)
+
+	await tween.finished

@@ -68,3 +68,11 @@ func replace_colors(material: Material) -> void:
 
 func team_name() -> String:
 	return team_profile.team_name
+
+
+func get_focus_point() -> Vector2:
+	for building: Building in buildings_manager.buildings.values():
+		if building.type() == BuildingType.Values.HQ:
+			return building.position
+
+	return Vector2.ZERO

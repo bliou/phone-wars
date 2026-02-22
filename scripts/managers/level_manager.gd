@@ -69,6 +69,9 @@ func start_turn() -> void:
 
 	active_team.earn_money(new_income)
 
+	var focus_point: Vector2 = active_team.get_focus_point()
+	await camera_controller.focus_on(focus_point)
+
 
 func on_end_turn() -> void:
 	active_team.end_turn()
