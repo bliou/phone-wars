@@ -11,7 +11,7 @@ func _enter(_params: Dictionary = {}) -> void:
 	controller.production_panel.load_production_list(
 		selected_building.production_list, 
 		selected_building.team)
-	controller.show_selected.emit(selected_building.cell_pos)
+	controller.show_selection_indicator()
 
 
 func _exit() -> void:

@@ -141,6 +141,9 @@ func on_capture_clicked() -> void:
 	game_hud.hide()
 	team_display.animate_out()
 	camera_pan_enabled.emit(false)
+	clear_movement_range.emit()
+	clear_attackable.emit()
+	clear_selected.emit()
 	await capture_orchestrator.execute(current_units_manager.selected_unit)
 	game_hud.show()
 	team_display.animate_in()
@@ -175,7 +178,6 @@ func show_start_turn_intro(team: Team, new_funds: int) -> void:
 	camera_pan_enabled.emit(true)
 	
 
-
 func show_attack_indicator() -> void:
 	var units: Array[Unit] = current_units_manager.get_units_in_attack_range_with_movement(current_units_manager.selected_unit)
 	var cells: Array[Vector2i] = query_manager.get_units_positions(units)
@@ -185,6 +187,11 @@ func show_attack_indicator() -> void:
 func show_movement_indicator() -> void:
 	current_units_manager.compute_reachable_cells()
 	show_movement_range.emit(current_units_manager.selected_unit.reachable_cells)
+
+
+func show_selection_indicator() -> void:
+	var selected_unit: Unit = current_units_manager.selected_unit
+	show_selected.emit(selected_unit.cell_pos)
 
 
 func can_move_to_cell(cell: Vector2i) -> bool:
@@ -202,6 +209,7 @@ func handle_unit_movement(cell: Vector2i) -> void:
 	game_hud.hide()
 	clear_attackable.emit()
 	clear_movement_range.emit()
+	clear_selected.emit()
 	await movement_orchestrator.execute(current_units_manager, cell)
 	fsm.change_state(moved_state)
 
@@ -217,6 +225,7 @@ func handle_unit_attack(cell: Vector2i) -> void:
 	game_hud.hide()
 	clear_attackable.emit()
 	clear_movement_range.emit()
+	clear_selected.emit()
 	var best_cell: Vector2i = current_units_manager.choose_best_attack_position(cell)
 	current_units_manager.set_target_unit(query_manager.get_unit_at(cell))
 	await movement_orchestrator.execute(current_units_manager, best_cell)

@@ -52,6 +52,7 @@ text = "Idle"
 layout_mode = 2
 focus_mode = 0
 text = "Attack"
+expand_icon = true
 
 [node name="CaptureButton" type="Button" parent="MarginContainer/HBoxContainer/ActionPanel" unique_id=1041861301]
 layout_mode = 2

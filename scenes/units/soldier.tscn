@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://mu0vq50rfsva"]
+[gd_scene format=3 uid="uid://mu0vq50rfsva"]
 
 [ext_resource type="Script" uid="uid://c7etiwd3ueeh7" path="res://scenes/units/unit.gd" id="1_53ncc"]
 [ext_resource type="Resource" uid="uid://ci1bjji27j03c" path="res://resources/units/soldier.tres" id="2_rdxj4"]
@@ -186,30 +186,28 @@ _data = {
 &"attack": SubResource("Animation_e84y0")
 }
 
-[node name="Soldier" type="Area2D"]
+[node name="Soldier" type="Area2D" unique_id=249402440]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_53ncc")
 unit_profile = ExtResource("2_rdxj4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2112437017]
 material = SubResource("ShaderMaterial_y1odh")
 sprite_frames = SubResource("SpriteFrames_op21a")
 animation = &"attack"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1760766752]
 visible = false
 shape = SubResource("RectangleShape2D_53ncc")
 
-[node name="HPLabelComponent" parent="." instance=ExtResource("5_e84y0")]
+[node name="HPLabelComponent" parent="." unique_id=262992538 instance=ExtResource("5_e84y0")]
 z_index = 1
-position = Vector2(8, 8)
+position = Vector2(4, 4)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_y1odh")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=514698256]
+libraries/ = SubResource("AnimationLibrary_y1odh")
 
-[node name="WeaponMuzzle" type="Marker2D" parent="."]
+[node name="WeaponMuzzle" type="Marker2D" parent="." unique_id=1694246929]
 position = Vector2(-16, 4)

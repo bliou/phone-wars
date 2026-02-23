@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cot0bb48uebej"]
+[gd_scene format=3 uid="uid://cot0bb48uebej"]
 
 [ext_resource type="Texture2D" uid="uid://c0vl37poqyn5y" path="res://assets/ui/ui_icons.png" id="1_qpnkl"]
 [ext_resource type="Script" uid="uid://dm1w8b57njrw5" path="res://scenes/component/hp_label_component.gd" id="2_qpnkl"]
@@ -7,8 +7,8 @@
 atlas = ExtResource("1_qpnkl")
 region = Rect2(0, 0, 352, 32)
 
-[node name="HPLabelComponent" type="Sprite2D"]
-scale = Vector2(0.5, 0.5)
+[node name="HPLabelComponent" type="Sprite2D" unique_id=107590977]
+scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_pm4hl")
 hframes = 11
 region_rect = Rect2(2, 2, 12, 13)

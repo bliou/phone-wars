@@ -9,11 +9,13 @@ func _enter(_params: Dictionary = {}) -> void:
 
 	controller.show_attack_indicator()
 	controller.show_movement_indicator()
+	controller.show_selection_indicator()
 
 
 func _exit() -> void:
 	controller.clear_attackable.emit()
 	controller.clear_movement_range.emit()
+	controller.clear_selected.emit()
 
 
 func _process(_delta: float) -> void:
