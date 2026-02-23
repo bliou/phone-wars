@@ -1,7 +1,7 @@
 class_name AttackIndicator
 extends Node2D
 
-const COLOR := Color(1, 0, 0, 0.4)
+@export var color := Color(1, 0, 0, 0.75)
 
 var grid: Grid
 
@@ -14,6 +14,9 @@ func setup(p_grid: Grid, ui_controller: UIController):
 
 	ui_controller.show_attackable.connect(show_cells)
 	ui_controller.clear_attackable.connect(clear)
+	
+	material = material.duplicate()
+	material.set_shader_parameter("base_color", color)
 
 
 func _draw() -> void:
@@ -21,7 +24,7 @@ func _draw() -> void:
 		var pos: Vector2 = grid.get_world_position_from_cell(cell)
 		draw_rect(
 			Rect2(pos-grid.cell_size*0.5, grid.cell_size),
-			COLOR,
+			color,
 		)
 
 

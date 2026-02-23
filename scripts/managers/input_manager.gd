@@ -27,7 +27,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		pan_requested.emit(event.relative)
-		pressed = false
+		if not long_pressed:
+			pressed = false
 
 	elif event is InputEventScreenTouch:
 		if event.pressed:

@@ -9,11 +9,14 @@ func _enter(_params: Dictionary = {}) -> void:
 	
 	controller.show_attack_indicator()
 	controller.show_movement_indicator()
+	var selected_unit: Unit = controller.current_units_manager.selected_unit
+	controller.show_selected.emit(selected_unit.cell_pos)
 
 
 func _exit() -> void:
 	controller.clear_attackable.emit()
 	controller.clear_movement_range.emit()
+	controller.clear_selected.emit()
 
 
 func _process(_delta: float) -> void:

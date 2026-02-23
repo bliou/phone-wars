@@ -1,7 +1,7 @@
 class_name MovementIndicator
 extends Node2D
 
-const COLOR := Color(0.2, 0.6, 1.0, 0.25)
+@export var color := Color(0.2, 0.6, 1.0, 0.75)
 
 var grid: Grid
 var cells: Array[Vector2i] = []
@@ -19,7 +19,7 @@ func _draw() -> void:
 		var pos: Vector2 = grid.get_world_position_from_cell(cell)
 		draw_rect(
 			Rect2(pos-grid.cell_size*0.5, grid.cell_size),
-			COLOR,
+			color,
 		)
 
 

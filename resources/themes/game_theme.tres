@@ -98,7 +98,7 @@ region = Rect2(1, 5, 62, 21)
 texture = SubResource("AtlasTexture_0vqx8")
 
 [resource]
-Button/font_sizes/font_size = 12
+Button/font_sizes/font_size = 24
 Button/fonts/font = ExtResource("2_d5i2s")
 Button/styles/disabled = SubResource("StyleBoxTexture_rg8ou")
 Button/styles/hover = SubResource("StyleBoxTexture_1wcms")

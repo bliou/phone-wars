@@ -11,12 +11,14 @@ func _enter(_params: Dictionary = {}) -> void:
 	controller.production_panel.load_production_list(
 		selected_building.production_list, 
 		selected_building.team)
+	controller.show_selected.emit(selected_building.cell_pos)
 
 
 func _exit() -> void:
 	controller.game_hud.show()
 	controller.production_panel.hide()
 	controller.team_display.animate_in()
+	controller.clear_selected.emit()
 
 
 func _process(_delta: float) -> void:

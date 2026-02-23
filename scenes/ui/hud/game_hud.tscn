@@ -7,7 +7,6 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_ov0n4"]
 atlas = ExtResource("3_b1c7m")
 region = Rect2(81, 352, 14, 14)
-margin = Rect2(2, 2, 4, 7)
 
 [node name="GameHUD" type="Control" unique_id=1759408918]
 layout_mode = 3
@@ -81,7 +80,11 @@ focus_mode = 0
 text = "End turn"
 
 [node name="SettingsButton" type="Button" parent="MarginContainer" unique_id=735151280]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 icon = SubResource("AtlasTexture_ov0n4")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true

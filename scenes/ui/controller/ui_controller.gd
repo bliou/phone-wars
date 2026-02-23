@@ -3,6 +3,10 @@ extends CanvasLayer
 
 signal camera_pan_enabled(enabled: bool)
 
+signal show_selected(cell_position: Vector2)
+signal clear_selected() 
+
+
 signal show_movement_range(reachable_cells: Array[Vector2i])
 signal clear_movement_range()
 
