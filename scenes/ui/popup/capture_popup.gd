@@ -29,7 +29,7 @@ func load(result: CaptureProcess.CaptureResult) -> void:
     else:
         capture_animation.move_child(building_icon_wrapper, 1)
 
-    result.building.team.replace_colors(building_icon.material)
+    result.building.team.replace_building_colors(building_icon.material)
 
 
 func update(result: CaptureProcess.CaptureResult) -> void:

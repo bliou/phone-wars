@@ -16,7 +16,7 @@ func load_from_entry(entry: ProductionEntry, team: Team) -> void:
 	unit_name.text = UnitType.get_name_from_type(entry.unit_profile.type)
 	unit_cost.text = "%s"%entry.cost
 	unit_icon.texture = entry.unit_profile.icon.duplicate()
-	team.replace_colors(unit_icon.material)
+	team.replace_unit_colors(unit_icon.material)
 	
 	build_button.disabled = not team.can_buy(entry)
 

@@ -178,12 +178,13 @@ func show_start_turn_intro(team: Team, new_funds: int) -> void:
 	
 
 func show_attack_indicator() -> void:
+	var cells: Array[Vector2i] = []
 	if current_units_manager.merge_available():
-		show_attackable.emit([])
+		show_attackable.emit(cells)
 		return
-		
+
 	var units: Array[Unit] = current_units_manager.get_units_in_attack_range_with_movement(current_units_manager.selected_unit)
-	var cells: Array[Vector2i] = query_manager.get_units_positions(units)
+	cells = query_manager.get_units_positions(units)
 	show_attackable.emit(cells)
 
 

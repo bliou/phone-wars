@@ -23,7 +23,7 @@ func with_building(building: Building) -> void:
 
 	var shader_material: ShaderMaterial = terrain_icon.material as ShaderMaterial
 	shader_material.shader = load("res://resources/shaders/team_tint.gdshader")
-	building.team.replace_colors(terrain_icon.material)
+	building.team.replace_building_colors(terrain_icon.material)
 
 
 func with_terrain(terrain_data: TerrainData) -> void:
@@ -39,5 +39,5 @@ func update_defender_icon(unit: Unit) -> void:
 	if unit.team.face_direction == FaceDirection.Values.RIGHT:
 		image.flip_x() 
 		
-	unit.team.replace_colors(defender_icon.material)
+	unit.team.replace_unit_colors(defender_icon.material)
 	defender_icon.texture = ImageTexture.create_from_image(image)

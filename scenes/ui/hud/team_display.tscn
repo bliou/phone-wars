@@ -1,9 +1,22 @@
 [gd_scene format=3 uid="uid://d2e0mr7ywlsfx"]
 
+[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="1_fna4e"]
 [ext_resource type="Script" uid="uid://bki0f0ay1pmv7" path="res://scenes/ui/hud/team_display.gd" id="1_lcp4i"]
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_my45x"]
 [ext_resource type="Texture2D" uid="uid://bcfsy3w0sjb2c" path="res://assets/ui/FreshandModern.png" id="2_lcp4i"]
 [ext_resource type="FontFile" uid="uid://diubivdnudfuh" path="res://assets/fonts/Pixel Lofi.otf" id="3_my45x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fna4e"]
+shader = ExtResource("1_fna4e")
+shader_parameter/disabled = 0.0
+shader_parameter/original_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_87hyk"]
+shader = ExtResource("1_fna4e")
+shader_parameter/disabled = 0.0
+shader_parameter/original_colors = PackedColorArray(0.4745098, 0.6156863, 0.68235296, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5n6d6"]
 atlas = ExtResource("2_lcp4i")
@@ -28,6 +41,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=314897505]
+material = SubResource("ShaderMaterial_fna4e")
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_type_variation = &"TeamDisplayPanel"
@@ -49,6 +63,7 @@ theme_override_font_sizes/font_size = 16
 text = "Money: "
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1026404885]
+material = SubResource("ShaderMaterial_87hyk")
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = SubResource("AtlasTexture_5n6d6")

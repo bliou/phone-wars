@@ -1,10 +1,30 @@
 [gd_resource type="Resource" script_class="TeamProfile" format=3 uid="uid://118m3pansjhp"]
 
 [ext_resource type="Script" uid="uid://ctrgdwokcfys3" path="res://scripts/resources/teams/team_profile.gd" id="1_kjgib"]
+[ext_resource type="Script" uid="uid://cxpv1gdf3keog" path="res://scripts/resources/teams/replace_colors.gd" id="2_p7h42"]
+
+[sub_resource type="Resource" id="Resource_ixgpx"]
+script = ExtResource("2_p7h42")
+original_colors = PackedColorArray(0.69803923, 0.0627451, 0.1882353, 1, 1, 0.4745098, 0.1882353, 1, 0.1882353, 0.31764707, 0.50980395, 1, 0.99607843, 0.6862745, 0.14509805, 1, 0, 0, 0, 1)
+new_colors = PackedColorArray(0.69803923, 0.0627451, 0.1882353, 1, 1, 0.4745098, 0.1882353, 1, 0.1882353, 0.31764707, 0.50980395, 1, 0.99607843, 0.6862745, 0.14509805, 1, 0, 0, 0, 1)
+metadata/_custom_type_script = "uid://cxpv1gdf3keog"
+
+[sub_resource type="Resource" id="Resource_ew1du"]
+script = ExtResource("2_p7h42")
+original_colors = PackedColorArray(0.4745098, 0.6156863, 0.68235296, 1, 0.20784314, 0.37254903, 0.48235294, 1, 0.42352942, 0.5529412, 0.6117647, 1)
+new_colors = PackedColorArray(0.8649893, 0.42941883, 0.28654727, 1, 0.552962, 1.3596937e-06, 4.813075e-07, 1, 1, 0.26082414, 0.19304243, 1)
+metadata/_custom_type_script = "uid://cxpv1gdf3keog"
+
+[sub_resource type="Resource" id="Resource_p7h42"]
+script = ExtResource("2_p7h42")
+original_colors = PackedColorArray(0.69803923, 0.0627451, 0.1882353, 1, 1, 0.4745098, 0.1882353, 1, 0.1882353, 0.31764707, 0.50980395, 1, 0.99607843, 0.6862745, 0.14509805, 1, 0, 0, 0, 1)
+new_colors = PackedColorArray(0.69803923, 0.0627451, 0.1882353, 1, 1, 0.4745098, 0.1882353, 1, 0.1882353, 0.31764707, 0.50980395, 1, 0.99607843, 0.6862745, 0.14509805, 1, 0, 0, 0, 1)
+metadata/_custom_type_script = "uid://cxpv1gdf3keog"
 
 [resource]
 script = ExtResource("1_kjgib")
 team_name = "Red team"
-original_colors = PackedColorArray(0.69803923, 0.0627451, 0.1882353, 1, 1, 0.4745098, 0.1882353, 1, 0.1882353, 0.31764707, 0.50980395, 1, 0.99607843, 0.6862745, 0.14509805, 1, 0, 0, 0, 1)
-replace_colors = PackedColorArray(0.69803923, 0.0627451, 0.1882353, 1, 1, 0.4745098, 0.1882353, 1, 0.1882353, 0.31764707, 0.50980395, 1, 0.99607843, 0.6862745, 0.14509805, 1, 0, 0, 0, 1)
+unit_colors = SubResource("Resource_p7h42")
+building_colors = SubResource("Resource_ixgpx")
+ui_colors = SubResource("Resource_ew1du")
 metadata/_custom_type_script = "uid://ctrgdwokcfys3"

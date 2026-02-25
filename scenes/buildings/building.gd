@@ -36,8 +36,7 @@ func setup(p_team: Team) -> void:
 
 func set_team(p_team: Team) -> void:
 	team = p_team
-	animated_sprite.material.set_shader_parameter("original_colors", team.team_profile.original_colors)
-	animated_sprite.material.set_shader_parameter("replace_colors", team.team_profile.replace_colors)
+	team.replace_building_colors(animated_sprite.material)
 
 
 func captured(new_team: Team) -> void:

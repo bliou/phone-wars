@@ -12,5 +12,4 @@ func _ready() -> void:
 
 
 func setup(team: Team) -> void:
-	material.set_shader_parameter("original_colors", original_colors)
-	material.set_shader_parameter("replace_colors", team.team_profile.replace_colors)
+	team.replace_unit_colors(material)

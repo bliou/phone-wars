@@ -2,6 +2,7 @@ class_name TeamDisplay
 extends Control
 
 
+@onready var panel_container: PanelContainer = $MarginContainer/PanelContainer
 @onready var money_label: Label = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/MoneyLabel
 @onready var team_label: Label = $MarginContainer/PanelContainer/MarginContainer/VBoxContainer/Team
 
@@ -11,12 +12,15 @@ var current_funds: int
 func _ready() -> void:
 	modulate.a = 0.0
 	position.x = -size.x
+	panel_container.material = panel_container.material.duplicate()
 
 
 func set_new_team(team: Team) -> void:
 	team_label.text = "Team: %s"%team.team_name()
 	current_funds = team.funds
 	money_label.text = "Money: %s"%team.funds
+
+	team.replace_ui_colors(panel_container.material)
 
 
 func update_funds(new_funds: int) -> void:

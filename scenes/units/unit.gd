@@ -68,7 +68,7 @@ func setup(p_team: Team) -> void:
 func set_team(p_team: Team) -> void:
 	team = p_team
 	facing = team.face_direction
-	team.replace_colors(animated_sprite.material)
+	team.replace_unit_colors(animated_sprite.material)
 
 
 func set_capture_component() -> void:

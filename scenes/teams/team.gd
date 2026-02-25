@@ -61,9 +61,22 @@ func get_hq_count() -> int:
 
 
 # Team profile getters
-func replace_colors(material: Material) -> void:
-	material.set_shader_parameter("original_colors", team_profile.original_colors)
-	material.set_shader_parameter("replace_colors", team_profile.replace_colors)
+func replace_unit_colors(material: ShaderMaterial) -> void:
+	if team_profile.unit_colors == null:
+		return
+	team_profile.unit_colors.replace_colors(material)
+
+	
+func replace_building_colors(material: ShaderMaterial) -> void:
+	if team_profile.building_colors == null:
+		return
+	team_profile.building_colors.replace_colors(material)
+
+	
+func replace_ui_colors(material: ShaderMaterial) -> void:
+	if team_profile.ui_colors == null:
+		return
+	team_profile.ui_colors.replace_colors(material)
 	
 
 func team_name() -> String:
