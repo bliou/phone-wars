@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dhqeb02d40my3" path="res://scripts/resources/units/attack_profile.gd" id="1_vfaig"]
 [ext_resource type="Script" uid="uid://c1aqkr7x3kn1d" path="res://scripts/resources/units/defense_profile.gd" id="2_3s1md"]
 [ext_resource type="Script" uid="uid://ek5inq6a6e24" path="res://scripts/resources/units/movement_profile.gd" id="2_pm6xt"]
+[ext_resource type="AudioStream" uid="uid://budpuvoond1pr" path="res://assets/sounds/units/vehicle_movement.wav" id="4_lk4qu"]
 [ext_resource type="Script" uid="uid://cvmuc2m44de5v" path="res://scripts/resources/weapons/canon.gd" id="5_8w3g1"]
 [ext_resource type="PackedScene" uid="uid://f7hpnte1ike0" path="res://scenes/vfx/fire/artillery_shell.tscn" id="5_jvtwx"]
 [ext_resource type="AudioStream" uid="uid://c5i6f65t1551c" path="res://assets/sounds/canons/sfx_wpn_cannon2.wav" id="7_nwbrd"]
@@ -48,6 +49,7 @@ metadata/_custom_type_script = "uid://cvmuc2m44de5v"
 [resource]
 script = ExtResource("1_v1own")
 icon = SubResource("AtlasTexture_pm6xt")
+move_sound = ExtResource("4_lk4qu")
 type = 3
 movement_points = 5
 movement_profile = SubResource("Resource_vfaig")

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dhqeb02d40my3" path="res://scripts/resources/units/attack_profile.gd" id="1_bowyl"]
 [ext_resource type="Script" uid="uid://c1aqkr7x3kn1d" path="res://scripts/resources/units/defense_profile.gd" id="2_7cwwr"]
 [ext_resource type="Texture2D" uid="uid://2n7ysxwl4vma" path="res://assets/sprites/units/phone_wars_units.png" id="3_as5rl"]
+[ext_resource type="AudioStream" uid="uid://bl23krmaholmt" path="res://assets/sounds/units/digital_footstep_grass_1.wav" id="4_n7jjr"]
 [ext_resource type="Script" uid="uid://ek5inq6a6e24" path="res://scripts/resources/units/movement_profile.gd" id="4_x725v"]
 [ext_resource type="Script" uid="uid://c5bqt1boq7g83" path="res://scripts/resources/units/unit_profile.gd" id="5_lf731"]
 [ext_resource type="PackedScene" uid="uid://bro6ulb3ikndb" path="res://scenes/vfx/fire/bullet.tscn" id="6_x725v"]
@@ -39,6 +40,7 @@ metadata/_custom_type_script = "uid://b06l06gkgnqmh"
 [resource]
 script = ExtResource("5_lf731")
 icon = SubResource("AtlasTexture_nd3el")
+move_sound = ExtResource("4_n7jjr")
 movement_profile = SubResource("Resource_y1odh")
 attack_profile = SubResource("Resource_c6t5x")
 defense_profile = SubResource("Resource_vgl3c")

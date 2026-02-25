@@ -248,6 +248,10 @@ func icon() -> Texture2D:
 	return unit_profile.icon
 
 
+func move_sound() -> AudioStream:
+	return unit_profile.move_sound
+
+
 func type() -> UnitType.Values:
 	return unit_profile.type
 

@@ -3,6 +3,7 @@ extends Resource
 
 
 @export var icon: Texture2D = null
+@export var move_sound: AudioStream = null
 @export var type: UnitType.Values = UnitType.Values.INFANTRY
 @export var movement_points: int = 3
 @export var movement_profile: MovementProfile

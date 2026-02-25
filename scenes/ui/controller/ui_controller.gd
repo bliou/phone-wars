@@ -60,7 +60,7 @@ func setup(p_level_manager: LevelManager) -> void:
 	combat_orchestrator = CombatOrchestrator.new(damage_effect, p_level_manager.fx_service, p_level_manager.audio_service)
 	capture_orchestrator = CaptureOrchestrator.new(capture_popup, p_level_manager.fx_service, p_level_manager.audio_service)
 	merge_units_orchestrator = MergeUnitsOrchestrator.new(team_display, p_level_manager.audio_service)
-	movement_orchestrator = MovementOrchestrator.new()
+	movement_orchestrator = MovementOrchestrator.new(p_level_manager.audio_service)
 	start_turn_orchestrator = StartTurnOrchestrator.new(start_turn_animation, team_display, p_level_manager.audio_service)
 	query_manager = p_level_manager.query_manager
 
