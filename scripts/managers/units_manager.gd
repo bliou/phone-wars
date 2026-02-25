@@ -2,7 +2,7 @@ class_name UnitsManager
 extends Node
 
 signal unit_moved(unit: Unit)
-
+signal merge_refund(team: Team, amount: int)
 
 var grid: Grid
 var query_manager: QueryManager
@@ -169,8 +169,17 @@ func merge_available() -> bool:
 func merge_units() -> void:
 	var unit_pos: Vector2i = selected_unit.cell_pos
 	var unit: Unit = query_manager.get_unit_at(unit_pos)
-	selected_unit.merge_with_unit(unit)
 
+	var total_hp: int = int(unit.actual_health + selected_unit.actual_health)
+	var max_hp: int = selected_unit.max_health()
+
+	var excess: int = max(0, total_hp - max_hp)
+	selected_unit.gain_health(unit.actual_health)
+
+	var money_gain: int = int((float(excess) / max_hp) * selected_unit.cost())
+	if money_gain > 0:
+		merge_refund.emit(selected_unit.team, money_gain)
+	
 	remove_unit(unit)
 	exhaust_unit()
 

@@ -22,10 +22,6 @@ func setup(grid: Grid, query_manager: QueryManager) -> void:
 	buildings_manager.setup(grid, query_manager, self)
 	
 
-func earn_money(income: int) -> void:
-	funds += income
-
-
 func end_turn() -> void:
 	units_manager.reset_units()
 
@@ -43,11 +39,11 @@ func is_same_team(team: Team) -> bool:
 
 
 func can_buy(entry: ProductionEntry) -> bool:
-	return entry.cost <= funds
+	return entry.cost() <= funds
 
 
 func buy_unit(entry: ProductionEntry, cell_pos: Vector2i) -> void:
-	funds -= entry.cost
+	funds -= entry.cost()
 	units_manager.add_unit(entry, cell_pos, self)
 	
 

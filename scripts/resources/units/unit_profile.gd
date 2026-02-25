@@ -8,6 +8,7 @@ extends Resource
 @export var movement_profile: MovementProfile
 @export var capture_capacity: int = 10
 @export var health: int = 10
+@export var cost: int = 100
 
 @export var attack_profile: AttackProfile
 @export var defense_profile: DefenseProfile

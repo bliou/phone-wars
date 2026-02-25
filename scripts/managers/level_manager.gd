@@ -41,6 +41,7 @@ func _ready() -> void:
 	ui_controller.end_turn.connect(on_end_turn)
 
 	call_deferred("connect_buildings")
+	call_deferred("connect_units_manager")
 	
 
 func init_teams() -> void:
@@ -48,7 +49,7 @@ func init_teams() -> void:
 	var buildings_managers: Array[BuildingsManager] = []
 
 	for child in get_node("Teams").get_children():
-		var team :Team = child as Team 
+		var team: Team = child as Team 
 		if team != null:
 			teams.append(team)
 			team.setup(grid, query_manager)
@@ -68,14 +69,14 @@ func start_turn() -> void:
 
 	if disable_animations:
 		ui_controller.show_start_turn_intro(active_team, active_team.funds+new_income)
-		active_team.earn_money(new_income)
+		economy_service.add_money(active_team, new_income)
 		return
 
 	input_manager.lock()
 	await ui_controller.show_start_turn_intro(active_team, active_team.funds+new_income)
 	input_manager.unlock()
 
-	active_team.earn_money(new_income)
+	economy_service.add_money(active_team, new_income)
 
 	var focus_point: Vector2 = active_team.get_focus_point()
 	await camera_controller.focus_on(focus_point)
@@ -97,6 +98,10 @@ func on_game_resumed() -> void:
 	input_manager.unlock()
 
 
+func on_merge_refund(team: Team, amount: int) -> void:
+	economy_service.add_money(team, amount)
+
+
 func next_team(current_team: Team) -> Team:
 	var active_team_idx :int = teams.find(current_team, 0)
 	active_team_idx +=1
@@ -115,6 +120,13 @@ func connect_buildings() -> void:
 
 	for building: Building in buildings:
 		building.owner_changed.connect(building_owner_changed)
+
+
+func connect_units_manager() -> void:
+	for team in teams:
+		if team.units_manager == null:
+			continue
+		team.units_manager.merge_refund.connect(on_merge_refund)
 
 
 func building_owner_changed() -> void:

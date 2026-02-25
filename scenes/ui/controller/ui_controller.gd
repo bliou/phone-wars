@@ -38,6 +38,7 @@ var grid: Grid
 var buy_unit_orchestrator: BuyUnitOrchestrator
 var combat_orchestrator: CombatOrchestrator
 var capture_orchestrator: CaptureOrchestrator
+var merge_units_orchestrator: MergeUnitsOrchestrator
 var movement_orchestrator: MovementOrchestrator
 var start_turn_orchestrator: StartTurnOrchestrator
 var query_manager: QueryManager
@@ -58,6 +59,7 @@ func setup(p_level_manager: LevelManager) -> void:
 	buy_unit_orchestrator = BuyUnitOrchestrator.new(team_display, p_level_manager.audio_service)
 	combat_orchestrator = CombatOrchestrator.new(damage_effect, p_level_manager.fx_service, p_level_manager.audio_service)
 	capture_orchestrator = CaptureOrchestrator.new(capture_popup, p_level_manager.fx_service, p_level_manager.audio_service)
+	merge_units_orchestrator = MergeUnitsOrchestrator.new(team_display, p_level_manager.audio_service)
 	movement_orchestrator = MovementOrchestrator.new()
 	start_turn_orchestrator = StartTurnOrchestrator.new(start_turn_animation, team_display, p_level_manager.audio_service)
 	query_manager = p_level_manager.query_manager
@@ -152,7 +154,7 @@ func on_capture_clicked() -> void:
 
 
 func on_merge_clicked() -> void:
-	current_units_manager.merge_units()
+	await merge_units_orchestrator.execute(current_units_manager)
 	fsm.change_state(idle_state)
 
 

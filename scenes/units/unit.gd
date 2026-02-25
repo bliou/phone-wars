@@ -20,7 +20,7 @@ var cell_pos: Vector2i = Vector2i.ZERO
 var reachable_cells: Array[Vector2i]
 var exhausted: bool = false
 var capture_process: CaptureProcess
-var actual_health: float = 10.0
+var actual_health: float = 0.0
 var movement_points: int
 
 var capturing_component: CapturingComponent
@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 
 func setup(p_team: Team) -> void:
 	set_team(p_team)
-	actual_health = unit_profile.health
+	gain_health(max_health() / 2.5)
 	reset_movement_points()
 	
 	if unit_profile.capture_capacity > 0:
@@ -118,8 +118,7 @@ func get_terrain_cost(terrain: TerrainType.Values) -> float:
 
 
 func is_max_health() -> bool:
-	print("unit_name: ", name, "actual_health: ", actual_health)
-	return actual_health >= unit_profile.health
+	return actual_health >= max_health()
 
 
 func can_capture_building(building: Building) -> bool:
@@ -133,7 +132,7 @@ func can_capture_building(building: Building) -> bool:
 
 
 func capture_capacity() -> int:
-	var ratio: float = actual_health / unit_profile.health
+	var ratio: float = actual_health / max_health()
 	return round(ratio*unit_profile.capture_capacity)
 
 
@@ -167,19 +166,16 @@ func can_merge_with_unit(unit: Unit) -> bool:
 		return false
 
 	# one of them is full hp
-	print("unit.is_max_health(): ", unit.is_max_health(), " - is_max_health(): ", is_max_health())
 	if unit.is_max_health() or is_max_health():
 		return false
 
 	return true
 
 
-func merge_with_unit(unit: Unit) -> void:
-	actual_health += unit.actual_health
-
-	# TODO: add funds if merge lead to reduce health
-	if actual_health > unit_profile.health:
-		actual_health = unit_profile.health
+func gain_health(gain: float) -> void:
+	actual_health += gain
+	actual_health = min(actual_health, max_health())
+	hp_label_component.update(actual_health)
 
 
 func take_dmg(dmg: float) -> void:
@@ -237,6 +233,13 @@ func play_hit_reaction() -> void:
 func max_movement_points() -> int:
 	return unit_profile.movement_points
 
+
+func max_health() -> int:
+	return unit_profile.health
+
+
+func cost() -> int:
+	return unit_profile.cost
 
 
 func icon() -> Texture2D:

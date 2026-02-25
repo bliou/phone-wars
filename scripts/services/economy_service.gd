@@ -9,3 +9,7 @@ func calculate_income(team: Team) -> int:
         total_income += building.income()
 
     return total_income 
+
+
+func add_money(team: Team, money: int) -> void:
+    team.funds += money

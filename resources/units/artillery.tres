@@ -52,6 +52,7 @@ type = 3
 movement_points = 5
 movement_profile = SubResource("Resource_vfaig")
 capture_capacity = 0
+cost = 600
 attack_profile = SubResource("Resource_8w3g1")
 defense_profile = SubResource("Resource_bx86g")
 weapon = SubResource("Resource_jvtwx")
