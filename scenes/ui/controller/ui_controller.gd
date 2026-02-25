@@ -130,7 +130,6 @@ func on_resume_clicked() -> void:
 	game_resumed.emit()
 
 
-
 func on_idle_clicked() -> void:
 	current_units_manager.exhaust_unit()
 	fsm.change_state(idle_state)
@@ -179,6 +178,10 @@ func show_start_turn_intro(team: Team, new_funds: int) -> void:
 	
 
 func show_attack_indicator() -> void:
+	if current_units_manager.merge_available():
+		show_attackable.emit([])
+		return
+		
 	var units: Array[Unit] = current_units_manager.get_units_in_attack_range_with_movement(current_units_manager.selected_unit)
 	var cells: Array[Vector2i] = query_manager.get_units_positions(units)
 	show_attackable.emit(cells)

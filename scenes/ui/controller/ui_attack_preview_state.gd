@@ -22,7 +22,7 @@ func _physics_process(_delta: float) -> void:
 func _on_cancel_clicked() -> void:
 	controller.combat_popup.animate_out()
 	controller.team_display.animate_in()
-	controller.camera_pan_enabled.emit(false)
+	controller.camera_pan_enabled.emit(true)
 	controller.fsm.switch_to_previous_state()
 
 

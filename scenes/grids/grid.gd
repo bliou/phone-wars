@@ -66,17 +66,23 @@ func get_reachable_cells(unit: Unit) -> Array[Vector2i]:
 			if new_cost > unit.movement_points:
 				continue
 
-			# cannot walk through enemy units
-			var enemy_unit: Unit = query_manager.get_unit_at(neighbor)
-			if enemy_unit != null and not enemy_unit.team.is_same_team(unit.team):
-				continue
-
-			# can only walk onto friendly unit if merging is possible
-			var friendly_unit: Unit = query_manager.get_unit_at(neighbor)
-			if (friendly_unit != null and
-				friendly_unit.team.is_same_team(unit.team) and
-				not unit.can_merge_with_unit(friendly_unit)):
+			var target_unit: Unit = query_manager.get_unit_at(neighbor)
+			if target_unit != null:
+				print("target_unit: ", target_unit)
+				# cannot walk through enemy units
+				if not target_unit.team.is_same_team(unit.team):
+					print("not the same team")
 					continue
+				# same unit / discards it
+				if target_unit == unit:
+					print("same unit")
+					continue
+				# can only walk onto friendly unit if merging is possible
+				if not unit.can_merge_with_unit(target_unit):
+					print("cannot merge")
+					continue
+
+				print("all good")
 
 			if not visited.has(neighbor) or new_cost < visited[neighbor]:
 				visited[neighbor] = new_cost

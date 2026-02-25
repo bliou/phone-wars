@@ -32,4 +32,4 @@ script = ExtResource("1_bc6r7")
 [node name="SelectionIndicator" type="Node2D" parent="." unique_id=434826464]
 material = SubResource("ShaderMaterial_1wyox")
 script = ExtResource("5_1wyox")
-color = Color(0.7627951, 0.6433587, 7.70092e-07, 0.9019608)
+color = Color(1, 1, 1, 0.8235294)

@@ -118,6 +118,7 @@ func get_terrain_cost(terrain: TerrainType.Values) -> float:
 
 
 func is_max_health() -> bool:
+	print("unit_name: ", name, "actual_health: ", actual_health)
 	return actual_health >= unit_profile.health
 
 
@@ -157,20 +158,17 @@ func stop_capture() -> void:
 
 
 func can_merge_with_unit(unit: Unit) -> bool:
-	# not on the same cell
-	if unit.cell_pos != cell_pos:
-		return false
-
 	# not the same team
 	if not team.is_same_team(unit.team):
 		return false
 
 	# not the same type
-	if unit.unit_profile.type != unit_profile.type:
+	if unit.type() != type():
 		return false
 
-	# both of them are full hp
-	if unit.is_max_health() and is_max_health():
+	# one of them is full hp
+	print("unit.is_max_health(): ", unit.is_max_health(), " - is_max_health(): ", is_max_health())
+	if unit.is_max_health() or is_max_health():
 		return false
 
 	return true

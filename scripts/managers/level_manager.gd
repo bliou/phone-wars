@@ -2,6 +2,9 @@ class_name LevelManager
 extends Node2D
 
 
+@export var disable_animations: bool = false
+
+
 @onready var main_menu_scene: PackedScene = preload("res://scenes/main_menu/main_menu.tscn")
 
 
@@ -62,6 +65,11 @@ func init_teams() -> void:
 func start_turn() -> void:
 	ui_controller.switch_team(active_team)
 	var new_income: int = economy_service.calculate_income(active_team)
+
+	if disable_animations:
+		ui_controller.show_start_turn_intro(active_team, active_team.funds+new_income)
+		active_team.earn_money(new_income)
+		return
 
 	input_manager.lock()
 	await ui_controller.show_start_turn_intro(active_team, active_team.funds+new_income)

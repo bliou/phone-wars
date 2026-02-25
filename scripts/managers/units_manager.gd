@@ -108,20 +108,13 @@ func move_unit_to_cell(target_cell: Vector2i) -> void:
 
 	var path: Pathfinding.Path = get_world_path(selected_unit, previous_cell, target_cell)
 	
-	var move_unit_command: MoveUnitCommand = MoveUnitCommand.new(self, selected_unit, target_cell, path)
+	var move_unit_command: MoveUnitCommand = MoveUnitCommand.new(selected_unit, target_cell, path)
 	move_unit_command.execute()
 	move_unit_commands.append(move_unit_command)
 
 
 func can_move_on_cell(target_cell: Vector2i) -> bool:
-	if not selected_unit.reachable_cells.has(target_cell):
-		return false
-
-	var unit_on_cell: Unit = query_manager.get_unit_at(target_cell)
-	return (unit_on_cell == null or
-		unit_on_cell == selected_unit or
-		selected_unit.can_merge_with_unit(unit_on_cell)
-	)
+	return selected_unit.reachable_cells.has(target_cell)
 
 
 func cancel_unit_movement() -> void:
@@ -130,21 +123,18 @@ func cancel_unit_movement() -> void:
 	move_unit_command = null
 
 
-func confirm_unit_movement(start_cell: Vector2i, target_cell: Vector2i) -> void:
-	units.erase(start_cell)
-	units[target_cell] = selected_unit
-
-
-func revert_unit_movement(start_cell: Vector2i, target_cell: Vector2i) -> void:
-	selected_unit.global_position = grid.get_world_position_from_cell(selected_unit.cell_pos)
-	units.erase(target_cell)
-	units[start_cell] = selected_unit
-	
-
 func exhaust_unit() -> void:
 	selected_unit.exhaust()
-	selected_unit = null
+	if len(move_unit_commands) == 0:
+		selected_unit = null
+		return
+	
+	var first_move_unit_command: MoveUnitCommand = move_unit_commands.pop_front()
+	units.erase(first_move_unit_command.start_cell)
+	units[selected_unit.cell_pos] = selected_unit
+	
 	move_unit_commands.clear()
+	selected_unit = null
 
 
 func reset_units() -> void:
@@ -190,6 +180,8 @@ func unit_attack_done() -> void:
 	exhaust_unit()
 
 
+# Returns all the cells that are directly attackable by the unit
+# without moving
 func get_cells_in_direct_attack_range(unit_context: UnitContext) -> Array[Vector2i]:
 	return grid.get_cells_in_manhattan_range(
 		unit_context.grid_pos,
@@ -197,40 +189,27 @@ func get_cells_in_direct_attack_range(unit_context: UnitContext) -> Array[Vector
 		unit_context.max_range)
 
 
-func get_units_in_attack_range(unit_context: UnitContext) -> Array[Unit]:
-	var attacked_units: Array[Unit] = []
+# Returns the units that are in direct attack range: without moving
+func get_units_in_direct_attack_range(unit_context: UnitContext) -> Array[Unit]:
 	var attack_positions: Array[Vector2i] = get_cells_in_direct_attack_range(unit_context)
-	for ap in attack_positions:
-		var unit: Unit = query_manager.get_unit_at(ap)
-		if (unit != null and
-			unit.cell_pos != unit_context.grid_pos and
+	return filter_attackable_units(unit_context, attack_positions)
+
+
+func filter_attackable_units(unit_context: UnitContext, cells: Array[Vector2i]) -> Array[Unit]:
+	var all_units: Array[Unit] = query_manager.get_units_at(cells)
+	var filtered_units: Array[Unit] = []
+	
+	for unit in all_units:
+		if (unit.cell_pos != unit_context.grid_pos and
 			not unit_context.team.is_same_team(unit.team)):
-				attacked_units.append(unit)
+				filtered_units.append(unit)
 
-	return attacked_units
-
-
-func get_units_in_attack_range_with_movement(unit: Unit) -> Array[Unit]:
-	var targets: Array[Unit]
-	var unit_context: UnitContext = UnitContext.create_unit_context(unit)
-
-	if not unit.can_attack_after_movement():
-		if unit.movement_points != unit.max_movement_points():
-			return targets
-		return get_units_in_attack_range(unit_context)
-		
-	var reachable_cells: Array[Vector2i] = grid.get_reachable_cells(unit)
-	reachable_cells.append(unit.cell_pos)
-
-	for cell in reachable_cells:
-		unit_context.grid_pos = cell
-		targets.assign(merge_unique(targets, get_units_in_attack_range(unit_context)))
-
-	return targets
+	return filtered_units
 
 
+# Returns true if the unit can attack the cell without moving
 func can_attack_cell(unit_context: UnitContext, cell: Vector2i) -> bool:
-	var targets: Array[Unit] = get_units_in_attack_range(unit_context)
+	var targets: Array[Unit] = get_units_in_direct_attack_range(unit_context)
 
 	for unit in targets:
 		if unit.cell_pos == cell:
@@ -239,25 +218,35 @@ func can_attack_cell(unit_context: UnitContext, cell: Vector2i) -> bool:
 	return false
 
 
-# get all the cells that a unit can attack withing it's attack range
+# Get all the cells that a unit can attack withing it's attack range
 # with movement taken into account
 func get_cells_in_attack_range(unit: Unit) -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
 	var reachable_cells: Array[Vector2i] = grid.get_reachable_cells(unit)
 	var unit_context: UnitContext = UnitContext.create_unit_context(unit)
+	cells.assign(merge_unique(cells, get_cells_in_direct_attack_range(unit_context)))
 
 	if not unit.can_attack_after_movement():
 		if unit.movement_points != unit.max_movement_points():
-			return cells
+			return []
 		return get_cells_in_direct_attack_range(unit_context)
 
-	reachable_cells.append(unit.cell_pos)
 	for cell in reachable_cells:
+		# filter out the cells where a unit is already on: it means the unit
+		# can move there for merging reasons
+		if query_manager.get_unit_at(cell) != null:
+			continue
 		unit_context.grid_pos = cell
 		cells.assign(merge_unique(cells, get_cells_in_direct_attack_range(unit_context)))
 		
+
 	return cells
 
+# Retursn all the units in attack range: movement included
+func get_units_in_attack_range_with_movement(unit: Unit) -> Array[Unit]:
+	var target_cells: Array[Vector2i] = get_cells_in_attack_range(unit)
+	return filter_attackable_units(UnitContext.create_unit_context(unit), target_cells)
+	
 
 func merge_unique(a: Array, b: Array) -> Array:
 	var dict := {}

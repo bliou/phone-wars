@@ -31,6 +31,9 @@ func _on_cell_tap(cell: Vector2i) -> void:
 		controller.handle_unit_movement(cell)
 		return
 
+	if controller.current_units_manager.merge_available():
+		return
+		
 	if controller.can_attack_cell(cell):
 		controller.handle_unit_attack(cell)
 

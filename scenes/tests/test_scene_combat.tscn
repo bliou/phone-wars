@@ -40,6 +40,7 @@ metadata/_custom_type_script = "uid://3ayikrqceb2l"
 
 [node name="TestSceneCombat" type="Node2D" unique_id=1604858134]
 script = ExtResource("1_t1o2k")
+disable_animations = true
 
 [node name="Grid" parent="." unique_id=577588847 instance=ExtResource("2_h65yf")]
 
@@ -80,13 +81,22 @@ position = Vector2(216, 224)
 [node name="Soldier2" parent="Teams/RedTeam/UnitsManager" index="1" unique_id=666268999 instance=ExtResource("13_v1tfe")]
 position = Vector2(336, 80)
 
-[node name="Recon" parent="Teams/RedTeam/UnitsManager" index="2" unique_id=138617836 instance=ExtResource("14_h65yf")]
-position = Vector2(328, 136)
+[node name="Soldier3" parent="Teams/RedTeam/UnitsManager" index="2" unique_id=249402440 instance=ExtResource("13_v1tfe")]
+position = Vector2(464, 80)
 
-[node name="LightTank" parent="Teams/RedTeam/UnitsManager" index="3" unique_id=1263502315 instance=ExtResource("15_8kiat")]
+[node name="Soldier5" parent="Teams/RedTeam/UnitsManager" index="3" unique_id=1261344568 instance=ExtResource("13_v1tfe")]
+position = Vector2(432, 112)
+
+[node name="Soldier4" parent="Teams/RedTeam/UnitsManager" index="4" unique_id=1003911693 instance=ExtResource("13_v1tfe")]
+position = Vector2(432, 48)
+
+[node name="Recon" parent="Teams/RedTeam/UnitsManager" index="5" unique_id=138617836 instance=ExtResource("14_h65yf")]
+position = Vector2(336, 136)
+
+[node name="LightTank" parent="Teams/RedTeam/UnitsManager" index="6" unique_id=1263502315 instance=ExtResource("15_8kiat")]
 position = Vector2(176, 136)
 
-[node name="Artillery" parent="Teams/RedTeam/UnitsManager" index="4" unique_id=1470746674 instance=ExtResource("16_xdr7y")]
+[node name="Artillery" parent="Teams/RedTeam/UnitsManager" index="7" unique_id=1470746674 instance=ExtResource("16_xdr7y")]
 position = Vector2(80, 144)
 
 [node name="Base" parent="Teams/RedTeam/BuildingsManager" index="0" unique_id=1710557616 instance=ExtResource("14_qrvgh")]
