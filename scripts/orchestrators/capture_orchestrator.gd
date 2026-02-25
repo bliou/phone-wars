@@ -11,7 +11,8 @@ func _init(cd: CapturePopup, fxs: FXService, audio: AudioService) -> void:
 	audio_service = audio
 
 
-func execute(unit: Unit) -> void:
+func execute(units_manager: UnitsManager) -> void:
+	var unit: Unit = units_manager.selected_unit
 	var result: CaptureProcess.CaptureResult = unit.capture()
 	
 	await load_capture_animation(result)
@@ -21,10 +22,10 @@ func execute(unit: Unit) -> void:
 	await capture_dialog.animate_out()
 	clear_dialog()
 
+	units_manager.exhaust_unit()
 	if not result.capture_done:
 		return
 
-	# play something as capture animation
 	unit.capture_process.capture_done()
 	unit.stop_capture()
 

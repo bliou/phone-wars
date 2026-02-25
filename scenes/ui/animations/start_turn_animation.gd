@@ -9,11 +9,13 @@ extends Control
 
 func _ready() -> void:
 	banner.size.x = get_viewport_rect().size.x
+	banner.material = banner.material.duplicate()
 	reset_banner_position()
 
 
 func play(team: Team) -> void:
 	set_team_label(team)
+	team.replace_ui_colors(banner.material)
 	await get_tree().process_frame
 	await get_tree().create_timer(1.0).timeout
 	await animate_banner_in()

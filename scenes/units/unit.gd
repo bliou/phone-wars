@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 
 func setup(p_team: Team) -> void:
 	set_team(p_team)
-	gain_health(max_health() / 2.5)
+	gain_health(max_health())
 	reset_movement_points()
 	
 	if unit_profile.capture_capacity > 0:
@@ -72,8 +72,11 @@ func set_team(p_team: Team) -> void:
 
 
 func set_capture_component() -> void:
-	var offset: Vector2 = Vector2(-5, 10)
+	var bottom_left: Vector2 = Vector2(0, Const.CELL_SIZE.y)
 	capturing_component = capturing_component_scene.instantiate()
+	var size: Vector2 = capturing_component.texture.get_size()
+	var offset: Vector2 = Vector2(bottom_left.x - size.x / 2.0 + 1.0, bottom_left.y - size.y - 1.0)
+
 	capturing_component.position = offset
 	capturing_component.setup(team)
 	add_child(capturing_component)
@@ -149,7 +152,6 @@ func capture() -> CaptureProcess.CaptureResult:
 
 func stop_capture() -> void:
 	if capture_process == null:
-		print("capture_process: ", capture_process)
 		return
 
 	capture_process.clear_capture()

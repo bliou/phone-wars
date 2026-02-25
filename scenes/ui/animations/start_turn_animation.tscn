@@ -2,6 +2,13 @@
 
 [ext_resource type="Script" uid="uid://pfhpiio26lvi" path="res://scenes/ui/animations/start_turn_animation.gd" id="1_v3che"]
 [ext_resource type="Theme" uid="uid://bsa4ociwyndea" path="res://resources/themes/game_theme.tres" id="1_yyda8"]
+[ext_resource type="Shader" uid="uid://blpj1ewfserni" path="res://resources/shaders/team_tint.gdshader" id="3_psx62"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rwqwm"]
+shader = ExtResource("3_psx62")
+shader_parameter/disabled = 0.0
+shader_parameter/original_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [node name="StartTurnAnimation" type="Control" unique_id=1913770978]
 layout_mode = 3
@@ -14,6 +21,7 @@ theme = ExtResource("1_yyda8")
 script = ExtResource("1_v3che")
 
 [node name="Banner" type="PanelContainer" parent="." unique_id=1184479743]
+material = SubResource("ShaderMaterial_rwqwm")
 custom_minimum_size = Vector2(250, 80)
 layout_mode = 1
 offset_right = 250.0

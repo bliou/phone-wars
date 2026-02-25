@@ -145,12 +145,11 @@ func on_capture_clicked() -> void:
 	clear_movement_range.emit()
 	clear_attackable.emit()
 	clear_selected.emit()
-	await capture_orchestrator.execute(current_units_manager.selected_unit)
+	await capture_orchestrator.execute(current_units_manager)
 	game_hud.show()
 	team_display.animate_in()
 	camera_pan_enabled.emit(true)
 	fsm.change_state(idle_state)
-	current_units_manager.exhaust_unit()
 
 
 func on_merge_clicked() -> void:
